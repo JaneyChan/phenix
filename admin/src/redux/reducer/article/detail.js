@@ -1,8 +1,8 @@
-import { ARTICLE_SAVE_SUCCESS } from '../../constants'
+import { ARTICLE_DETAIL } from '../../constants'
 
 const detailArticle = (state = {}, action) => {
     switch (action.type) {
-        case ARTICLE_SAVE_SUCCESS:
+        case ARTICLE_DETAIL:
             return action.article;
         default:
             return state

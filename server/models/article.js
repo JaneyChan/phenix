@@ -15,6 +15,24 @@ class ArticleModal {
     }
     return result
   }
+  
+  /**
+   * 创建文章
+   * @param {*} model 
+   */
+  static async createArticle( model ) {
+    let result = await dbUtils.insertData( 'article', model);
+    return result
+  }
+
+  /**
+   * 修改文章
+   * @param {*} model 
+   */
+  static async createArticle( model ) {
+    let result = await dbUtils.insertData( 'article', model);
+    return result
+  }
 }
 
 module.exports = ArticleModal;

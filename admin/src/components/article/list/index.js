@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchArticles } from '../../../redux/action/article';
+import { parseTime } from '../../../service/utils';
 
 class List extends React.PureComponent {
     componentDidMount() {
@@ -10,33 +11,35 @@ class List extends React.PureComponent {
         let { articleList } = this.props;
         return (
             <div className="article-list-wrap">
-                <div className="article-list-title">新博客完成啦！</div>
+                <div className="article-list-title">文章列表
+                    <span className="article-add-btn"></span>
+                </div>
                 {
                     articleList && articleList.map((article) => {
-                        return(
+                        return (
                             <div className="article-item" key={article.id}>
                                 <div className="box">
-                                    <div className="item-title">我是标题</div>
-                                    <div className="item-time">2018-05-01 12:00:00</div>
-                                    <div className="item-paragraph">我是段落</div>
+                                    <div className="item-title">{article.title}</div>
+                                    <div className="item-time">{parseTime(article.createTime)}</div>
+                                    <div className="item-paragraph">公开:{article.publish ? '是' : '否'}</div>
                                 </div>
                             </div>
                         )
                     })
                 }
-                
+
             </div>
         );
     }
 }
 
 export default connect(
-	(state) => ({
+    (state) => ({
         articleList: state.article.list
     }),
-	(dispatch) => ({
-		fetchArticles: (type, payload, succ, error) => {
-			dispatch(fetchArticles());
-		}
-	})
+    (dispatch) => ({
+        fetchArticles: (type, payload, succ, error) => {
+            dispatch(fetchArticles());
+        }
+    })
 )(List);

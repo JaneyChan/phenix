@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { ARTICLE_GET_LIST, ARTICLE_SAVE_SUCCESS } from '../constants'
+import { ARTICLE_GET_LIST, ARTICLE_DETAIL } from '../constants'
 
 // 获取文章列表
-export function fetchArticles() {
+export const fetchArticles = () => {
     return (dispatch, getState)=> {
         axios.get('/api/article/list')
         .then((res) => {
@@ -11,21 +11,22 @@ export function fetchArticles() {
                 type: ARTICLE_GET_LIST,
                 articleList: res.data.data
             });
+
+            if(res.data.data && res.data.data.length > 0) {
+                dispatch({
+                    type: ARTICLE_DETAIL,
+                    article: res.data.data[0]
+                })
+            }
+
           }
         });
     };
 }
 
-export function createArticle() {
-    return (dispatch, getState)=> {
-        axios.post('/api/article/create')
-        .then((res) => {
-          if(res.data.success) {
-            dispatch({
-                type: ARTICLE_SAVE_SUCCESS,
-                article: res.data.data
-            });
-          }
-        });
+export const getDetailArticle = (article) => {
+    return {
+        type: ARTICLE_DETAIL,
+        article: article
     };
 }
