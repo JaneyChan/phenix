@@ -1,24 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchArticles } from '../../../redux/action/article';
+import { getArticleList, createArticle } from '../../../redux/action/article';
 import { parseTime } from '../../../service/utils';
 
 class List extends React.PureComponent {
     componentDidMount() {
-        this.props.fetchArticles();
+        this.props.getArticleList();
+    }
+    createArticle = () => {
+        this.props.createArticle();
     }
     render() {
-        let { articleList } = this.props;
+        let { articleList, articleDetail } = this.props;
         return (
             <div className="article-list-wrap">
                 <div className="article-list-title">文章列表
-                    <span className="article-add-btn"></span>
+                    <span className="article-add-btn" onClick={this.createArticle}></span>
                 </div>
                 {
                     articleList && articleList.map((article) => {
                         return (
                             <div className="article-item" key={article.id}>
-                                <div className="box">
+                                <div className={`box${ article.id === articleDetail.id ? ' active': ''}`}>
                                     <div className="item-title">{article.title}</div>
                                     <div className="item-time">{parseTime(article.createTime)}</div>
                                     <div className="item-paragraph">公开:{article.publish ? '是' : '否'}</div>
@@ -35,11 +38,15 @@ class List extends React.PureComponent {
 
 export default connect(
     (state) => ({
-        articleList: state.article.list
+        articleList: state.article.list,
+        articleDetail: state.article.detail
     }),
     (dispatch) => ({
-        fetchArticles: (type, payload, succ, error) => {
-            dispatch(fetchArticles());
-        }
+        getArticleList: () => {
+            dispatch(getArticleList());
+        },
+        createArticle:  () => {
+            dispatch(createArticle());
+        },
     })
 )(List);

@@ -34,7 +34,7 @@ let createTable = function (sql) {
 
 let findDataById = function (table, id) {
   let _sql = "SELECT * FROM ?? WHERE id = ? "
-  return query(_sql, [table, id, start, end])
+  return query(_sql, [table, id])
 }
 
 let findDataByPage = function (table, keys, start, end) {

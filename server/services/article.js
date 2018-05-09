@@ -21,8 +21,8 @@ const article = {
    * 修改文章
    * @param {*} article 
    */
-  async updateArticle( article ) {
-    let resultData = await articleModel.updateArticle(article)
+  async updateArticle( article, id ) {
+    let resultData = await articleModel.updateArticle(article, id)
     return resultData
   }
 }

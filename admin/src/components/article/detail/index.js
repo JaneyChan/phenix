@@ -1,6 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { setDetailArticle } from '../../../redux/action/article';
+
 
 class Detail extends React.PureComponent {
     constructor(props) {
@@ -41,9 +43,13 @@ class Detail extends React.PureComponent {
     }
     saveArticle = () => {
         let { articleDetail } = this.state;
-        axios.post('/api/article/create', { title: articleDetail.title, content: articleDetail.content})
-        .then((res) => {
-        });
+        if(!articleDetail.id) {
+            alert('无ID');
+            return;
+        }
+        axios.post('/api/article/update', { id: articleDetail.id, title: articleDetail.title, content: articleDetail.content})
+            .then((res) => {
+            });
     }
     render() {
         let { articleDetail } = this.state;
@@ -75,5 +81,9 @@ export default connect(
     (state) => ({
         articleDetail: state.article.detail
     }),
-    null
+    (dispatch) => ({
+        setDetailArticle: (type, payload, succ, error) => {
+            dispatch(setDetailArticle());
+        }
+    })
 )(Detail);

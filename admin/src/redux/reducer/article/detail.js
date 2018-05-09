@@ -1,8 +1,8 @@
-import { ARTICLE_DETAIL } from '../../constants'
+import { GET_ARTICLE_DETAIL } from '../../constants'
 
 const detailArticle = (state = {}, action) => {
     switch (action.type) {
-        case ARTICLE_DETAIL:
+        case GET_ARTICLE_DETAIL:
             return action.article;
         default:
             return state

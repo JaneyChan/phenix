@@ -1,5 +1,6 @@
 const articleService = require('../services/article');
 const userCode = require('../codes/user');
+const utils = require('../utils/common');
 
 class ArticleController {
 	/**
@@ -29,17 +30,18 @@ class ArticleController {
      * @param {*} ctx 
      */
     static async createArticle(ctx) {
-        let formData = ctx.request.body
         let result = {
             success: false,
             message: '',
             data: null,
             code: ''
         }
+        let currentTime = new Date().getTime();
         let articleResult = await articleService.createArticle({
-            title: formData.title,
+            title: utils.parseTime(currentTime, 'yyyy-MM-dd'),
             publish: 0,
-            createTime: new Date().getTime(),
+            createTime: currentTime,
+            updateTime: currentTime
         })
 
         if (articleResult) {
@@ -65,12 +67,11 @@ class ArticleController {
             code: ''
         }
         let articleResult = await articleService.updateArticle({
-            id: formData.id,
             title: formData.title,
-            publish: parseInt(formData.publish),
+            publish: parseInt(formData.publish) || 0,
             content: formData.content,
             updateTime: new Date().getTime(),
-        })
+        }, formData.id)
 
         if (articleResult) {
             result.success = true;

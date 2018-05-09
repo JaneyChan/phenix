@@ -1,2 +1,4 @@
-export const ARTICLE_GET_LIST = 'ARTICLE_GET_LIST';
-export const ARTICLE_DETAIL = 'ARTICLE_DETAIL';
+// article
+export const GET_ARTICLE_LIST = 'GET_ARTICLE_LIST';
+export const GET_ARTICLE_DETAIL = 'GET_ARTICLE_DETAIL';
+export const CREATE_ARTICLE = 'CREATE_ARTICLE';
