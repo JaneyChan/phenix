@@ -62,6 +62,11 @@ let select = function (table, keys) {
   return query(_sql, [keys, table])
 }
 
+let selectOrderByIdDesc = function (table, keys) {
+  let _sql = "SELECT ?? FROM ?? order by id desc"
+  return query(_sql, [keys, table])
+}
+
 let count = function (table) {
   let _sql = "SELECT COUNT(*) AS total_count FROM ?? "
   return query(_sql, [table])
@@ -76,5 +81,6 @@ module.exports = {
   insertData,
   updateData,
   select,
+  selectOrderByIdDesc,
   count,
 }

@@ -7,7 +7,7 @@ class ArticleModal {
    */
   static async getArticles() {
     let _sql = `SELECT * from article order by id desc`
-    let result = await dbUtils.query( _sql )
+    let result = await dbUtils.selectOrderByIdDesc('article', '*')
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {

@@ -82,8 +82,8 @@ export default connect(
         articleDetail: state.article.detail
     }),
     (dispatch) => ({
-        setDetailArticle: (type, payload, succ, error) => {
-            dispatch(setDetailArticle());
+        setDetailArticle: (article) => {
+            dispatch(setDetailArticle(article));
         }
     })
 )(Detail);
