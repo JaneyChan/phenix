@@ -38,7 +38,12 @@ class ArticleModal {
    * @param {*} model 
    */
   static async updateArticle( model, id ) {
-    let result = await dbUtils.updateData( 'article', model, id);
+    let updateResult = await dbUtils.updateData( 'article', model, id);
+    let result = null;
+    let res = await dbUtils.findDataById('article', id);
+    if(res && res.length > 0) {
+      result = res[0];
+    }
     return result
   }
 }

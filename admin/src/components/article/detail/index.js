@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { setDetailArticle } from '../../../redux/action/article';
+import { updateArticle } from '../../../redux/action/article';
 
 
 class Detail extends React.PureComponent {
@@ -12,11 +11,7 @@ class Detail extends React.PureComponent {
         }
     }
     componentDidMount() {
-        document.getElementById('editor').addEventListener('keydown', (e) => {
-            if(e.keyCode === 9) {
-              e.preventDefault();
-            }
-        },false);
+        document.getElementById('editor').addEventListener('keydown', this.listenerKeyDown, false);
     }
     componentWillReceiveProps(nextProps) {
         if(this.props.articleDetail !== nextProps.articleDetail) {
@@ -24,6 +19,20 @@ class Detail extends React.PureComponent {
                 articleDetail: nextProps.articleDetail
             });
         }
+    }
+    listenerKeyDown = (e) => {
+        let keyCode = e.keyCode || e.which || e.charCode;
+        let ctrlKey = e.ctrlKey || e.metaKey;
+        if(keyCode === 9) {
+            // 输入Enter键
+            e.preventDefault();
+        }
+        if(ctrlKey && keyCode === 83) {
+            e.preventDefault();
+            // control+s 或 command+s 保存文章
+            this.saveArticle();
+        }
+        
     }
     changeInput = (e) => {
         this.setState({
@@ -43,13 +52,7 @@ class Detail extends React.PureComponent {
     }
     saveArticle = () => {
         let { articleDetail } = this.state;
-        if(!articleDetail.id) {
-            alert('无ID');
-            return;
-        }
-        axios.post('/api/article/update', { id: articleDetail.id, title: articleDetail.title, content: articleDetail.content})
-            .then((res) => {
-            });
+        this.props.updateArticle(articleDetail);
     }
     render() {
         let { articleDetail } = this.state;
@@ -60,6 +63,7 @@ class Detail extends React.PureComponent {
                         type="text"
                         placeholder="文章名称"
                         value={articleDetail.title || ''}
+                        autoFocus
                         onChange={this.changeInput}
                     />
                 </div>
@@ -69,6 +73,7 @@ class Detail extends React.PureComponent {
                 <textarea
                     id="editor"
                     value={articleDetail.content || ''}
+                    placeholder={`Command(⌘) + S   Save Article`}
                     className="editor-box"
                     onChange={this.changeArticleContent}
                 ></textarea>
@@ -82,8 +87,8 @@ export default connect(
         articleDetail: state.article.detail
     }),
     (dispatch) => ({
-        setDetailArticle: (article) => {
-            dispatch(setDetailArticle(article));
+        updateArticle: (article) => {
+            dispatch(updateArticle(article));
         }
     })
 )(Detail);

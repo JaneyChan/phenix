@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ARTICLE_LIST, GET_ARTICLE_DETAIL, CREATE_ARTICLE } from '../constants'
+import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants'
 
 // 获取文章列表
 export const getArticleList = () => {
@@ -20,13 +20,32 @@ export const getArticleList = () => {
 
 // 创建文章
 export const createArticle = () => {
-    return (dispatch, getState)=> {
+    return (dispatch, getState) => {
         axios.post('/api/article/create')
         .then((res) => {
             if(res.data.success) {
-                console.log('res.data.data : ' + JSON.stringify(res.data.data));
-                dispatch(insertArticleToList(res.data.data));
+                let list = getState().article.list;
+                list.unshift(res.data.data)
+                dispatch(setArticleList(list));
                 dispatch(setDetailArticle(res.data.data));
+            }
+        });
+    };
+}
+
+export const updateArticle = (article) => {
+    return (dispatch, getState) => {
+        axios.post('/api/article/update', article)
+        .then((res) => {
+            if(res.data.success) {
+                let list = getState().article.list;
+                for(let i = 0; i < list.length; i++) {
+                    if(list[i].id === article.id) {
+                        list[i] = article;
+                    }
+                }
+                dispatch(setArticleList(list));
+                dispatch(setDetailArticle(article));
             }
         });
     };
@@ -34,21 +53,14 @@ export const createArticle = () => {
 
 export const setArticleList = (list) => {
     return {
-        type: GET_ARTICLE_LIST,
+        type: SET_ARTICLE_LIST,
         articleList: list
-    };
-}
-
-export const insertArticleToList = (article) => {
-    return {
-        type: CREATE_ARTICLE,
-        article
     };
 }
 
 export const setDetailArticle = (article) => {
     return {
-        type: GET_ARTICLE_DETAIL,
+        type: SET_ARTICLE_DETAIL,
         article
     };
 }

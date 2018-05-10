@@ -6,43 +6,120 @@
 .slide-box {
     position: relative;
     flex-shrink: 0;
-    width: 90px;
+    width: 200px;
     height: 100%;
-    background: @global-bg-color;
-    .logo {
-        background: url('../images/me_logo.png') center / contain no-repeat;
-        padding: 30px 0;
-        margin: 0 auto;
-        width: 60px;
-        height: 40px;
-        border-bottom: 1px solid @global-border-color;
-    }
-    .item-icon {
-        cursor: pointer;
-        border: 1px solid @theme-primary;
-        width: 45px;
-        height: 45px;
-        margin: 35px auto 0;
-        border-radius: 50%;
-        background:  #fff center / contain no-repeat;
-        background-size: 20px;
-        &.article {
-            background-image: url('../images/tab_icon_article.png');
-        }
-        &.category {
-            background-image: url('../images/tab_icon_category.png');
-        }
-        &.tag {
-            background-image: url('../images/tab_icon_tag.png');
-        }
-        &.user {
-            background-image: url('../images/tab_icon_user.png');
-        }
-        &.login-out {
+    background: @global-dark-bg-color;
+    .slide-item_expend {
+        margin: 15px 0 5px;
+        height: 30px;
+        position: relative;
+        .icon_expend {
+            cursor: pointer;
             position: absolute;
-            left: 21px;
-            bottom: 30px;
-            background-image: url('../images/tab_icon_loginout.png');
+            right: 15px;
+            top: 0px;
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            background: url('../images/icon_double_arrow.png') no-repeat center / contain;
+            background-size: 10px;
+            &:hover {
+                background-color: rgba(20, 195, 143, 0.3);
+                border: 1px solid @theme-primary;
+                background-image: url('../images/icon_double_arrow_h.png');
+            }
+        }
+    }
+    .slide-item {
+        cursor: pointer;
+        height: 18px;
+        line-height: 18px;
+        padding: 8px 10px 8px 45px;
+        color: @font-color-gray;
+        background: no-repeat 15px 5px / contain;
+        background-size: 22px;
+        &:hover {
+            background-color: rgba(12, 151, 109, 0.2);
+            color: @theme-primary;
+        }
+        &.all {
+            background-image: url('../images/icon_notes_list.png');
+        }
+        &.trash {
+            background-image: url('../images/icon_notes_delete.png');
+        }
+        &.selected {
+            background-image: url('../images/icon_notes_list_h.png');
+            color: @theme-primary;
+        }
+    }
+    .slide-cate-wrap {
+        position: relative;
+        height: ~'calc(100% - 200px)';
+        margin: 15px 0 20px 0;
+    }
+    .cate-title {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        left: 0px;
+        height: 18px;
+        line-height: 18px;
+        padding: 8px 10px 8px 45px;
+        color: @theme-primary;
+        background: url('../images/icon_category_list.png') no-repeat 15px 6px / contain;
+        background-size: 22px;
+        .add {
+            position: absolute;
+            right: 10px;
+            top: 0px;
+            width: 30px;
+            height: 34px;
+            display: inline-block;
+            cursor: pointer;
+            background: url('../images/icon_category_add.png') no-repeat center / contain;
+            background-size: 16px;
+        }
+    }
+    .cate-list {
+        position: absolute;
+        top: 35px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        overflow-y: auto;
+        .cate-item {
+            cursor: pointer;
+            height: 18px;
+            line-height: 18px;
+            padding: 8px 10px 8px 45px;
+            color: @font-color-gray;
+            background: no-repeat 18px 7px / contain;
+            background-size: 18px;
+            background-image: url('../images/icon_folder_close.png');
+            &:hover {
+                background-color: rgba(12, 151, 109, 0.2);
+                color: @theme-primary;
+            }
+        }
+    }
+    .login-out-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        background: url('../images/icon_exit.png') no-repeat center / contain;
+        background-size: 12px;
+        &:hover {
+            background-color: rgba(20, 195, 143, 0.3);
+            border: 1px solid @theme-primary;
+            background-image: url('../images/icon_exit_h.png');
         }
     }
 }
