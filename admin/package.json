@@ -25,10 +25,11 @@
     }
   },
   "scripts": {
-    "start-electron": "NODE_ENV=development electron .",
-    "start": "react-app-rewired start",
+    "start-electron": "electron .",
+    "start": "react-app-rewired start && electron .",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject",
     "packager": "npm run build && rm -rf dist && electron-builder"
   },
   "devDependencies": {
@@ -48,12 +49,7 @@
     "redux-thunk": "^2.2.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
-    "codemirror": "^5.37.0",
-    "const": "^1.0.0",
-    "marked": "^0.3.19",
-    "react-codemirror2": "^5.0.1",
-    "redux-logger": "^3.0.6"
+    "axios": "^0.18.0"
   },
   "proxy": "http://localhost:7777/"
 }
