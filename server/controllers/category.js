@@ -1,23 +1,23 @@
-const articleService = require('../services/article');
+const categoryService = require('../services/category');
 const userCode = require('../codes/user');
 const utils = require('../utils/common');
 
-class ArticleController {
+class CategoryController {
 	/**
 	 * 获取文章列表
 	 */
-    static async getArticles(ctx) {
+    static async getCategoryList(ctx) {
         let result = {
             success: false,
             message: '',
             data: null,
             code: ''
         }
-        let articleResult = await articleService.getArticles()
+        let categoryResult = await categoryService.getCategoryList()
 
-        if (articleResult) {
+        if (categoryResult) {
             result.success = true;
-            result.data = articleResult;
+            result.data = categoryResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
             result.message = userCode.FAIL_USER_NO_EXIST;
@@ -29,23 +29,24 @@ class ArticleController {
      * 
      * @param {*} ctx 
      */
-    static async createArticle(ctx) {
+    static async createCategory(ctx) {
         let result = {
             success: false,
             message: '',
             data: null,
             code: ''
         }
+        let formData = ctx.request.body
         let currentTime = new Date().getTime();
-        let articleResult = await articleService.createArticle({
-            title: utils.parseTime(currentTime, 'yyyy-MM-dd'),
+        let categoryResult = await categoryService.createCategory({
+            name: formData.name,
             createTime: currentTime,
             updateTime: currentTime
         })
 
-        if (articleResult) {
+        if (categoryResult) {
             result.success = true;
-            result.data = articleResult;
+            result.data = categoryResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
             result.message = userCode.FAIL_USER_NO_EXIST;
@@ -57,7 +58,7 @@ class ArticleController {
      * 
      * @param {*} ctx 
      */
-    static async updateArticle(ctx) {
+    static async updateCategory(ctx) {
         let formData = ctx.request.body
         let result = {
             success: false,
@@ -65,16 +66,16 @@ class ArticleController {
             data: null,
             code: ''
         }
-        let articleResult = await articleService.updateArticle({
+        let categoryResult = await categoryService.updateCategory({
             title: formData.title,
             publish: parseInt(formData.publish) || 0,
             content: formData.content,
             updateTime: new Date().getTime(),
         }, formData.id)
 
-        if (articleResult) {
+        if (categoryResult) {
             result.success = true;
-            result.data = articleResult;
+            result.data = categoryResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
             result.message = userCode.FAIL_USER_NO_EXIST;
@@ -83,4 +84,4 @@ class ArticleController {
     }
 }
 
-module.exports = ArticleController;
+module.exports = CategoryController;

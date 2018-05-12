@@ -26,48 +26,50 @@
             background: url('../images/icon_double_arrow.png') no-repeat center / contain;
             background-size: 10px;
             &:hover {
-                background-color: rgba(20, 195, 143, 0.3);
+                background-color: rgba(43, 137, 118, 0.2);
                 border: 1px solid @theme-primary;
                 background-image: url('../images/icon_double_arrow_h.png');
             }
         }
     }
-    .slide-item {
-        cursor: pointer;
-        height: 18px;
-        line-height: 18px;
-        padding: 8px 10px 8px 45px;
-        color: @font-color-gray;
-        background: no-repeat 15px 5px / contain;
-        background-size: 22px;
-        &:hover {
-            background-color: rgba(12, 151, 109, 0.2);
-            color: @theme-primary;
-        }
-        &.all {
-            background-image: url('../images/icon_notes_list.png');
-        }
-        &.trash {
-            background-image: url('../images/icon_notes_delete.png');
-        }
-        &.selected {
-            background-image: url('../images/icon_notes_list_h.png');
-            color: @theme-primary;
+    .slide-item_top {
+        margin-bottom: 30px;
+        .slide-item {
+            cursor: pointer;
+            height: 16px;
+            line-height: 16px;
+            padding: 10px 10px 10px 45px;
+            color: @font-color-gray;
+            background: no-repeat 15px 5px / contain;
+            background-size: 22px;
+            &:hover {
+                background-color: rgba(43, 137, 118, 0.2);
+                color: @theme-primary;
+            }
+            &.all {
+                background-image: url('../images/icon_notes_list.png');
+            }
+            &.trash {
+                background-image: url('../images/icon_notes_delete.png');
+            }
+            &.selected {
+                background-image: url('../images/icon_notes_list_h.png');
+                color: @theme-primary;
+            }
         }
     }
     .slide-cate-wrap {
         position: relative;
-        height: ~'calc(100% - 200px)';
-        margin: 15px 0 20px 0;
+        height: ~'calc(100% - 210px)';
     }
     .cate-title {
         position: absolute;
         top: 0px;
         right: 0px;
         left: 0px;
-        height: 18px;
-        line-height: 18px;
-        padding: 8px 10px 8px 45px;
+        height: 16px;
+        line-height: 16px;
+        padding: 10px 10px 10px 45px;
         color: @theme-primary;
         background: url('../images/icon_category_list.png') no-repeat 15px 6px / contain;
         background-size: 22px;
@@ -92,16 +94,38 @@
         overflow-y: auto;
         .cate-item {
             cursor: pointer;
-            height: 18px;
-            line-height: 18px;
-            padding: 8px 10px 8px 45px;
+            height: 36px;
             color: @font-color-gray;
-            background: no-repeat 18px 7px / contain;
-            background-size: 18px;
-            background-image: url('../images/icon_folder_close.png');
+            display: flex;
+            .cate-icon_drag {
+                cursor: move;
+                flex-shrink: 0;
+                display: inline-block;
+                width: 24px;
+                height: 100%;
+                background: url('../images/icon_category_drag.png') no-repeat center / contain;
+                background-size: 12px;
+            }
+            .cate-name-box {
+                flex: 1;
+                background: url('../images/icon_folder_close.png') no-repeat 5px center / contain;
+                background-size: 16px;
+                padding-left: 28px;
+                line-height: 36px;
+            }
             &:hover {
-                background-color: rgba(12, 151, 109, 0.2);
+                background-color: rgba(43, 137, 118, 0.2);
                 color: @theme-primary;
+                .cate-name-box {
+                    background-image: url('../images/icon_folder_close_h.png');
+                }
+            }
+            &.selected {
+                background-color: rgba(43, 137, 118, 0.2);
+                color: @theme-primary;
+                &:hover {
+                    background-color: rgba(43,137,118,0.5)
+                }
             }
         }
     }
@@ -117,7 +141,7 @@
         background: url('../images/icon_exit.png') no-repeat center / contain;
         background-size: 12px;
         &:hover {
-            background-color: rgba(20, 195, 143, 0.3);
+            background-color: rgba(43, 137, 118, 0.2);
             border: 1px solid @theme-primary;
             background-image: url('../images/icon_exit_h.png');
         }
