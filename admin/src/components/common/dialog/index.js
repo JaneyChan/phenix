@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 
 class Dialog extends PureComponent {
 	static propTypes = {
+		className: PropTypes.string,
 		open: PropTypes.bool
 	}
 	static defaultProps = {
 		open: false
 	}
 	render() {
-		let { open } = this.props;
+		let { open, className } = this.props;
 		if(open) {
 			return createPortal(
-				<div className="dialog">
-				  {this.props.children}
+				<div className="dialog-overlay">
+					<div className={`dialog-wrap ${className}`}>{this.props.children}</div>
 				</div>,
 				document.body
 			);

@@ -11,9 +11,20 @@
     text-align: center;
     border-radius: 4px;
     -webkit-app-region: no-drag;
-    background-color: @theme-primary;
-    color: #fff;
+    background-color: @global-light-bg-color;
+    color: @font-color-secondary;
+    &:hover {
+        color: @font-color-primary;
+    }
 }
 .btn-small {
     height: 32px;
+}
+.btn-green {
+    background-color: @theme-primary;
+    color: #fff;
+    &:hover {
+        color: #fff;
+        opacity: 0.9;
+    }
 }

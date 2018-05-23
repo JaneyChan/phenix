@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 /**
  * 组件props属性说明
- * @param type ['blue', 'green', 'default']分别为蓝色按钮、绿色按钮，默认白灰色按钮
+ * @param type ['green', 'default']分别为绿色按钮，默认白灰色按钮
  * @param size ['middle', 'small']分别为按钮高度为40px、32px
  */
 class Button extends PureComponent {
 	static propTypes = {
-		type: PropTypes.oneOf(['blue', 'green', 'default']),
+		type: PropTypes.oneOf(['green', 'default']),
 		size: PropTypes.oneOf(['middle', 'small']),
 		onClick: PropTypes.func,
 		className: PropTypes.string

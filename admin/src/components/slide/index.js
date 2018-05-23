@@ -3,23 +3,39 @@ import { connect } from 'react-redux';
 import { SortableHandle } from 'react-sortable-hoc'
 import { getCategoryList, createCategory } from '../../redux/action/category';
 import Dialog from '../common/dialog';
+import Button from '../common/button';
+import Input from '../common/input';
 
 const DraggableIcon = SortableHandle(() => (
     <i className="cate-icon_drag"></i>
 ))
 
 class Slide extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dialog: {
+                open: false
+            }
+        }
+    }
     componentDidMount() {
         this.props.getCategoryList();
     }
     createCategory = (category) => {
-        this.props.createCategory({name: '测试'});
+        this.setState({
+            dialog: {
+                open: true
+            }
+        });
+        // this.props.createCategory({name: '测试'});
     }
     createArticle = () => {
         console.log('createArticle');
     }
+
     render() {
-        let { categoryList } = this.props;
+        let { categoryList } = this.props, { dialog } = this.state;
         return(
             <div className="slide-box">
                 <div className="slide-item_expend">
@@ -50,7 +66,10 @@ class Slide extends Component {
                     </div>
                 </div>
                 <div className="login-out-btn"></div>
-                <Dialog open={true}>123213213</Dialog>
+                <Dialog open={dialog.open} className="category-modal">
+                    <Input placeholder="请输入分类名" />
+                    <Button type="green">我是按钮</Button>
+                </Dialog>
             </div>
         )
     }
