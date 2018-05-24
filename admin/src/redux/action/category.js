@@ -13,20 +13,6 @@ export const getCategoryList = () => {
     };
 }
 
-// 创建文章
-export const createCategory = (category) => {
-    return (dispatch, getState) => {
-        axios.post('/api/category/create', category)
-        .then((res) => {
-            if(res.data.success) {
-                let list = getState().category.list;
-                list.unshift(res.data.data)
-                dispatch(setCategoryList(list));
-            }
-        });
-    };
-}
-
 export const updateCategory = (category) => {
     return (dispatch, getState) => {
         axios.post('/api/category/update', category)

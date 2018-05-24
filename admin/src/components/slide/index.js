@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SortableHandle } from 'react-sortable-hoc'
-import { getCategoryList, createCategory } from '../../redux/action/category';
+import { getCategoryList, setCategoryList } from '../../redux/action/category';
 import Dialog from '../common/dialog';
 import Button from '../common/button';
 import Input from '../common/input';
+import Notify from '../common/notify';
+import axios from 'axios';
 
 const DraggableIcon = SortableHandle(() => (
     <i className="cate-icon_drag"></i>
@@ -15,25 +17,44 @@ class Slide extends Component {
         super(props);
         this.state = {
             dialog: {
-                open: false
+                open: false,
+                cateName: ''
             }
         }
     }
     componentDidMount() {
         this.props.getCategoryList();
     }
-    createCategory = (category) => {
-        this.setState({
-            dialog: {
-                open: true
+    createCategory = () => {
+        let { dialog } = this.state;
+
+        axios.post('/api/category/create', { name: dialog.cateName})
+        .then((res) => {
+            if(res.data.success) {
+                let list = [...this.props.categoryList];
+                list.unshift(res.data.data)
+                this.props.setCategoryList(list);
+                this.initDialog();
             }
         });
-        // this.props.createCategory({name: '测试'});
     }
-    createArticle = () => {
-        console.log('createArticle');
+    initDialog = (open = false) => {
+        // Notify.warning('创建', 50000)
+        this.setState({
+            dialog: {
+                open,
+                cateName: ''
+            }
+        });
     }
-
+    changeInputValue = (e) => {
+        this.setState({
+            dialog: {
+                ...this.state.dialog,
+                cateName: e.target.value
+            }
+        });
+    }
     render() {
         let { categoryList } = this.props, { dialog } = this.state;
         return(
@@ -51,7 +72,7 @@ class Slide extends Component {
                         Category
                         <span
                             className="add"
-                            onClick={this.createCategory}
+                            onClick={() => {this.initDialog(true) }}
                         ></span>
                     </div>
                     <div className="cate-list">
@@ -67,8 +88,13 @@ class Slide extends Component {
                 </div>
                 <div className="login-out-btn"></div>
                 <Dialog open={dialog.open} className="category-modal">
-                    <Input placeholder="请输入分类名" />
-                    <Button type="green">我是按钮</Button>
+                    <i className="close-btn" />
+                    <Input
+                        value={dialog.cateName || ''}
+                        placeholder="请输入分类名"
+                        onChange={this.changeInputValue}
+                    />
+                    <Button type="green" onClick={this.createCategory}>我是按钮</Button>
                 </Dialog>
             </div>
         )
@@ -83,8 +109,8 @@ export default connect(
         getCategoryList: () => {
             dispatch(getCategoryList());
         },
-        createCategory: (category) => {
-            dispatch(createCategory(category));
+        setCategoryList: (list) => {
+            dispatch(setCategoryList(list));
         }
     })
 )(Slide);
