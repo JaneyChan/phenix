@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SortableHandle } from 'react-sortable-hoc'
 import { getCategoryList, setCategoryList } from '../../redux/action/category';
 import Dialog from '../common/dialog';
 import Button from '../common/button';
@@ -8,9 +7,9 @@ import Input from '../common/input';
 import Notify from '../common/notify';
 import axios from 'axios';
 
-const DraggableIcon = SortableHandle(() => (
+const DraggableIcon = () => (
     <i className="cate-icon_drag"></i>
-))
+)
 
 class Slide extends Component {
     constructor(props) {

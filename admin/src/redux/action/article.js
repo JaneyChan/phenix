@@ -1,16 +1,15 @@
-import axios from 'axios';
+import fetch from '../../utils/fetch';
 import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants'
 
 // 获取文章列表
 export const getArticleList = () => {
     return (dispatch, getState)=> {
-        axios.get('/api/article/list')
+        fetch.get('/api/article/list')
         .then((res) => {
-          if(res.data.success) {
-
-            dispatch(setArticleList(res.data.data));
-            if(res.data.data && res.data.data.length > 0) {
-                dispatch(setDetailArticle(res.data.data[0]));
+          if(res.success) {
+            dispatch(setArticleList(res.data));
+            if(res.data && res.data.length > 0) {
+                dispatch(setDetailArticle(res.data[0]));
             }
 
           }
@@ -21,7 +20,7 @@ export const getArticleList = () => {
 // 创建文章
 export const createArticle = () => {
     return (dispatch, getState) => {
-        axios.post('/api/article/create')
+        fetch.post('/api/article/create')
         .then((res) => {
             if(res.data.success) {
                 let list = getState().article.list;
@@ -35,7 +34,7 @@ export const createArticle = () => {
 
 export const updateArticle = (article) => {
     return (dispatch, getState) => {
-        axios.post('/api/article/update', article)
+        fetch.post('/api/article/update', article)
         .then((res) => {
             if(res.data.success) {
                 let list = getState().article.list;

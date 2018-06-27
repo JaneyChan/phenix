@@ -1,0 +1,23 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# WebStoram
+.idea
+
+# vscode
+.vscode
+
+# dependencies
+node_modules
+
+# production
+build
+dist
+
+# misc
+.DS_Store
+.cache
+stats.json
+
+# Logs
+logs
+*.log
