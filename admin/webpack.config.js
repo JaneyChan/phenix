@@ -147,7 +147,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif|jpeg|ttf|svg)$/,
+        test: /\.(png|jpg|gif|jpeg|ttf|svg|eot|woff)$/,
         exclude: /(node_modules|bower_components)/,
         include: [path.resolve(__dirname, 'src')],
         use: [

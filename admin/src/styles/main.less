@@ -36,7 +36,6 @@
         margin-bottom: 30px;
         .slide-item {
             cursor: pointer;
-            height: 16px;
             line-height: 16px;
             padding: 10px 10px 10px 45px;
             color: @font-color-gray;
@@ -67,12 +66,13 @@
         top: 0px;
         right: 0px;
         left: 0px;
-        height: 16px;
         line-height: 16px;
-        padding: 10px 10px 10px 45px;
+        padding: 10px 10px 10px 25px;
         color: @theme-primary;
-        background: url('../images/icon_category_list.png') no-repeat 15px 6px / contain;
-        background-size: 22px;
+        .cate-icon--bar {
+            font-size: 16px;
+            margin-right: 6px;
+        }
         .add {
             position: absolute;
             right: 10px;

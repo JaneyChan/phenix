@@ -27,7 +27,7 @@ class NotifyContent extends PureComponent {
  * @param {*} duration 显示时长
  * @param {*} status notify状态: success: 成功， error: 错误  warning: 警告
  */
-const show = (text, duration = 2000, status) => {
+const show = (text, duration = 20000, status) => {
     let noticeDiv = document.createElement('div');
     noticeDiv.className = 'notify-container';
     document.body.appendChild(noticeDiv);

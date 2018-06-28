@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateArticle } from '../../../redux/action/article';
+import Icon from '@/components/common/icon'
 
 
 class Detail extends React.PureComponent {
@@ -68,7 +69,7 @@ class Detail extends React.PureComponent {
                     />
                 </div>
                 <div className="tool-bar">
-                    <span className="save-btn" onClick={this.saveArticle}></span>
+                    <Icon type="save" className="save-btn" onClick={this.saveArticle}/>
                 </div>
                 <textarea
                     id="editor"

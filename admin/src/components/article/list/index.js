@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getArticleList, createArticle, setDetailArticle } from '../../../redux/action/article';
 import { parseTime } from '../../../service/utils';
+import Icon from '@/components/common/icon'
 
 class List extends React.PureComponent {
     componentDidMount() {
@@ -18,7 +19,7 @@ class List extends React.PureComponent {
         return (
             <div className="article-list-wrap">
                 <div className="article-list-title">文章列表
-                    <span className="article-add-btn" onClick={this.createArticle}></span>
+                    <Icon type="plus" className="article-add-btn" onClick={this.createArticle}/>
                 </div>
                 {
                     articleList && articleList.map((article) => {

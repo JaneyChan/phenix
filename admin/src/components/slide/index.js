@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCategoryList, setCategoryList } from '../../redux/action/category';
-import Dialog from '../common/dialog';
-import Button from '../common/button';
-import Input from '../common/input';
+import { getCategoryList, setCategoryList } from '@/redux/action/category';
+import Dialog from '@/components/common/dialog';
+import Button from '@/components/common/button';
+import Input from '@/components/common/input';
+import Icon from '@/components/common/icon'
 import fetch from '@/utils/fetch';
+
+
 
 const DraggableIcon = () => (
     <i className="cate-icon_drag"></i>
@@ -66,6 +69,7 @@ class Slide extends Component {
                 
                 <div className="slide-cate-wrap">
                     <div className="cate-title">
+                        <Icon type="bars" className="cate-icon--bar" />
                         Category
                         <span
                             className="add"
