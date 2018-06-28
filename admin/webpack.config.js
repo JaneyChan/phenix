@@ -117,8 +117,9 @@ module.exports = {
   },
   resolve: {
     mainFields: ['jsnext:main', 'browser', 'main'], //npm读取先后方式  jsnext:main 是采用es6模块写法
-    alias: {        //快捷入口
-    },
+    alias: {
+			'@': path.resolve(__dirname, 'src'),
+		}
   },
   module: {
     noParse: /node_modules\/(moment\.js)/,  //不解析

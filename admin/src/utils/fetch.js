@@ -1,19 +1,10 @@
-import { message } from 'antd';
+import Notify from '@/components/common/notify';
 import {
   HTTP_RES_MESSAGES,
   HTTP_CODE,
   TIMEOUT
 } from './config';
 import axios from 'axios';
-
-const instance = axios.create();
-
-instance.defaults.timeout = TIMEOUT;
-/**
- * 这里提供基本的 get 和post 请求 三个方法 基于 Fetch, 默认开启跨域
- *  @param {Function} getJson    get请求
- *  @param {Function} postJson   post请求
- */
 
 const helper = {
   /**
@@ -84,7 +75,7 @@ const helper = {
     } else {
       err = error && error.message ? error.message : HTTP_RES_MESSAGES['ERROR']
     }
-    message.error(err);
+    Notify.error(err);
     return err;
   },
   //全局处理错误
@@ -92,7 +83,7 @@ const helper = {
     if (status >= HTTP_CODE['SUCCESS'] && status < HTTP_CODE['NOTDONE']) {
       return data;
     } else {
-      message.error('服务器出错!');
+      Notify.error('服务器出错!');
     }
   }
 };

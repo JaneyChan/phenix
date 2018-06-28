@@ -1,13 +1,13 @@
-import axios from 'axios';
+import fetch from '@/utils/fetch';
 import { SET_CATEGORY_LIST } from '../constants'
 
 // 获取文章列表
 export const getCategoryList = () => {
     return (dispatch, getState)=> {
-        axios.get('/api/category/list')
+        fetch.get('/api/category/list')
         .then((res) => {
-          if(res.data.success) {
-            dispatch(setCategoryList(res.data.data));
+          if(res.success) {
+            dispatch(setCategoryList(res.data));
           }
         });
     };
@@ -15,9 +15,9 @@ export const getCategoryList = () => {
 
 export const updateCategory = (category) => {
     return (dispatch, getState) => {
-        axios.post('/api/category/update', category)
+        fetch.post('/api/category/update', category)
         .then((res) => {
-            if(res.data.success) {
+            if(res.success) {
                 let list = getState().category.list;
                 for(let i = 0; i < list.length; i++) {
                     if(list[i].id === category.id) {

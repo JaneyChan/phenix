@@ -4,8 +4,7 @@ import { getCategoryList, setCategoryList } from '../../redux/action/category';
 import Dialog from '../common/dialog';
 import Button from '../common/button';
 import Input from '../common/input';
-import Notify from '../common/notify';
-import axios from 'axios';
+import fetch from '@/utils/fetch';
 
 const DraggableIcon = () => (
     <i className="cate-icon_drag"></i>
@@ -27,18 +26,17 @@ class Slide extends Component {
     createCategory = () => {
         let { dialog } = this.state;
 
-        axios.post('/api/category/create', { name: dialog.cateName})
+        fetch.post('/api/category/create', { name: dialog.cateName})
         .then((res) => {
-            if(res.data.success) {
+            if(res.success) {
                 let list = [...this.props.categoryList];
-                list.unshift(res.data.data)
+                list.unshift(res.data)
                 this.props.setCategoryList(list);
                 this.initDialog();
             }
         });
     }
     initDialog = (open = false) => {
-        // Notify.warning('创建', 50000)
         this.setState({
             dialog: {
                 open,

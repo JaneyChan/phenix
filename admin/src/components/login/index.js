@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../common/button'
-import axios from 'axios';
+import fetch from '@/utils/fetch';
 import { withRouter } from 'react-router'
 
 class Login extends Component {
@@ -13,9 +13,9 @@ class Login extends Component {
   }
   login = () => {
     let {username, password} = this.state;
-    axios.post('/api/user/signIn', { username: username, password: password })
+    fetch.post('/api/user/signIn', { username: username, password: password })
         .then((res) => {
-          if(res.data.success) {
+          if(res.success) {
             this.props.history.replace('/');
           }
         });

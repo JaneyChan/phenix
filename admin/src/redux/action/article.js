@@ -1,4 +1,4 @@
-import fetch from '../../utils/fetch';
+import fetch from '@/utils/fetch';
 import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants'
 
 // 获取文章列表
@@ -22,11 +22,11 @@ export const createArticle = () => {
     return (dispatch, getState) => {
         fetch.post('/api/article/create')
         .then((res) => {
-            if(res.data.success) {
+            if(res.success) {
                 let list = getState().article.list;
-                list.unshift(res.data.data)
+                list.unshift(res.data)
                 dispatch(setArticleList(list));
-                dispatch(setDetailArticle(res.data.data));
+                dispatch(setDetailArticle(res.data));
             }
         });
     };
@@ -36,7 +36,7 @@ export const updateArticle = (article) => {
     return (dispatch, getState) => {
         fetch.post('/api/article/update', article)
         .then((res) => {
-            if(res.data.success) {
+            if(res.success) {
                 let list = getState().article.list;
                 for(let i = 0; i < list.length; i++) {
                     if(list[i].id === article.id) {
