@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from '../common/button'
+import Button from '@/lib/button'
 import fetch from '@/utils/fetch';
 import { withRouter } from 'react-router'
 

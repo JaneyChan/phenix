@@ -3,16 +3,15 @@ import classNames from "classnames";
 import PropTypes from 'prop-types';
 
 const Icon = props => {
-  const { type, className = "", spin } = props;
+  const { type, className = "", onClick } = props;
   const classString = classNames(
     {
       anticon: true,
-      "anticon-spin": !!spin || type === "loading",
       [`anticon-${type}`]: true
     },
     className
   );
-  return <i className={classString} />;
+  return <i className={classString} onClick={onClick}/>;
 };
 
 Icon.propTypes = {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCategoryList, setCategoryList } from '@/redux/action/category';
-import Dialog from '@/components/common/dialog';
-import Button from '@/components/common/button';
-import Input from '@/components/common/input';
-import Icon from '@/components/common/icon'
+import Dialog from '@/lib/dialog';
+import Button from '@/lib/button';
+import Input from '@/lib/input';
+import Icon from '@/lib/icon'
 import fetch from '@/utils/fetch';
 
 
@@ -59,12 +59,9 @@ class Slide extends Component {
         let { categoryList } = this.props, { dialog } = this.state;
         return(
             <div className="slide-box">
-                <div className="slide-item_expend">
-                    <span className="icon_expend"></span>
-                </div>
                 <div className="slide-item_top">
-                    <div className="slide-item all">All Notes</div>
-                    <div className="slide-item trash" onClick={this.createArticle}>Trash</div>
+                    <div className="slide-item"><Icon type="book" className="slide-item-icon" />All Notes</div>
+                    <div className="slide-item" onClick={this.createArticle}><Icon type="delete" className="slide-item-icon" />Trash</div>
                 </div>
                 
                 <div className="slide-cate-wrap">
@@ -81,7 +78,7 @@ class Slide extends Component {
                             categoryList && categoryList.map((category) => (
                                 <div className="cate-item" key={category.id}>
                                     <DraggableIcon />
-                                    <div className="cate-name-box">{category.name}</div>
+                                    <div className="cate-name-box"><Icon type="folder" className="cate-folder-close" />{category.name}</div>
                                 </div>
                             ))
                         }
@@ -89,7 +86,6 @@ class Slide extends Component {
                 </div>
                 <div className="login-out-btn"></div>
                 <Dialog open={dialog.open} className="category-modal">
-                    <i className="close-btn" />
                     <Input
                         value={dialog.cateName || ''}
                         placeholder="请输入分类名"

@@ -1,6 +1,6 @@
 import fetch from '@/utils/fetch';
 import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants'
-
+import Message from '@/lib/message';
 // 获取文章列表
 export const getArticleList = () => {
     return (dispatch, getState)=> {
@@ -37,6 +37,7 @@ export const updateArticle = (article) => {
         fetch.post('/api/article/update', article)
         .then((res) => {
             if(res.success) {
+                Message.success('保存文章成功');
                 let list = getState().article.list;
                 for(let i = 0; i < list.length; i++) {
                     if(list[i].id === article.id) {

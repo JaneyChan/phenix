@@ -1,4 +1,4 @@
-import Notify from '@/components/common/notify';
+import Message from '@/lib/message';
 import {
   HTTP_RES_MESSAGES,
   HTTP_CODE,
@@ -75,7 +75,7 @@ const helper = {
     } else {
       err = error && error.message ? error.message : HTTP_RES_MESSAGES['ERROR']
     }
-    Notify.error(err);
+    Message.error(err);
     return err;
   },
   //全局处理错误
@@ -83,7 +83,7 @@ const helper = {
     if (status >= HTTP_CODE['SUCCESS'] && status < HTTP_CODE['NOTDONE']) {
       return data;
     } else {
-      Notify.error('服务器出错!');
+      Message.error('服务器出错!');
     }
   }
 };

@@ -1,0 +1,35 @@
+
+.message-container {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    z-index: @zindex-message;
+    .message-box {
+        text-align: center;
+    }
+    .message-content {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: @border-radius-base;
+        box-shadow: @shadow-2;
+        background: #fff;
+
+        .message-icon {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        .message-info {
+            color: @info-color;
+        }
+        .message-success {
+            color: @success-color;
+        }
+        .message-error {
+            color: @error-color;
+        }
+        .message-warning {
+            color: @warning-color;
+        }
+    }
+}

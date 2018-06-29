@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateArticle } from '../../../redux/action/article';
-import Icon from '@/components/common/icon'
+import Icon from '@/lib/icon'
 
 
 class Detail extends React.PureComponent {

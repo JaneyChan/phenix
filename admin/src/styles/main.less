@@ -9,50 +9,22 @@
     width: 200px;
     height: 100%;
     background: @global-dark-bg-color;
-    .slide-item_expend {
-        margin: 15px 0 5px;
-        height: 30px;
-        position: relative;
-        .icon_expend {
-            cursor: pointer;
-            position: absolute;
-            right: 15px;
-            top: 0px;
-            display: inline-block;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: 1px solid transparent;
-            background: url('../images/icon_double_arrow.png') no-repeat center / contain;
-            background-size: 10px;
-            &:hover {
-                background-color: rgba(43, 137, 118, 0.2);
-                border: 1px solid @theme-primary;
-                background-image: url('../images/icon_double_arrow_h.png');
-            }
-        }
-    }
     .slide-item_top {
-        margin-bottom: 30px;
+        margin: 60px 0 30px 0;
         .slide-item {
             cursor: pointer;
             line-height: 16px;
-            padding: 10px 10px 10px 45px;
+            padding: 10px 10px 10px 25px;
             color: @font-color-gray;
-            background: no-repeat 15px 5px / contain;
-            background-size: 22px;
             &:hover {
                 background-color: rgba(43, 137, 118, 0.2);
                 color: @theme-primary;
             }
-            &.all {
-                background-image: url('../images/icon_notes_list.png');
-            }
-            &.trash {
-                background-image: url('../images/icon_notes_delete.png');
+            .slide-item-icon {
+                font-size: 16px;
+                margin-right: 6px;
             }
             &.selected {
-                background-image: url('../images/icon_notes_list_h.png');
                 color: @theme-primary;
             }
         }
@@ -71,7 +43,7 @@
         color: @theme-primary;
         .cate-icon--bar {
             font-size: 16px;
-            margin-right: 6px;
+            margin-right: 10px;
         }
         .add {
             position: absolute;
@@ -101,24 +73,22 @@
                 cursor: move;
                 flex-shrink: 0;
                 display: inline-block;
-                width: 24px;
+                width: 25px;
                 height: 100%;
                 background: url('../images/icon_category_drag.png') no-repeat center / contain;
                 background-size: 12px;
             }
+            .cate-folder-close, .cate-folder-open {
+                margin-right: 10px;
+            }
             .cate-name-box {
                 flex: 1;
-                background: url('../images/icon_folder_close.png') no-repeat 5px center / contain;
                 background-size: 16px;
-                padding-left: 28px;
                 line-height: 36px;
             }
             &:hover {
                 background-color: rgba(43, 137, 118, 0.2);
                 color: @theme-primary;
-                .cate-name-box {
-                    background-image: url('../images/icon_folder_close_h.png');
-                }
             }
             &.selected {
                 background-color: rgba(43, 137, 118, 0.2);
@@ -145,14 +115,6 @@
             border: 1px solid @theme-primary;
             background-image: url('../images/icon_exit_h.png');
         }
-    }
-    .close-btn {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        width: 16px;
-        height: 16px;
-        background: url('../images/icon_notes_delete.png');
     }
 }
 .category-modal {

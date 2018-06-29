@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getArticleList, createArticle, setDetailArticle } from '../../../redux/action/article';
 import { parseTime } from '../../../service/utils';
-import Icon from '@/components/common/icon'
+import Icon from '@/lib/icon'
 
 class List extends React.PureComponent {
     componentDidMount() {
