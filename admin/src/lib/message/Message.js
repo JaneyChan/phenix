@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Icon from '@/lib/icon'
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const ICON_TYPE = {
     info: 'info-circle',
@@ -19,14 +20,27 @@ class MessageContent extends PureComponent {
     static defaultProps = {
         status: 'success'
     }
+    onExited = () => {
+        console.log('onExit');
+    }
     render() {
         let { status } = this.props;
         return (
+            
             <div className="message-box">
-                <div className="message-content">
-                    <Icon type={ICON_TYPE[status]} className={`message-icon message-${status}`}/>
-                    <span>{this.props.text}</span>
-                </div>
+                <CSSTransition
+                    appear={false}
+                    unmountOnExit={true}
+                    in={true}
+                    timeout={500}
+                    classNames="notify"
+                    onExited={this.onExited}
+                >
+                    <div className="message-content">
+                        <Icon type={ICON_TYPE[status]} className={`message-icon message-${status}`}/>
+                        <span>{this.props.text}</span>
+                    </div>
+                </CSSTransition>
             </div>
         );
     }
@@ -38,7 +52,7 @@ class MessageContent extends PureComponent {
  * @param {*} duration 显示时长
  * @param {*} status message状态: success: 成功， error: 错误  warning: 警告
  */
-const show = (text, duration = 20000, status) => {
+const show = (text, duration = 2000, status) => {
     let noticeDiv = document.createElement('div');
     noticeDiv.className = 'message-container';
     document.body.appendChild(noticeDiv);

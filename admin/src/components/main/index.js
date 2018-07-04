@@ -7,9 +7,7 @@ class Main extends Component {
     return (
       <div className="container-wrap">
         <Slide />
-        <div className="content-box">
-          <Article />
-        </div>
+        <Article />
       </div>
     );
   }

@@ -21,6 +21,7 @@ class List extends React.PureComponent {
                 <div className="article-list-title">文章列表
                     <Icon type="plus" className="article-add-btn" onClick={this.createArticle}/>
                 </div>
+                <div className="article-list-boxs">
                 {
                     articleList && articleList.map((article) => {
                         return (
@@ -34,7 +35,7 @@ class List extends React.PureComponent {
                         )
                     })
                 }
-
+                </div>
             </div>
         );
     }

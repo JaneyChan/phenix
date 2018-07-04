@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateArticle } from '../../../redux/action/article';
 import Icon from '@/lib/icon'
-
+import ReactMarkdown from "react-markdown";
 
 class Detail extends React.PureComponent {
     constructor(props) {
@@ -59,25 +59,33 @@ class Detail extends React.PureComponent {
         let { articleDetail } = this.state;
         return (
             <div className="article-detail-wrap">
-                <div className="detail-title">
-                    <input
-                        type="text"
-                        placeholder="文章名称"
-                        value={articleDetail.title || ''}
-                        autoFocus
-                        onChange={this.changeInput}
-                    />
+                <div className="detail-header">
+                    <div className="detail-title">
+                        <input
+                            type="text"
+                            placeholder="文章名称"
+                            value={articleDetail.title || ''}
+                            autoFocus
+                            onChange={this.changeInput}
+                        />
+                    </div>
+                    <div className="tool-bar">
+                        <Icon type="save" className="save-btn" onClick={this.saveArticle}/>
+                    </div>
                 </div>
-                <div className="tool-bar">
-                    <Icon type="save" className="save-btn" onClick={this.saveArticle}/>
+                <div className="article-editor-wrap">
+                    <textarea
+                        id="editor"
+                        value={articleDetail.content || ''}
+                        placeholder={`Command(⌘) + S   Save Article`}
+                        className="editor-box"
+                        onChange={this.changeArticleContent}
+                    ></textarea>
+                    
+                    <div className="show-box">
+                        <ReactMarkdown source={articleDetail.content || ''} />
+                    </div>
                 </div>
-                <textarea
-                    id="editor"
-                    value={articleDetail.content || ''}
-                    placeholder={`Command(⌘) + S   Save Article`}
-                    className="editor-box"
-                    onChange={this.changeArticleContent}
-                ></textarea>
             </div>
         );
     }

@@ -68,10 +68,7 @@ class Slide extends Component {
                     <div className="cate-title">
                         <Icon type="bars" className="cate-icon--bar" />
                         Category
-                        <span
-                            className="add"
-                            onClick={() => {this.initDialog(true) }}
-                        ></span>
+                        <Icon type="plus" className="cate-add" onClick={() => {this.initDialog(true) }}/>
                     </div>
                     <div className="cate-list">
                         {
@@ -84,14 +81,15 @@ class Slide extends Component {
                         }
                     </div>
                 </div>
-                <div className="login-out-btn"></div>
+                <Icon type="logout" className="login-out-btn" />
                 <Dialog open={dialog.open} className="category-modal">
+                    <Icon type="close" className="close-btn"/>
                     <Input
                         value={dialog.cateName || ''}
                         placeholder="请输入分类名"
                         onChange={this.changeInputValue}
                     />
-                    <Button type="green" onClick={this.createCategory}>我是按钮</Button>
+                    <Button type="green" onClick={this.createCategory} className="category-add-btn">我是按钮</Button>
                 </Dialog>
             </div>
         )

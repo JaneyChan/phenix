@@ -11,7 +11,6 @@ export const getArticleList = () => {
             if(res.data && res.data.length > 0) {
                 dispatch(setDetailArticle(res.data[0]));
             }
-
           }
         });
     };

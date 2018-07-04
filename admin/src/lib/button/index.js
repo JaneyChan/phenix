@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from "classnames";
 
 /**
  * 组件props属性说明
@@ -18,13 +19,21 @@ class Button extends PureComponent {
 		size: 'middle'
 	}
 	render() {
-		let { type, size, onClick } = this.props;
-		let btnType = type !== 'default' ? ' btn-'+type : '',
-			btnSize = size !== 'middle' ? ' btn-'+size: '';
+		let { type, size, onClick, className } = this.props;
+		
+		let prefixCls = 'btn',
+		btnClass = classNames(
+			prefixCls,
+			{
+				[`${prefixCls}-${type}`]: type !== 'default',
+				[`${prefixCls}-${size}`]: size !== 'middle'
+			},
+			className
+		)
 		return (
 			<button
 				type="button"
-				className={`btn${btnType}${btnSize}`}
+				className={btnClass}
 				onClick={onClick}
 			>
 				{this.props.children}
