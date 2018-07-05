@@ -1,9 +1,3 @@
-前端开发一个 crm 项目的时候，因为项目内容比较庞大，导致 webpack 编译和打包都巨慢，实在是影响开发效率，所以着手升级 webpack。
-
-### [webpack4-es6-react][1]
-
-[webpack4-es6-react][2]是一个全新的基于 webpack4、react16、es6、antd-mobile 的前端架构实现方案，默认是 antd-mobile,也可以自定义配置 ui 框架如：antd
-
 ### 功能
 
 - 编译速度快（使用 happypack 插件实现多线程执行任务）
@@ -141,18 +135,7 @@ argv.forEach(v => {
   Built at: 2018-06-12 15:27:47
   ```
 
-### todoList
-
-- <del>按需加载路由</del>
-- <del>输出 webpack 编译 json,分析编译时间</del>
-- <del>支持 axios</del>
-- 支持TypeScript
-- 提高 webpack 编译速度（一直在持续...）
-
 ### gitHub
-
-https://github.com/NewPrototype/webpack4-es6-react
-
 [1]: https://github.com/NewPrototype/webpack4-es6-react
 [2]: https://github.com/NewPrototype/webpack4-es6-react
 [3]: http://localhost:9999/
