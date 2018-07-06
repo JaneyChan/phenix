@@ -16,8 +16,8 @@ const store = createStore(
 	enhancer
 );
 
-const Main = Loadable({
-  loader: () => import("./components/main"),
+const Article = Loadable({
+  loader: () => import("./components/article"),
   loading: () => { return null }
 });
 
@@ -35,7 +35,7 @@ const Routers = () => (
   <Provider store={store}>
       <BrowserRouter>
           <Switch>
-              <Route path='/' exact component={Main} />
+              <Route path='/' exact component={Article} />
               <Route path='/login' component={Login} />
               <Route component={NotFound} />
           </Switch>

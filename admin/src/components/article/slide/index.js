@@ -7,12 +7,6 @@ import Input from '@/lib/input';
 import Icon from '@/lib/icon'
 import fetch from '@/utils/fetch';
 
-
-
-const DraggableIcon = () => (
-    <i className="cate-icon_drag"></i>
-)
-
 class Slide extends Component {
     constructor(props) {
         super(props);
@@ -58,8 +52,8 @@ class Slide extends Component {
     render() {
         let { categoryList } = this.props, { dialog } = this.state;
         return(
-            <div className="slide-box">
-                <div className="slide-item_top">
+            <div className="article-slide-wrap">
+                <div className="slide-item-header">
                     <div className="slide-item"><Icon type="book" className="slide-item-icon" />All Notes</div>
                     <div className="slide-item" onClick={this.createArticle}><Icon type="delete" className="slide-item-icon" />Trash</div>
                 </div>
@@ -74,14 +68,16 @@ class Slide extends Component {
                         {
                             categoryList && categoryList.map((category) => (
                                 <div className="cate-item" key={category.id}>
-                                    <DraggableIcon />
-                                    <div className="cate-name-box"><Icon type="folder" className="cate-folder-close" />{category.name}</div>
+                                    <i className="cate-icon_drag"></i>
+                                    <div className="cate-name-box">
+                                        <Icon type="folder" className="cate-folder-close" />{category.name}
+                                    </div>
                                 </div>
                             ))
                         }
                     </div>
                 </div>
-                <Icon type="logout" className="login-out-btn" />
+                <div className="login-out-btn"><Icon type="logout"/>退出</div>
                 <Dialog open={dialog.open} className="category-modal">
                     <Icon type="close" className="close-btn"/>
                     <Input

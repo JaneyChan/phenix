@@ -1,0 +1,90 @@
+.article-list-wrap {
+    position: relative;
+    width: 250px;
+    height: 100%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid @global-border-color;
+}
+.article-list-title {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    line-height: 18px;
+    font-size: 16px;
+    padding: 20px 0 20px 35px;
+    color: @font-color-headline;
+    border-bottom: 1px solid @global-border-color;
+    &::before {
+        content: '';
+        position: absolute;
+        left: 12px;
+        top: 21px;
+        width: 18px;
+        height: 18px;
+        background: url('../../images/icon_article_list.png') no-repeat center / contain;
+    }
+    .article-add-btn {
+        position: absolute;
+        right: 12px;
+        top: 22px;
+        cursor: pointer;
+        color: @font-color-primary;
+        &:hover {
+            color: @theme-primary;
+        }
+    }
+}
+.article-list-boxs {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    right: 0px;
+    height: calc(100% - 60px);
+    overflow: auto;
+    .article-item {
+        margin: 15px 15px 0 15px;
+        border-bottom: 1px solid @global-border-color;
+        .box {
+            box-sizing: border-box;
+            padding-left: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            &:hover {
+                border-left: 3px solid @theme-primary;
+                .item-title {
+                    color: @theme-primary;
+                }
+            }
+            &.active {
+                border-left: 3px solid @theme-primary;
+                .item-title {
+                    color: @theme-primary;
+                }
+            }
+            .item-title {
+                height: 18px;
+                line-height: 18px;
+                font-weight: bold;
+                color: @font-color-primary;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .item-time {
+                font-size: 12px;
+                padding-bottom: 3px;
+                color: @font-color-hint;
+            }
+            .item-paragraph {
+                font-size: 12px;
+                line-height: 16px;
+                color: @font-color-secondary;
+                width: 100%;
+                height: 16px;
+            }
+        }
+    }
+}
