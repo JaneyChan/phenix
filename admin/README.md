@@ -20,7 +20,6 @@
 - react 16.4.0
 - react-dom 16.4.0
 - react-router-dom 4.3.1
-- antd 3.6.4
 
 ### 目录结构
 

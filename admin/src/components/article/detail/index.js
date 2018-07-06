@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateArticle } from '../../../redux/action/article';
 import Icon from '@/lib/icon'
-import ReactMarkdown from "react-markdown";
+import MarkdownPreview from '../markdown/preview';
 
 class Detail extends React.PureComponent {
     constructor(props) {
@@ -83,7 +83,7 @@ class Detail extends React.PureComponent {
                     ></textarea>
                     
                     <div className="show-box">
-                        <ReactMarkdown source={articleDetail.content || ''} />
+                        <MarkdownPreview value={articleDetail.content || ''} markedOptions={{ breaks: true, pedantic: true, sanitize: true, smartypants: true}}/>
                     </div>
                 </div>
             </div>
