@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { getCategoryList, setCategoryList } from '@/redux/action/category';
 import Dialog from '@/lib/dialog';
@@ -7,7 +8,7 @@ import Input from '@/lib/input';
 import Icon from '@/lib/icon'
 import fetch from '@/utils/fetch';
 
-class Slide extends Component {
+class Slide extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +51,7 @@ class Slide extends Component {
         });
     }
     render() {
-        let { categoryList } = this.props, { dialog } = this.state;
+        let { categoryList, categoryId } = this.props, { dialog } = this.state;
         return(
             <div className="article-slide-wrap">
                 <div className="slide-item-header">
@@ -67,12 +68,20 @@ class Slide extends Component {
                     <div className="cate-list">
                         {
                             categoryList && categoryList.map((category) => (
-                                <div className="cate-item" key={category.id}>
+                                <NavLink
+                                    key={category.id}
+                                    to={`/cate/${category.id}`}
+                                    className="cate-item"
+                                    activeClassName="selected"
+                                    isActive={() => {
+                                        return category.id == categoryId;
+                                    }}
+                                >
                                     <i className="cate-icon_drag"></i>
                                     <div className="cate-name-box">
                                         <Icon type="folder" className="cate-folder-close" />{category.name}
                                     </div>
-                                </div>
+                                </NavLink>
                             ))
                         }
                     </div>

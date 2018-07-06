@@ -29,7 +29,10 @@ class List extends React.PureComponent {
                                 <div className={`box${ article.id === articleDetail.id ? ' active': ''}`}>
                                     <div className="item-title">{article.title}</div>
                                     <div className="item-time">{parseTime(article.createTime)}</div>
-                                    <div className="item-paragraph">公开:{article.publish ? '是' : '否'}</div>
+                                    <div className="item-paragraph">
+                                        <Icon type={article.publish ? 'unlock': 'lock'} />
+                                        {article.publish ? '公开' : '私密'}
+                                    </div>
                                 </div>
                             </div>
                         )

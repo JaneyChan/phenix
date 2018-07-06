@@ -13,8 +13,8 @@ class Detail extends React.PureComponent {
         this.textControl && this.textControl.addEventListener('keydown', this.listenerKeyDown, false);
     }
     listenerKeyDown = (e) => {
-        let keyCode = e.keyCode || e.which || e.charCode;
-        let ctrlKey = e.ctrlKey || e.metaKey;
+        let keyCode = e.keyCode || e.which || e.charCode,
+            { handles } = this.props;
         if(keyCode === 9) {
             // 输入Tab键, 填入两个空格
             e.preventDefault();
@@ -26,17 +26,11 @@ class Detail extends React.PureComponent {
             this.textControl.value = origin.slice(0, start) + text + origin.slice(end)
             // pre-select
             this.textControl.setSelectionRange(start + 2, start + 2)
-            this.props.changeArticleContent(this.textControl.value);
+            handles.changeArticleContent(this.textControl.value);
         }
-        if(ctrlKey && keyCode === 83) {
-            e.preventDefault();
-            // control+s 或 command+s 保存文章
-            this.props.saveArticle();
-        }
-        
     }
     render() {
-        let { articleDetail } = this.props;
+        let { articleDetail, handles, openDrawer } = this.props;
         return (
             <div className="article-detail-wrap">
                 <div className="detail-header">
@@ -46,14 +40,19 @@ class Detail extends React.PureComponent {
                             placeholder="文章名称"
                             value={articleDetail.title || ''}
                             autoFocus
-                            onChange={this.props.changeInput}
+                            onChange={handles.changeInput}
                         />
                     </div>
                     <div className="tool-bar">
-                        <Icon type={this.props.openDrawer ? 'menu-unfold': 'menu-fold'} className="bar-info" onClick={this.props.toggleDrawerStatus} />
-                        <Icon type="save" className="bar-info" onClick={this.saveArticle}/>
-                        <Icon type="delete" className="bar-info" onClick={this.saveArticle}/>
-                        <span className="bar-info publish-btn"><Icon type={articleDetail.publish ? 'close': 'cloud-upload-o'} />{ articleDetail.publish ? '取消发布': '发布文章'}</span>
+                        <Icon type={openDrawer ? 'menu-fold': 'menu-unfold'} className="bar-item" onClick={handles.toggleDrawerStatus} />
+                        <Icon type="arrows-alt" className="bar-item"/>
+                        
+                        <span className="bar-item publish-btn fr" onClick={handles.toggleArticlePublish}>
+                            <Icon type={articleDetail.publish ? 'lock': 'unlock'} />
+                            { articleDetail.publish ? '转为私密': '公开文章'}
+                        </span>
+                        <Icon type="delete" className="bar-item fr" onClick={handles.saveArticle}/>
+                        <Icon type="save" className="bar-item fr" onClick={handles.saveArticle}/>
                     </div>
                 </div>
                 <div className="article-editor-wrap">
@@ -63,7 +62,7 @@ class Detail extends React.PureComponent {
                         value={articleDetail.content || ''}
                         placeholder={`Command(⌘) + S   Save Article`}
                         className="editor-box"
-                        onChange={(e) => this.props.changeArticleContent(e.target.value)}
+                        onChange={(e) => handles.changeArticleContent(e.target.value)}
                     ></textarea>
                     
                     <div className="show-box">
