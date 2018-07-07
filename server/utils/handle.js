@@ -2,7 +2,7 @@
  * 逻辑文案管理
  */
 
-const userCode = {
+const message = {
 
   ERROR_USER_NAME: '用户名格式为6-16位的小写字母，包括-、_',
 
@@ -26,5 +26,18 @@ const userCode = {
 
 }
 
+const code = {
 
-module.exports = userCode
+  SUCCESS_CODE: 200, // 成功
+
+  ERROR_CODE: 201, // 失败
+
+  UNAUTH_CODE: 202, // 未登录
+
+}
+
+
+module.exports = {
+  message,
+  code
+}

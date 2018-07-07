@@ -1,4 +1,4 @@
 const jwtKoa = require('koa-jwt')
-const secret = require('../config').jwt.secret;
+const secret = require('../utils/config').jwt.secret;
 
 module.exports = jwtKoa({secret}).unless({path: [/^\/api\/user\/signIn/]})

@@ -1,7 +1,7 @@
 CREATE TABLE `article` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '文章ID',
   `title` varchar(255) DEFAULT NULL COMMENT '文章标题',
-  `content` text DEFAULT '' COMMENT '文章内容',
+  `content` text DEFAULT NULL COMMENT '文章内容',
   `publish` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否公开，0不公开，1公开',
   `category_id` bigint DEFAULT NULL COMMENT '分类ID',
   `createTime` bigint(20) DEFAULT NULL COMMENT '创建时间',

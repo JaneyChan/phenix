@@ -1,6 +1,5 @@
 const categoryService = require('../services/category');
-const userCode = require('../codes/user');
-const utils = require('../utils/common');
+const handle = require('../utils/handle');
 
 class CategoryController {
 	/**
@@ -20,7 +19,7 @@ class CategoryController {
             result.data = categoryResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
-            result.message = userCode.FAIL_USER_NO_EXIST;
+            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }
@@ -49,7 +48,7 @@ class CategoryController {
             result.data = categoryResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
-            result.message = userCode.FAIL_USER_NO_EXIST;
+            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }
@@ -78,7 +77,7 @@ class CategoryController {
             result.data = categoryResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
-            result.message = userCode.FAIL_USER_NO_EXIST;
+            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }

@@ -19,7 +19,6 @@ class Article extends PureComponent {
     //   // 提示用户是继续浏览页面还是离开当前页面。
     // 	return '你可能有数据没有保存';
     // }
-    console.log('props.match :  ' + JSON.stringify(this.props.match));
     document.body.addEventListener('keydown', this.toSaveArticle, false);
   }
   componentWillReceiveProps(nextProps) {

@@ -6,7 +6,6 @@ class CategoryModal {
    * @return {object|null}         查找结果
    */
   static async getCategoryList() {
-    let _sql = `SELECT * from category order by id desc`
     let result = await dbUtils.selectOrderByIdDesc('category', '*')
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result

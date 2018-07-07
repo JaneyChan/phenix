@@ -1,5 +1,5 @@
 const articleService = require('../services/article');
-const userCode = require('../codes/user');
+const handle = require('../utils/handle');
 const utils = require('../utils/common');
 
 class ArticleController {
@@ -11,7 +11,7 @@ class ArticleController {
             success: false,
             message: '',
             data: null,
-            code: ''
+            code: '0'
         }
         let articleResult = await articleService.getArticles()
 
@@ -19,8 +19,8 @@ class ArticleController {
             result.success = true;
             result.data = articleResult;
         } else {
-            result.code = 'FAIL_USER_NO_EXIST';
-            result.message = userCode.FAIL_USER_NO_EXIST;
+            result.code = '';
+            result.message = result.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }
@@ -48,7 +48,7 @@ class ArticleController {
             result.data = articleResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
-            result.message = userCode.FAIL_USER_NO_EXIST;
+            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }
@@ -77,7 +77,7 @@ class ArticleController {
             result.data = articleResult;
         } else {
             result.code = 'FAIL_USER_NO_EXIST';
-            result.message = userCode.FAIL_USER_NO_EXIST;
+            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }

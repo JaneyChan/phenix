@@ -15,12 +15,26 @@ class Slide extends PureComponent {
         this.state = {
             dialog: {
                 open: false,
-                cateName: ''
+                cateName: '',
             }
         }
     }
     componentDidMount() {
+        console.log('this.props.categoryList : ' + JSON.stringify(this.props.categoryList));
         this.props.getCategoryList();
+    }
+    componentWillReceiveProps(nextProps) {
+        if(this.props.categoryList !== nextProps.categoryList) {
+            console.log('*****');
+            if(nextProps.categoryList.length > 0 && !this.props.match.params.cid) {
+                this.props.history.push({
+                    pathname: `/cate/${nextProps.categoryList[0].id}`
+                });
+                return;
+            }
+            if(nextProps.categoryList.indexOf(this.props.match.params.cid) > -1) {
+            }
+        }
     }
     createCategory = () => {
         let { dialog } = this.state;
@@ -75,7 +89,7 @@ class Slide extends PureComponent {
                                     className="cate-item"
                                     activeClassName="selected"
                                     isActive={() => {
-                                        return category.id == (match.params && match.params.cid);
+                                        return category.id == match.params.cid;
                                     }}
                                 >
                                     <i className="cate-icon_drag"></i>
