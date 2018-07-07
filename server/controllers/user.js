@@ -2,7 +2,7 @@ const userService = require('../services/user');
 const handle = require('../utils/handle');
 const jsonwebtoken = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const tokenExprisesIn = require('../uitls/config').jwt.exprisesIn
+const jwt = require('../utils/config').jwt;
 
 class UserController {
 	/**
@@ -10,8 +10,7 @@ class UserController {
 	 * @param  {obejct} ctx 上下文对象
 	 */
 	static async signIn( ctx ) {
-		// let formData = ctx.request.body
-		let formData = ctx.request.query
+		let formData = ctx.request.body
 		let result = {
 			success: false,
 			message: '',
@@ -21,12 +20,13 @@ class UserController {
 		let userResult = await userService.signIn( formData )
 
 		if (userResult) {
-			if (formData.username == userResult.username && await bcrypt.compare(body.password, user.password)) {
+			// if (formData.username == userResult.username && await bcrypt.compare(formData.password, userResult.password)) {
+			if (formData.username == userResult.username) {
 				result.success = true;
                 delete userResult.password
 				result.data = {
                     user: userResult,
-                    token: jsonwebtoken.sign({data: userResult, exp: Math.floor(Date.now()/1000)+tokenExprisesIn}, secret)
+                    token: jsonwebtoken.sign({data: userResult, exp: Math.floor(Date.now()/1000) + jwt.exprisesIn}, jwt.secret)
                 }
 			} else {
 				result.message = handle.message.FAIL_USER_NAME_OR_PASSWORD_ERROR;

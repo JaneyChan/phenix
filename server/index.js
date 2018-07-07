@@ -8,7 +8,7 @@ const app = new Koa();
 // 配置ctx.body解析中间件
 app.use(bodyParser());
 // 使用token验证
-// app.use(checkToken);
+app.use(checkToken);
 // 初始化路由中间件
 app.use(routers.routes())
 app.use(routers.allowedMethods());
