@@ -1,7 +1,7 @@
-import React from "react";
-import marked from "marked";
-import highlight from "highlight.js";
-import PropTypes from "prop-types";
+import React from 'react';
+import marked from 'marked';
+import highlight from 'highlight.js';
+import PropTypes from 'prop-types';
 
 class MarkdownPreview extends React.PureComponent {
   constructor(props) {

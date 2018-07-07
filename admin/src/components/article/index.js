@@ -65,20 +65,20 @@ class Article extends PureComponent {
   }
   toggleArticlePublish = () => {
     let { articleDetail } = this.state;
-    this.props.updateArticle({...articleDetail, publish: !articleDetail.publish});
+    this.props.updateArticle({...articleDetail, publish: articleDetail.publish ? 0: 1});
   }
   render() {
     let { match } = this.props, { openDrawer } = this.state;
     return (
       <div className="container">
-        {openDrawer ? (
-          <React.Fragment>
-            <Slide
-              categoryId={match.params && match.params.cid || ''}
-            />
-            <List />
-          </React.Fragment>
-        ) : null}
+        {
+          openDrawer ? (
+            <React.Fragment>
+              <Slide />
+              <List />
+            </React.Fragment>
+          ) : null
+        }
 
         <Detail
           openDrawer={openDrawer}

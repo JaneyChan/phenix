@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router'
 import { getCategoryList, setCategoryList } from '@/redux/action/category';
 import Dialog from '@/lib/dialog';
 import Button from '@/lib/button';
@@ -51,7 +52,7 @@ class Slide extends PureComponent {
         });
     }
     render() {
-        let { categoryList, categoryId } = this.props, { dialog } = this.state;
+        let { categoryList, match } = this.props, { dialog } = this.state;
         return(
             <div className="article-slide-wrap">
                 <div className="slide-item-header">
@@ -74,7 +75,7 @@ class Slide extends PureComponent {
                                     className="cate-item"
                                     activeClassName="selected"
                                     isActive={() => {
-                                        return category.id == categoryId;
+                                        return category.id == (match.params && match.params.cid);
                                     }}
                                 >
                                     <i className="cate-icon_drag"></i>
@@ -101,7 +102,7 @@ class Slide extends PureComponent {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
         categoryList: state.category.list
     }),
@@ -113,4 +114,4 @@ export default connect(
             dispatch(setCategoryList(list));
         }
     })
-)(Slide);
+)(Slide));

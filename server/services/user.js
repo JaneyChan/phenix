@@ -1,4 +1,4 @@
-const userModel = require('../models/user_info');
+const userModel = require('../models/user');
 
 const user = {
     /**
@@ -8,8 +8,8 @@ const user = {
    */
   async signIn( formData ) {
     let resultData = await userModel.getOneByUserNameAndPassword({
-      'password': formData.password,
-      'name': formData.username
+      'username': formData.username,
+      'password': formData.password
     })
     return resultData
   }
