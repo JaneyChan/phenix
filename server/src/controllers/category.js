@@ -1,4 +1,4 @@
-const categoryService = require('../services/category');
+const categoryModal = require('../models/category');
 const handle = require('../utils/handle');
 
 class CategoryController {
@@ -12,7 +12,7 @@ class CategoryController {
             data: null,
             code: ''
         }
-        let categoryResult = await categoryService.getCategoryList()
+        let categoryResult = await categoryModal.getCategoryList()
 
         if (categoryResult) {
             result.success = true;
@@ -37,7 +37,7 @@ class CategoryController {
         }
         let formData = ctx.request.body
         let currentTime = new Date().getTime();
-        let categoryResult = await categoryService.createCategory({
+        let categoryResult = await categoryModal.createCategory({
             name: formData.name,
             createTime: currentTime,
             updateTime: currentTime
@@ -65,7 +65,7 @@ class CategoryController {
             data: null,
             code: ''
         }
-        let categoryResult = await categoryService.updateCategory({
+        let categoryResult = await categoryModal.updateCategory({
             title: formData.title,
             publish: parseInt(formData.publish) || 0,
             content: formData.content,

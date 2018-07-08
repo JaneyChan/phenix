@@ -17,13 +17,9 @@ class UserController {
       data: null,
       code: ''
     };
-    let userResult = await userModel.getUserByUserNameAndPassword({
-      username: formData.username,
-      password: formData.password
-    });
+    let userResult = await userModel.getUserByUserName(formData.username);
     if (userResult) {
-    //   if (formData.username == userResult.username && (await bcrypt.compare(formData.password, userResult.password))) {
-      if (formData.username == userResult.username) {
+      if (await bcrypt.compare(formData.password, userResult.password)) {
         result.success = true;
         delete userResult.password;
         result.data = {
