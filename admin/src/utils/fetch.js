@@ -14,19 +14,18 @@ const helper = {
   /**
    * @name get 请求
    * @param {String} String 请求地址 支持跨域
-   * @param {Object} params 请求参数
    * @return res
    */
-  get(url, params) {
-    let headers = { Authorization: 'Bearer ' + (window.localStorage.getItem('me-token') || '')}
+  get(url) {
+    let token = window.localStorage.getItem('me-token') || '';
     return new Promise(function(resolve, reject) {
-        // ... some code
-        return axios
-        .get(
-          `${url}`,
-          params,
-          headers
-        )
+        return  axios.get(
+          url,
+          {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+          })
         .then((res) => {
             let data = helper.handleResponse(res);
             resolve(data);
@@ -45,15 +44,16 @@ const helper = {
    * @return res
    */
   post(url, params = {}) {
-    let headers = { Authorization: 'Bearer ' + (window.localStorage.getItem('me-token') || '')}
+    let token = window.localStorage.getItem('me-token') || '';
     return new Promise(function(resolve, reject) {
-        // ... some code
-        return axios
-        .post(
-          `${url}`,
+        return axios.post(
+          url,
           params,
-          headers
-        )
+          {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+          })
         .then((res) => {
             let data = helper.handleResponse(res);
             resolve(data);
