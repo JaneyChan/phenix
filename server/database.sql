@@ -20,11 +20,12 @@ CREATE TABLE `category` (
 
 
 CREATE TABLE `user` (
-  `username` varchar(25) NOT NULL COMMENT '用户帐号',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `username` varchar(25) NOT NULL COMMENT '用户名',
   `email` varchar(128) NOT NULL COMMENT '邮箱地址',
   `password` varchar(128) NOT NULL COMMENT '用户密码',
   `avatar` varchar(255) DEFAULT NULL COMMENT '用户头像',
   `createTime` bigint(20) DEFAULT NULL COMMENT '创建时间',
   `updateTime` bigint(20) DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`username`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
