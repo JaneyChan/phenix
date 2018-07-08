@@ -72,10 +72,10 @@ class Article extends PureComponent {
       <div className="container">
         {
           openDrawer ? (
-            <React.Fragment>
+            <div className="slide-container">
               <Slide />
               <List />
-            </React.Fragment>
+            </div>
           ) : null
         }
 

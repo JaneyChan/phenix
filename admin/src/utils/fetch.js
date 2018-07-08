@@ -6,6 +6,10 @@ import {
 } from './config';
 import axios from 'axios';
 
+const AUTH_TOKEN = window.localStorage.getItem('me-token');
+console.log('AUTH_TOKEN : ' + AUTH_TOKEN);
+axios.defaults.headers.common['Authorization'] = 'Bearer ' + (AUTH_TOKEN || '');
+
 const helper = {
   /**
    * @name get 请求
@@ -14,10 +18,15 @@ const helper = {
    * @return res
    */
   get(url, params) {
+    let headers = { Authorization: 'Bearer ' + (window.localStorage.getItem('me-token') || '')}
     return new Promise(function(resolve, reject) {
         // ... some code
         return axios
-        .get(`${url}`, params)
+        .get(
+          `${url}`,
+          params,
+          headers
+        )
         .then((res) => {
             let data = helper.handleResponse(res);
             resolve(data);
@@ -36,10 +45,15 @@ const helper = {
    * @return res
    */
   post(url, params = {}) {
+    let headers = { Authorization: 'Bearer ' + (window.localStorage.getItem('me-token') || '')}
     return new Promise(function(resolve, reject) {
         // ... some code
         return axios
-        .post(`${url}`, params)
+        .post(
+          `${url}`,
+          params,
+          headers
+        )
         .then((res) => {
             let data = helper.handleResponse(res);
             resolve(data);

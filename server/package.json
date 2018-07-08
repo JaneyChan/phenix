@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --exec npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "JaneChan",
@@ -17,5 +18,8 @@
     "koa-logger": "^3.0.0",
     "koa-router": "^7.4.0",
     "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
   }
 }

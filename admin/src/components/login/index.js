@@ -16,6 +16,7 @@ class Login extends Component {
     fetch.post('/api/user/signIn', { username: username, password: password })
         .then((res) => {
           if(res.success) {
+            window.localStorage.setItem('me-token', res.data.token);
             this.props.history.replace('/');
           }
         });

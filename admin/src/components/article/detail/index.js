@@ -32,7 +32,7 @@ class Detail extends React.PureComponent {
     render() {
         let { articleDetail, handles, openDrawer } = this.props;
         return (
-            <div className="article-detail-wrap">
+            <div className="main-container">
                 <div className="detail-header">
                     <div className="detail-title">
                         <input
@@ -55,7 +55,7 @@ class Detail extends React.PureComponent {
                         <Icon type="save" className="bar-item fr" onClick={handles.saveArticle}/>
                     </div>
                 </div>
-                <div className="article-editor-wrap">
+                <div className="editor-preview-wrap">
                     <textarea
                         id="editor"
                         ref="editor"

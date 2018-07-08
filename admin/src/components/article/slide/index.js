@@ -66,7 +66,7 @@ class Slide extends PureComponent {
     render() {
         let { categoryList, match } = this.props, { dialog } = this.state;
         return(
-            <div className="article-slide-wrap">
+            <div className="category-wrap">
                 <div className="slide-item-header">
                     <div className="slide-item"><Icon type="book" className="slide-item-icon" />All Notes</div>
                     <div className="slide-item" onClick={this.createArticle}><Icon type="delete" className="slide-item-icon" />Trash</div>
