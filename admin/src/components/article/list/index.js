@@ -1,15 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getArticleList, createArticle, setDetailArticle } from '../../../redux/action/article';
-import { parseTime } from '../../../service/utils';
+import { withRouter } from 'react-router'
+import { getArticlesByCatogoryId, createArticle, setDetailArticle } from '@/redux/action/article';
+import Message from '@/lib/message';
 import Icon from '@/lib/icon'
+import { parseTime } from '@/service/utils';
 
 class List extends React.PureComponent {
-    componentDidMount() {
-        this.props.getArticleList();
+    componentWillReceiveProps(nextProps) {
+        let { match } = nextProps, categoryId = match.params.cid;
+        if(this.props.match.params.cid !== nextProps.match.params.cid || this.props.categoryList !== nextProps.categoryList) {
+    
+            if(nextProps.match.params.cid && nextProps.categoryList) {
+                this.props.getArticlesByCatogoryId(nextProps.match.params.cid);
+            } else {
+                Message.error('找不到记录');
+            }
+        }
     }
     createArticle = () => {
-        this.props.createArticle();
+        let { categoryList, match } = this.props,
+            category = {},
+            categoryId = match.params.cid;
+        categoryId && categoryList && categoryList.map((item) => {
+            if(item.id == match.params.cid) {
+                category = item;
+            }
+        })
+
+        if(!category.id) {
+            Message.error('找不到记录');
+            return;
+        }
+        this.props.createArticle(categoryId);
     }
     changeSelectedArticle = (article) => {
         this.props.setDetailArticle(article);
@@ -44,20 +67,21 @@ class List extends React.PureComponent {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
+        categoryList: state.category.list,
         articleList: state.article.list,
         articleDetail: state.article.detail
     }),
     (dispatch) => ({
-        getArticleList: () => {
-            dispatch(getArticleList());
+        getArticlesByCatogoryId: (articleId) => {
+            dispatch(getArticlesByCatogoryId(articleId));
         },
-        createArticle:  () => {
-            dispatch(createArticle());
+        createArticle: (categoryId) => {
+            dispatch(createArticle(categoryId));
         },
         setDetailArticle: (article) => {
             dispatch(setDetailArticle(article));
         }
     })
-)(List);
+)(List));

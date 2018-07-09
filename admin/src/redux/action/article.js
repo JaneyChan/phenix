@@ -15,15 +15,32 @@ export const getArticleList = () => {
         });
     };
 }
+export const getArticlesByCatogoryId = (categoryId) => {
+    return (dispatch, getState)=> {
+        fetch.post('/api/articles/category', {
+            categoryId
+        })
+        .then((res) => {
+          if(res.success) {
+            dispatch(setArticleList(res.data));
+            if(res.data && res.data.length > 0) {
+                dispatch(setDetailArticle(res.data[0]));
+            }
+          }
+        });
+    };
+}
 
 // 创建文章
-export const createArticle = () => {
+export const createArticle = (categoryId) => {
     return (dispatch, getState) => {
-        fetch.post('/api/article/create')
+        fetch.post('/api/article/create', {
+            categoryId
+        })
         .then((res) => {
             if(res.success) {
                 let list = getState().article.list;
-                list.unshift(res.data)
+                list.push(res.data)
                 dispatch(setArticleList(list));
                 dispatch(setDetailArticle(res.data));
             }
