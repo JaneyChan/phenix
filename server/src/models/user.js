@@ -8,11 +8,8 @@ class UserModal {
    * @return {object|null}    用户信息或null
    */
   static async getUserByUserNameAndPassword(options) {
-    let _sql = `
-    SELECT * from user
-      where username='${options.username}' and password='${options.password}'
-      limit 1`;
-    let result = await dbUtils.query(_sql);
+    let _sql = "SELECT * FROM ?? WHERE username = ? and password = ? limit 1 "
+    let result = await dbUtils.query(_sql, ['user', options.username, options.password])
     if (Array.isArray(result) && result.length > 0) {
       result = result[0];
     } else {
@@ -27,11 +24,8 @@ class UserModal {
    * @return {object|null}     返回用户信息或者null
    */
   static async getUserByUserName(username) {
-    let _sql = `
-    SELECT * from user
-      where username='${username}'
-      limit 1`;
-    let result = await dbUtils.query(_sql);
+    let _sql = "SELECT * FROM ?? WHERE username = ? limit 1 "
+    let result = await dbUtils.query(_sql, ['user', username])
     if (Array.isArray(result) && result.length > 0) {
       result = result[0];
     } else {
@@ -46,10 +40,8 @@ class UserModal {
    * @return {object|null}  返回用户信息或者null
    */
   static async getUserByEmail(email) {
-    let _sql = `
-    SELECT * from user
-      where email='${email}'
-      limit 1`;
+    let _sql = "SELECT * FROM ?? WHERE email = ? limit 1 "
+    let result = await dbUtils.query(_sql, ['user', email])
     let result = await dbUtils.query(_sql);
     if (Array.isArray(result) && result.length > 0) {
       result = result[0];

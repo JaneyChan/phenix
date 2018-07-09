@@ -38,7 +38,7 @@ let findDataById = function (table, id) {
 }
 
 let findDataByPage = function (table, keys, start, end) {
-  let _sql = "SELECT ?? FROM ??  LIMIT ? , ?"
+  let _sql = "SELECT ?? FROM ?? LIMIT ? , ?"
   return query(_sql, [keys, table, start, end])
 }
 

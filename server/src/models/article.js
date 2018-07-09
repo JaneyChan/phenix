@@ -3,15 +3,29 @@ const dbUtils = require('../utils/db');
 class ArticleModal {
   /**
    * 查询文章列表
-   * @return {object|null}         查找结果
+   * @return {Array}         查找结果
    */
   static async getArticles() {
-    let _sql = `SELECT * from article order by id desc`
-    let result = await dbUtils.selectOrderByIdDesc('article', '*')
+    let result = await dbUtils.select('article', '*')
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {
-      result = null
+      result = []
+    }
+    return result
+  }
+
+  /**
+   * 查询文章列表
+   * @return {Array}         查找结果
+   */
+  static async getArticlesByCategoryId(categoryId) {
+    let _sql = "SELECT * FROM ?? WHERE categoryId = ? "
+    let result = await dbUtils.query(_sql, ['article', categoryId])
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result
+    } else {
+      result = []
     }
     return result
   }

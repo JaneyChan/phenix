@@ -10,17 +10,34 @@ class ArticleController {
     let result = {
       success: false,
       message: '',
-      data: null,
+      data: [],
       code: '0'
     };
     let articleResult = await articleModel.getArticles();
 
     if (articleResult) {
       result.success = true;
+      result.message = '';
       result.data = articleResult;
-    } else {
+    }
+    ctx.body = result;
+  }
+
+  static async getArticlesByCategoryId(ctx) {
+    let result = {
+      success: false,
+      code: handle.message.ERROR_DATA_CODE,
+      message: handle.code.FAIL_ARTICLE,
+      data: []
+    };
+    let formData = ctx.request.body;
+    let articleResult = await articleModel.getArticlesByCategoryId(formData.categoryId);
+
+    if (articleResult) {
+      result.success = true;
+      result.message = '';
       result.code = '';
-      result.message = result.message.FAIL_USER_NO_EXIST;
+      result.data = articleResult;
     }
     ctx.body = result;
   }
@@ -32,23 +49,24 @@ class ArticleController {
   static async createArticle(ctx) {
     let result = {
       success: false,
-      message: '',
-      data: null,
-      code: ''
+      code: handle.message.ERROR_DATA_CODE,
+      message: handle.code.FAIL_ARTICLE,
+      data: []
     };
+    let formData = ctx.request.body;
     let currentTime = new Date().getTime();
     let articleResult = await articleModel.createArticle({
       title: utils.parseTime(currentTime, 'yyyy-MM-dd'),
       createTime: currentTime,
-      updateTime: currentTime
+      updateTime: currentTime,
+      categoryId: formData.categoryId
     });
 
     if (articleResult) {
       result.success = true;
+      result.message = '';
+      result.code = '';
       result.data = articleResult;
-    } else {
-      result.code = 'FAIL_USER_NO_EXIST';
-      result.message = handle.message.FAIL_USER_NO_EXIST;
     }
     ctx.body = result;
   }
@@ -61,9 +79,9 @@ class ArticleController {
     let formData = ctx.request.body;
     let result = {
       success: false,
-      message: '',
-      data: null,
-      code: ''
+      code: handle.message.ERROR_DATA_CODE,
+      message: handle.code.FAIL_ARTICLE_UPDATE,
+      data: []
     };
     let articleResult = await articleModel.updateArticle(
       {
@@ -78,9 +96,6 @@ class ArticleController {
     if (articleResult) {
       result.success = true;
       result.data = articleResult;
-    } else {
-      result.code = 'FAIL_USER_NO_EXIST';
-      result.message = handle.message.FAIL_USER_NO_EXIST;
     }
     ctx.body = result;
   }

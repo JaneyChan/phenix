@@ -8,18 +8,17 @@ class CategoryController {
     static async getCategoryList(ctx) {
         let result = {
             success: false,
-            message: '',
-            data: null,
-            code: ''
+            code: handle.code.ERROR_CODE,
+            message: handle.message.FAIL_CATEGORY,
+            data: []
         }
         let categoryResult = await categoryModal.getCategoryList()
 
         if (categoryResult) {
             result.success = true;
+            result.code = '';
+            result.message = '';
             result.data = categoryResult;
-        } else {
-            result.code = 'FAIL_USER_NO_EXIST';
-            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }
@@ -31,9 +30,9 @@ class CategoryController {
     static async createCategory(ctx) {
         let result = {
             success: false,
-            message: '',
+            message: handle.message.FAIL_CATEGORY,
             data: null,
-            code: ''
+            code: handle.code.FAIL_CATEGORY_UPDATE
         }
         let formData = ctx.request.body
         let currentTime = new Date().getTime();
@@ -45,10 +44,9 @@ class CategoryController {
 
         if (categoryResult) {
             result.success = true;
+            result.message = '';
+            result.code = '';
             result.data = categoryResult;
-        } else {
-            result.code = 'FAIL_USER_NO_EXIST';
-            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }
@@ -61,9 +59,9 @@ class CategoryController {
         let formData = ctx.request.body
         let result = {
             success: false,
-            message: '',
+            message: handle.message.FAIL_CATEGORY,
             data: null,
-            code: ''
+            code: handle.code.FAIL_CATEGORY_UPDATE
         }
         let categoryResult = await categoryModal.updateCategory({
             title: formData.title,
@@ -74,10 +72,9 @@ class CategoryController {
 
         if (categoryResult) {
             result.success = true;
+            result.message = '';
+            result.code = '';
             result.data = categoryResult;
-        } else {
-            result.code = 'FAIL_USER_NO_EXIST';
-            result.message = handle.message.FAIL_USER_NO_EXIST;
         }
         ctx.body = result;
     }

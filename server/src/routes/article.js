@@ -9,5 +9,6 @@ const routers = router
   .get('/article/list', articleController.getArticles)
   .post('/article/create', articleController.createArticle)
   .post('/article/update', articleController.updateArticle)
-  
+  .post('/articles/category', articleController.getArticlesByCategoryId)
+
 module.exports = routers
