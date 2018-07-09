@@ -12,16 +12,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/*': {
-        target: 'http://localhost:7777/',
+        target: 'http://localhost:8060/'
         // target: 'http://yfb.imeijian.cn',
-        //pathRewrite: {'^/api/[^/]*': ''}
+        // pathRewrite: {'^/api/[^/]*': ''}
       }
     },
-    
-
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8061, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

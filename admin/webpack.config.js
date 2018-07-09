@@ -88,11 +88,11 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'), //开发服务运行时的文件根目录
     compress: true, //开发服务器是否启动gzip等压缩
-    port: 9999, //端口
+    port: 8062, //端口
     historyApiFallback: true,  //不会出现404页面，避免找不到
     proxy: {
       '/api/*': {
-        target: 'http://localhost:7777/', // server
+        target: 'http://localhost:8060/', // server
         changeOrigin: true
       }
     }

@@ -2,7 +2,6 @@ import Message from '@/lib/message';
 import {
   HTTP_RES_MESSAGES,
   HTTP_CODE,
-  TIMEOUT
 } from './config';
 import axios from 'axios';
 
@@ -92,7 +91,6 @@ const helper = {
   handleResponse({ data, status }) {
     if (status >= HTTP_CODE['SUCCESS'] && status < HTTP_CODE['NOTDONE']) {
       if(!data.success) {
-        console.log('data: ' + JSON.stringify(data));
         Message.error(data.message);
       }
       return data;

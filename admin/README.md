@@ -62,7 +62,7 @@ npm install
 npm run start （开发模式）
 ```
 
-默认浏览器会自动打开 `http://localhost:9999`，编译完成
+默认浏览器会自动打开 `http://localhost:8062`，编译完成
 
 ### 打包
 
@@ -137,4 +137,4 @@ argv.forEach(v => {
 ### gitHub
 [1]: https://github.com/NewPrototype/webpack4-es6-react
 [2]: https://github.com/NewPrototype/webpack4-es6-react
-[3]: http://localhost:9999/
+[3]: http://localhost:8062/
