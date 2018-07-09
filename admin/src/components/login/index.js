@@ -7,8 +7,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'JaneChan',
-      password: '123456'
+      username: '',
+      password: ''
     }
   }
   login = () => {
@@ -21,6 +21,11 @@ class Login extends Component {
           }
         });
   }
+  changeInputData = (key, e) => {
+    this.setState({
+      [key]: e.target.value
+    });
+  }
   render() {
     let {username, password} = this.state;
     return (
@@ -30,16 +35,18 @@ class Login extends Component {
           <div>username:
             <input
               type="text"
-              defaultValue={username}
+              value={username}
               placeholder="username"
               className="input-field"
+              onChange={(e) => { this.changeInputData('username', e); }}
             /></div>
           <div>password:
               <input
                 type="password"
-                defaultValue={password}
+                value={password}
                 placeholder="password"
                 className="input-field"
+                onChange={(e) => { this.changeInputData('password', e); }}
               />
           </div>
           <Button onClick={this.login}>登录</Button>

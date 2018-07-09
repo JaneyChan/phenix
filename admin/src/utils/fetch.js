@@ -6,10 +6,6 @@ import {
 } from './config';
 import axios from 'axios';
 
-const AUTH_TOKEN = window.localStorage.getItem('me-token');
-console.log('AUTH_TOKEN : ' + AUTH_TOKEN);
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + (AUTH_TOKEN || '');
-
 const helper = {
   /**
    * @name get 请求
@@ -95,6 +91,10 @@ const helper = {
   //全局处理错误
   handleResponse({ data, status }) {
     if (status >= HTTP_CODE['SUCCESS'] && status < HTTP_CODE['NOTDONE']) {
+      if(!data.success) {
+        console.log('data: ' + JSON.stringify(data));
+        Message.error(data.message);
+      }
       return data;
     } else {
       Message.error('服务器出错!');
