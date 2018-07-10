@@ -42,7 +42,6 @@ class UserModal {
   static async getUserByEmail(email) {
     let _sql = "SELECT * FROM ?? WHERE email = ? limit 1 "
     let result = await dbUtils.query(_sql, ['user', email])
-    let result = await dbUtils.query(_sql);
     if (Array.isArray(result) && result.length > 0) {
       result = result[0];
     } else {
