@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
-import Slide from "@/components/article/slide";
-import Detail from "@/components/article/detail";
-import List from "@/components/article/list";
+import Category from "@/components/article/side/category";
+import NoteList from "@/components/article/side/noteList";
+import Offside from "@/components/article/offside";
 
 import { connect } from "react-redux";
 import { updateArticle } from "@/redux/action/article";
@@ -67,19 +67,17 @@ class Article extends PureComponent {
     this.props.updateArticle({...articleDetail, publish: articleDetail.publish ? 0: 1});
   }
   render() {
-    let { match } = this.props, { openDrawer } = this.state;
+    let { openDrawer } = this.state;
     return (
       <div className="container">
-        {
-          openDrawer ? (
-            <div className="slide-container">
-              <Slide />
-              <List />
-            </div>
-          ) : null
-        }
+        <div className={`side-container${openDrawer ? '': ' close'}`}>
+          <div className="side-panel">
+            <Category />
+            <NoteList />
+          </div>
+        </div>
 
-        <Detail
+        <Offside
           openDrawer={openDrawer}
           articleDetail={this.state.articleDetail}
           handles={{

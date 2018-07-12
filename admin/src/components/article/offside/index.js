@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Icon from '@/lib/icon'
 import MarkdownPreview from '../markdown/preview';
 
-class Detail extends React.PureComponent {
+class Offside extends React.PureComponent {
     constructor(props) {
         super(props);
     }
@@ -33,8 +33,8 @@ class Detail extends React.PureComponent {
         let { articleDetail, handles, openDrawer } = this.props;
         return (
             <div className="main-container">
-                <div className="detail-header">
-                    <div className="detail-title">
+                <div className="offside-header">
+                    <div className="offside-title">
                         <input
                             type="text"
                             placeholder="文章名称"
@@ -43,7 +43,7 @@ class Detail extends React.PureComponent {
                             onChange={handles.changeInput}
                         />
                     </div>
-                    <div className="tool-bar">
+                    <div className="offside-tool-bar">
                         <Icon type={openDrawer ? 'menu-fold': 'menu-unfold'} className="bar-item" onClick={handles.toggleDrawerStatus} />
                         <Icon type="arrows-alt" className="bar-item"/>
                         
@@ -55,23 +55,23 @@ class Detail extends React.PureComponent {
                         <Icon type="save" className="bar-item fr" onClick={handles.saveArticle}/>
                     </div>
                 </div>
-                <div className="editor-preview-wrap">
+                <div className="offside-content">
                     <textarea
                         id="editor"
                         ref="editor"
                         value={articleDetail.content || ''}
                         placeholder={`Command(⌘) + S   Save Article`}
-                        className="editor-box"
+                        className="content-editor"
                         onChange={(e) => handles.changeArticleContent(e.target.value)}
                     ></textarea>
-                    
-                    <div className="show-box">
-                        <MarkdownPreview value={articleDetail.content || ''} markedOptions={{ breaks: true, pedantic: true, sanitize: true, smartypants: true}}/>
-                    </div>
+                    <MarkdownPreview
+                        className="content-preview"
+                        value={articleDetail.content || ''}
+                    />
                 </div>
             </div>
         );
     }
 }
 
-export default Detail;
+export default Offside;

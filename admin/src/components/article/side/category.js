@@ -9,7 +9,7 @@ import Input from '@/lib/input';
 import Icon from '@/lib/icon'
 import fetch from '@/utils/fetch';
 
-class Slide extends PureComponent {
+class Category extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -66,13 +66,13 @@ class Slide extends PureComponent {
     render() {
         let { categoryList, match } = this.props, { dialog } = this.state;
         return(
-            <div className="category-wrap">
-                <div className="slide-item-header">
-                    <div className="slide-item"><Icon type="book" className="slide-item-icon" />All Notes</div>
-                    <div className="slide-item" onClick={this.createArticle}><Icon type="delete" className="slide-item-icon" />Trash</div>
+            <div className="side-cate-wrap">
+                <div className="side-item-header">
+                    <div className="side-item"><Icon type="book" className="side-item-icon" />All Notes</div>
+                    <div className="side-item" onClick={this.createArticle}><Icon type="delete" className="side-item-icon" />Trash</div>
                 </div>
                 
-                <div className="slide-cate-wrap">
+                <div className="side-cate-wrap">
                     <div className="cate-title">
                         <Icon type="bars" className="cate-icon--bar" />
                         Category
@@ -126,4 +126,4 @@ export default withRouter(connect(
             dispatch(setCategoryList(list));
         }
     })
-)(Slide));
+)(Category));

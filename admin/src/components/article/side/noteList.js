@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { getArticlesByCatogoryId, createArticle, setDetailArticle } from '@/redux/action/article';
 import Message from '@/lib/message';
 import Icon from '@/lib/icon'
 import { parseTime } from '@/service/utils';
 
-class List extends React.PureComponent {
+class NoteList extends React.PureComponent {
     componentWillReceiveProps(nextProps) {
         let { match } = nextProps, categoryId = match.params.cid;
         if(this.props.match.params.cid !== nextProps.match.params.cid || this.props.categoryList !== nextProps.categoryList) {
@@ -40,15 +41,24 @@ class List extends React.PureComponent {
     render() {
         let { articleList, articleDetail } = this.props;
         return (
-            <div className="article-list-wrap">
-                <div className="article-list-title">文章列表
-                    <Icon type="plus" className="article-add-btn" onClick={this.createArticle}/>
+            <div className="side-note-wrap">
+                <div className="note-list-title">文章列表
+                    <Icon type="plus" className="note-add-btn" onClick={this.createArticle}/>
                 </div>
-                <div className="article-list-boxs">
+                <div className="note-list-boxs">
                 {
                     articleList && articleList.map((article) => {
                         return (
-                            <div className="article-item" key={article.id} onClick={() => { this.changeSelectedArticle(article);}}>
+                            <NavLink
+                                key={article.id}
+                                to={`/cate/1/note/${article.id}`}
+                                className="note-item"
+                                activeClassName="selected"
+                                onClick={() => { this.changeSelectedArticle(article);}}
+                                isActive={() => {
+                                    return false;
+                                }}
+                            >
                                 <div className={`box${ article.id === articleDetail.id ? ' active': ''}`}>
                                     <div className="item-title">{article.title}</div>
                                     <div className="item-time">{parseTime(article.createTime)}</div>
@@ -57,7 +67,7 @@ class List extends React.PureComponent {
                                         {article.publish ? '公开' : '私密'}
                                     </div>
                                 </div>
-                            </div>
+                            </NavLink>
                         )
                     })
                 }
@@ -84,4 +94,4 @@ export default withRouter(connect(
             dispatch(setDetailArticle(article));
         }
     })
-)(List));
+)(NoteList));

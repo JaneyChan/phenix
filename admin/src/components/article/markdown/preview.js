@@ -24,14 +24,14 @@ class MarkdownPreview extends React.PureComponent {
   }
 
   render() {
-    const { value } = this.props;
-    return <div dangerouslySetInnerHTML={{ __html: marked(value) }} />;
+    const { value, className } = this.props;
+    return <div className={className} dangerouslySetInnerHTML={{ __html: marked(value) }} />;
   }
 }
 
 MarkdownPreview.propTypes = {
-  value: PropTypes.string.isRequired,
-  markedOptions: PropTypes.object
+  className: PropTypes.string,
+  value: PropTypes.string.isRequired
 };
 
 MarkdownPreview.defaultProps = {

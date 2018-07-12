@@ -7,12 +7,12 @@
     -moz-transition: 1s ease; /* Firefox 4 */
     -webkit-transition: 1s ease; /* Safari and Chrome */
     -o-transition: width 1s ease; /* Opera */
-    .detail-header {
+    .offside-header {
         position: absolute;
         left: 0;
         right: 0;
     }
-    .detail-title {
+    .offside-title {
         height: 60px;
         line-height: 60px;
         font-size: 20px;
@@ -24,7 +24,7 @@
             padding: 12px 0;
         }
     }
-    .tool-bar {
+    .offside-tool-bar {
         border-bottom: 1px solid @global-border-color;
         .bar-item {
             display: inline-block;
@@ -54,7 +54,7 @@
             }
         }
     }
-    .editor-preview-wrap {
+    .offside-content {
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -64,7 +64,7 @@
         right: 0px;
         bottom: 0px;
     }
-    .editor-box {
+    .content-editor {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
@@ -84,7 +84,7 @@
         -webkit-appearance: none;
         overflow: auto;
     }
-    .show-box {
+    .content-preview {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
@@ -94,6 +94,7 @@
         padding: 30px 30px 60px 30px;
         border-left: 1px solid @global-border-color;
         background: #fcfaf2;
+        font-size: inherit;
         h1 {
             font-size: @font-size-base + 12px;
             margin: 22px 0 16px 0;
@@ -125,6 +126,7 @@
         a {
             color: @theme-primary;
             text-decoration: none;
+            font-size: inherit;
             &:active {
                 color: @theme-primary;
             }
@@ -138,11 +140,12 @@
         }
         strong, b {
             font-weight: bold;
+            font-size: inherit;
         }
         blockquote {
             border-left: solid 4px @theme-primary;
             margin: 0 0 12px;
-            padding: 0 25px;
+            padding-left: 15px;
         }
         code {
             white-space: pre;

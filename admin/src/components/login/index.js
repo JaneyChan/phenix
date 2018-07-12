@@ -49,7 +49,7 @@ class Login extends Component {
                 onChange={(e) => { this.changeInputData('password', e); }}
               />
           </div>
-          <Button onClick={this.login}>登录</Button>
+          <Button type="primary" onClick={this.login}>登录</Button>
         </div>
       </div>
     );

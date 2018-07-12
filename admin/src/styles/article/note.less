@@ -1,11 +1,11 @@
-.article-list-wrap {
+.side-note-wrap {
     position: relative;
     width: 250px;
     overflow: hidden;
     flex-shrink: 0;
     border: 1px solid @global-border-color;
 }
-.article-list-title {
+.note-list-title {
     position: absolute;
     left: 0;
     top: 0;
@@ -24,7 +24,7 @@
         height: 18px;
         background: url('../../images/icon_article_list.png') no-repeat center / contain;
     }
-    .article-add-btn {
+    .note-add-btn {
         position: absolute;
         right: 12px;
         top: 22px;
@@ -35,16 +35,18 @@
         }
     }
 }
-.article-list-boxs {
+.note-list-boxs {
     position: absolute;
     top: 60px;
     left: 0px;
     right: 0px;
     height: calc(100% - 60px);
     overflow: auto;
-    .article-item {
+    .note-item {
+        display: block;
         margin: 15px 15px 0 15px;
         border-bottom: 1px solid @global-border-color;
+        text-decoration: none;
         .box {
             box-sizing: border-box;
             padding-left: 8px;
