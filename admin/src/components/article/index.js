@@ -67,7 +67,7 @@ class Article extends PureComponent {
     this.props.updateArticle({...articleDetail, publish: articleDetail.publish ? 0: 1});
   }
   render() {
-    let { openDrawer } = this.state;
+    let { openDrawer, articleDetail } = this.state;
     return (
       <div className="container">
         <div className={`side-container${openDrawer ? '': ' close'}`}>
@@ -78,16 +78,16 @@ class Article extends PureComponent {
         </div>
 
         <Offside
-          openDrawer={openDrawer}
-          articleDetail={this.state.articleDetail}
-          handles={{
-            saveArticle: this.saveArticle,
-            changeInput: this.changeInput,
-            changeArticleContent: this.changeArticleContent,
-            toggleDrawerStatus: this.toggleDrawerStatus,
-            toggleArticlePublish: this.toggleArticlePublish
-          }}
-        />
+            openDrawer={openDrawer}
+            articleDetail={articleDetail}
+            handles={{
+              saveArticle: this.saveArticle,
+              changeInput: this.changeInput,
+              changeArticleContent: this.changeArticleContent,
+              toggleDrawerStatus: this.toggleDrawerStatus,
+              toggleArticlePublish: this.toggleArticlePublish
+            }}
+          />
       </div>
     );
   }

@@ -1,3 +1,123 @@
+.markdown-preview {
+  h1 {
+    font-size: @font-size-base + 12px;
+    margin: 22px 0 16px 0;
+  }
+  h2 {
+    font-size: @font-size-base + 10px;
+    margin: 20px 0 14px 0;
+  }
+  h3 {
+    font-size: @font-size-base + 8px;
+    margin: 18px 0 12px 0;
+  }
+  h4 {
+    font-size: @font-size-base + 6px;
+    margin: 16px 0 10px 0;
+  }
+  h5 {
+    font-size: @font-size-base + 4px;
+    margin: 14px 0 8px 0;
+  }
+  h6 {
+    font-size: @font-size-base + 2px;
+    margin: 12px 0 6px 0;
+  }
+  p {
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  a {
+    color: @theme-primary;
+    text-decoration: none;
+    font-size: inherit;
+    &:active {
+      color: @theme-primary;
+    }
+  }
+  img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    vertical-align: middle;
+    border: 0;
+  }
+  strong,
+  b {
+    font-weight: bold;
+    font-size: inherit;
+  }
+  blockquote {
+    border-left: solid 4px @theme-primary;
+    margin: 0 0 12px;
+    padding-left: 15px;
+  }
+  code {
+    white-space: pre;
+    padding: 0 6px;
+    font-weight: bold;
+    color: @theme-primary;
+    background-color: #eaeaea;
+  }
+  pre {
+    word-wrap: normal;
+    word-break: break-all;
+    white-space: pre;
+    padding: 10px;
+    line-height: 20px;
+    background-color: #282c34;
+    border-radius: @border-radius-base;
+    margin-bottom: 12px;
+    code {
+      display: block;
+      white-space: pre;
+      padding: 0;
+      font-weight: normal;
+      color: #abb2bf;
+      background-color: transparent;
+      overflow: auto;
+    }
+  }
+  ul {
+    list-style-type: disc;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    li {
+      line-height: 1.8;
+    }
+  }
+  ol {
+    list-style-type: decimal;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    li {
+      line-height: 1.8;
+    }
+  }
+  hr {
+    border-top: none;
+    border-bottom: solid 1px #d0d0d0;
+    margin: 15px 0;
+  }
+  table {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    th {
+      padding: 6px 12px;
+      line-height: 1.8;
+      border: 1px solid #d0d0d0;
+      font-weight: bold;
+    }
+    td {
+      border-style: solid;
+      padding: 6px 13px;
+      line-height: 1.8;
+      border: 1px solid #d0d0d0;
+    }
+  }
+}
+
 /*
 Atom One Dark by Daniel Gamage
 Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
@@ -14,80 +134,79 @@ hue-5-2: #be5046
 hue-6:   #d19a66
 hue-6-2: #e6c07b
 */
-
 .hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 0.5em;
-    color: #abb2bf;
-    background: #282c34;
-  }
-  
-  .hljs-comment,
-  .hljs-quote {
-    color: #5c6370;
-    font-style: italic;
-  }
-  
-  .hljs-doctag,
-  .hljs-keyword,
-  .hljs-formula {
-    color: #c678dd;
-  }
-  
-  .hljs-section,
-  .hljs-name,
-  .hljs-selector-tag,
-  .hljs-deletion,
-  .hljs-subst {
-    color: #e06c75;
-  }
-  
-  .hljs-literal {
-    color: #56b6c2;
-  }
-  
-  .hljs-string,
-  .hljs-regexp,
-  .hljs-addition,
-  .hljs-attribute,
-  .hljs-meta-string {
-    color: #98c379;
-  }
-  
-  .hljs-built_in,
-  .hljs-class .hljs-title {
-    color: #e6c07b;
-  }
-  
-  .hljs-attr,
-  .hljs-variable,
-  .hljs-template-variable,
-  .hljs-type,
-  .hljs-selector-class,
-  .hljs-selector-attr,
-  .hljs-selector-pseudo,
-  .hljs-number {
-    color: #d19a66;
-  }
-  
-  .hljs-symbol,
-  .hljs-bullet,
-  .hljs-link,
-  .hljs-meta,
-  .hljs-selector-id,
-  .hljs-title {
-    color: #61aeee;
-  }
-  
-  .hljs-emphasis {
-    font-style: italic;
-  }
-  
-  .hljs-strong {
-    font-weight: bold;
-  }
-  
-  .hljs-link {
-    text-decoration: underline;
-  }
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #abb2bf;
+  background: #282c34;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75;
+}
+
+.hljs-literal {
+  color: #56b6c2;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string {
+  color: #98c379;
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #e6c07b;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}

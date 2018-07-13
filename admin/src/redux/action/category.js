@@ -1,18 +1,19 @@
 import fetch from '@/utils/fetch';
 import { SET_CATEGORY_LIST } from '../constants'
 
-// 获取文章列表
+// 获取分类列表
 export const getCategoryList = () => {
     return (dispatch, getState)=> {
-        fetch.get('/api/category/list')
-        .then((res) => {
-          if(res.success) {
-            dispatch(setCategoryList(res.data));
-          }
-        });
+        return fetch.get('/api/category/list')
+                .then((res) => {
+                if(res.success) {
+                    dispatch(setCategoryList(res.data));
+                }
+                });
     };
 }
 
+// 更新分类类别
 export const updateCategory = (category) => {
     return (dispatch, getState) => {
         fetch.post('/api/category/update', category)

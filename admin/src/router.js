@@ -37,8 +37,8 @@ const Routers = () => (
           <Switch>
               <Route path='/' exact component={Article} />
               <Route path='/login' component={Login} />
-              <Route path="/cate/:cid/note/:nid" component={Article}/>
-              <Route path="/cate/:cid" component={Article}/>
+              <Route path="/category/:cid/note/:nid" component={Article}/>
+              <Route path="/category/:cid" component={Article}/>
               <Route component={NotFound} />
           </Switch>
       </BrowserRouter>

@@ -2,10 +2,13 @@ import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router'
-import { getCategoryList, setCategoryList } from '@/redux/action/category';
+import { setCategoryList } from '@/redux/action/category';
+import { getArticlesByCatogoryId } from '@/redux/action/article';
+
 import Dialog from '@/lib/dialog';
 import Button from '@/lib/button';
 import Input from '@/lib/input';
+import Message from '@/lib/message';
 import Icon from '@/lib/icon'
 import fetch from '@/utils/fetch';
 
@@ -20,18 +23,36 @@ class Category extends PureComponent {
         }
     }
     componentDidMount() {
-        this.props.getCategoryList();
+        fetch.get('/api/category/list')
+        .then((res) => {
+          if(res.success) {
+            this.props.setCategoryList(res.data);
+            if(res.data.length > 0) {
+                let cid = this.props.match.params.cid,
+                    cateId = res.data[0].id;
+                if(cid) {
+                    let inList = false;
+                    res.data.map((item) => {
+                        if(item.id == cid) {
+                            inList = true;
+                        }
+                    })
+                    cateId = inList ? cid : cateId
+                }
+                this.props.getArticlesByCatogoryId(cateId);
+                this.props.history.replace(`/category/${cateId}`);
+            } else {
+                Message.error('找不到分类列表');
+            }
+          }
+        });
     }
     componentWillReceiveProps(nextProps) {
-        if(this.props.categoryList !== nextProps.categoryList) {
-            if(nextProps.categoryList.length > 0 && !nextProps.match.params.cid) {
-                this.props.history.push({
-                    pathname: `/cate/${nextProps.categoryList[0].id}`
-                });
-                return;
-            }
-            if(nextProps.categoryList.indexOf(nextProps.match.params.cid) > -1) {
-            }
+        let prevCid = this.props.match.params.cid,
+            nextCid = nextProps.match.params.cid;
+        if(prevCid != nextCid) {
+            this.props.getArticlesByCatogoryId(nextCid);
+            this.props.history.replace(`/category/${nextCid}`);
         }
     }
     createCategory = () => {
@@ -83,7 +104,7 @@ class Category extends PureComponent {
                             categoryList && categoryList.map((category) => (
                                 <NavLink
                                     key={category.id}
-                                    to={`/cate/${category.id}`}
+                                    to={`/category/${category.id}`}
                                     className="cate-item"
                                     activeClassName="selected"
                                     isActive={() => {
@@ -124,6 +145,9 @@ export default withRouter(connect(
         },
         setCategoryList: (list) => {
             dispatch(setCategoryList(list));
+        },
+        getArticlesByCatogoryId: (articleId) => {
+            dispatch(getArticlesByCatogoryId(articleId));
         }
     })
 )(Category));

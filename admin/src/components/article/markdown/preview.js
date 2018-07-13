@@ -25,7 +25,7 @@ class MarkdownPreview extends React.PureComponent {
 
   render() {
     const { value, className } = this.props;
-    return <div className={className} dangerouslySetInnerHTML={{ __html: marked(value) }} />;
+    return <div className={`markdown-preview ${className}`} dangerouslySetInnerHTML={{ __html: marked(value) }} />;
   }
 }
 

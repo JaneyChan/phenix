@@ -2,18 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { getArticlesByCatogoryId, createArticle, setDetailArticle } from '@/redux/action/article';
+import { createArticle, setDetailArticle } from '@/redux/action/article';
 import Message from '@/lib/message';
 import Icon from '@/lib/icon'
 import { parseTime } from '@/service/utils';
 
 class NoteList extends React.PureComponent {
     componentWillReceiveProps(nextProps) {
-        let { match } = nextProps, categoryId = match.params.cid;
-        if(this.props.match.params.cid !== nextProps.match.params.cid || this.props.categoryList !== nextProps.categoryList) {
-    
-            if(nextProps.match.params.cid && nextProps.categoryList) {
-                this.props.getArticlesByCatogoryId(nextProps.match.params.cid);
+        let prevNid = this.props.match.params.nid,
+            nextNid = nextProps.match.params.nid;
+
+        if(prevNid != nextNid) {
+            if(nextProps.articleList.length > 0) {
+                let noteId = nextProps.articleList[0].id;
+                if(prevNid) {
+                    let inList = false;
+                    nextProps.articleList.map((item) => {
+                        if(item.id == nextNid) {
+                            inList = true;
+                        }
+                    })
+                    noteId = inList ? nextNid : noteId
+                }
+
+                this.props.history.replace(`/category/${this.props.match.params.cid}/note/${noteId}`);
             } else {
                 Message.error('找不到记录');
             }
@@ -30,7 +42,7 @@ class NoteList extends React.PureComponent {
         })
 
         if(!category.id) {
-            Message.error('找不到记录');
+            Message.error('找不到文章记录');
             return;
         }
         this.props.createArticle(categoryId);
@@ -51,7 +63,7 @@ class NoteList extends React.PureComponent {
                         return (
                             <NavLink
                                 key={article.id}
-                                to={`/cate/1/note/${article.id}`}
+                                to={`/category/1/note/${article.id}`}
                                 className="note-item"
                                 activeClassName="selected"
                                 onClick={() => { this.changeSelectedArticle(article);}}
@@ -84,9 +96,6 @@ export default withRouter(connect(
         articleDetail: state.article.detail
     }),
     (dispatch) => ({
-        getArticlesByCatogoryId: (articleId) => {
-            dispatch(getArticlesByCatogoryId(articleId));
-        },
         createArticle: (categoryId) => {
             dispatch(createArticle(categoryId));
         },
