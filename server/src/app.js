@@ -11,7 +11,7 @@ class App {
         // 配置ctx.body解析中间件
         this.koa.use(bodyParser());
         // 使用token验证
-        this.koa.use(checkAuth);
+        // this.koa.use(checkAuth);
         // 初始化路由中间件
         this.koa.use(routers.routes())
         this.koa.use(routers.allowedMethods());

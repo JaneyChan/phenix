@@ -3,8 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 
-Vue.config.productionTip = false
+import '@/assets/styles/index.less'
+Vue.prototype.$http = axios // 类似于vue-resource的调用方法
 
 /* eslint-disable no-new */
 new Vue({

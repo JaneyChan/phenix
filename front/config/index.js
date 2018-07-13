@@ -11,10 +11,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api/*': {
+      '/front/*': {
         target: 'http://localhost:8060/'
-        // target: 'http://yfb.imeijian.cn',
-        // pathRewrite: {'^/api/[^/]*': ''}
       }
     },
     // Various Dev Server settings

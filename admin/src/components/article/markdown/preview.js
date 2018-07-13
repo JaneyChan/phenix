@@ -14,9 +14,9 @@ class MarkdownPreview extends React.PureComponent {
       tables: true, // 允许支持表格语法,默认为true
       breaks: true, // 允许回车换行,默认为false
       pedantic: false,
-      sanitize: true, // 对输出进行过滤（清理），将忽略任何已经输入的html代码（标签）
+      sanitize: false, // 对输出进行过滤（清理），将忽略任何已经输入的html代码（标签）
       smartLists: true,
-      smartypants: false,
+      smartypants: true,
       highlight: (code) => {
         return highlight.highlightAuto(code).value;
       }

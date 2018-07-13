@@ -5,6 +5,7 @@ const utils = require('../utils/common');
 class ArticleController {
   /**
    * 获取文章列表
+   * @param {*} ctx 
    */
   static async getArticles(ctx) {
     let result = {
@@ -23,6 +24,10 @@ class ArticleController {
     ctx.body = result;
   }
 
+  /**
+   * 根据文章分类获取文章列表
+   * @param {*} ctx 
+   */
   static async getArticlesByCategoryId(ctx) {
     let result = {
       success: false,
@@ -43,7 +48,7 @@ class ArticleController {
   }
 
   /**
-   *
+   * 创建文章
    * @param {*} ctx
    */
   static async createArticle(ctx) {
@@ -72,7 +77,7 @@ class ArticleController {
   }
 
   /**
-   *
+   * 更新文章
    * @param {*} ctx
    */
   static async updateArticle(ctx) {
@@ -93,6 +98,21 @@ class ArticleController {
       formData.id
     );
 
+    if (articleResult) {
+      result.success = true;
+      result.data = articleResult;
+    }
+    ctx.body = result;
+  }
+  static async getArticleById(ctx) {
+    let formData = ctx.request.body;
+    let result = {
+      success: false,
+      code: handle.message.ERROR_DATA_CODE,
+      message: handle.code.FAIL_ARTICLE_UPDATE,
+      data: []
+    };
+    let articleResult = await articleModel.getArticleById(formData.id);
     if (articleResult) {
       result.success = true;
       result.data = articleResult;
