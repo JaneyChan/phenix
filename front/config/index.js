@@ -12,7 +12,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/front/*': {
-        target: 'http://localhost:8060/'
+        target: 'http://localhost:8060/',
+        changeOrigin: true
       }
     },
     // Various Dev Server settings
