@@ -28,31 +28,23 @@ class Category extends PureComponent {
           if(res.success) {
             this.props.setCategoryList(res.data);
             if(res.data.length > 0) {
-                let cid = this.props.match.params.cid,
-                    cateId = res.data[0].id;
-                if(cid) {
-                    let inList = false;
-                    res.data.map((item) => {
-                        if(item.id == cid) {
-                            inList = true;
-                        }
-                    })
-                    cateId = inList ? cid : cateId
-                }
-                this.props.getArticlesByCatogoryId(cateId);
-                this.props.history.replace(`/category/${cateId}`);
-            } else {
-                Message.error('找不到分类列表');
+                let { match } = this.props;
+                this.changeRoute(res.data, match.params.cid, match.params.nid);
             }
           }
         });
     }
-    componentWillReceiveProps(nextProps) {
-        let prevCid = this.props.match.params.cid,
-            nextCid = nextProps.match.params.cid;
-        if(prevCid != nextCid) {
-            this.props.getArticlesByCatogoryId(nextCid);
-            this.props.history.replace(`/category/${nextCid}`);
+    changeRoute = (categoryList, cateId, noteId) => {
+        const cateIds = categoryList.map(category => category.id);
+        const category = categoryList[0];
+        const categoryId = cateIds.includes(cateId) ? cateId : category && category.id;
+        if(noteId) {
+            this.props.history.replace(`/category/${categoryId}/note/${noteId}`);
+        } else {
+            this.props.history.replace(`/category/${categoryId}`);
+        }
+        if(cateId == categoryId) {
+            this.props.getArticlesByCatogoryId(categoryId);
         }
     }
     createCategory = () => {

@@ -3,33 +3,31 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { createArticle, setDetailArticle } from '@/redux/action/article';
+import { getArticlesByCatogoryId } from '@/redux/action/article';
 import Message from '@/lib/message';
 import Icon from '@/lib/icon'
 import { parseTime } from '@/service/utils';
 
 class NoteList extends React.PureComponent {
     componentWillReceiveProps(nextProps) {
-        let prevNid = this.props.match.params.nid,
+        let prevCid = this.props.match.params.cid,
+            nextCid = nextProps.match.params.cid,
+            prevNid = this.props.match.params.nid,
             nextNid = nextProps.match.params.nid;
 
-        if(prevNid != nextNid) {
-            if(nextProps.articleList.length > 0) {
-                let noteId = nextProps.articleList[0].id;
-                if(prevNid) {
-                    let inList = false;
-                    nextProps.articleList.map((item) => {
-                        if(item.id == nextNid) {
-                            inList = true;
-                        }
-                    })
-                    noteId = inList ? nextNid : noteId
-                }
-
-                this.props.history.replace(`/category/${this.props.match.params.cid}/note/${noteId}`);
-            } else {
-                Message.error('找不到记录');
-            }
+        if(prevCid != nextCid) {
+            this.props.getArticlesByCatogoryId(nextCid);
         }
+        if(this.props.articleList != nextProps.articleList && nextProps.articleList.length > 0) {
+            let noteId = nextNid ? nextNid: nextProps.articleList[0];
+            this.changeRoute(nextCid, nextProps.articleList, noteId);
+        }
+    }
+    changeRoute = (cateId, articleList, noteId) => {
+        const articleIds = articleList.map(article => article.id);
+        const article = articleList[0];
+        const articleId = articleIds.includes(noteId) ? noteId : article && article.id;
+        this.props.history.replace(`/category/${cateId}/note/${articleId}`);
     }
     createArticle = () => {
         let { categoryList, match } = this.props,
@@ -51,7 +49,7 @@ class NoteList extends React.PureComponent {
         this.props.setDetailArticle(article);
     }
     render() {
-        let { articleList, articleDetail } = this.props;
+        let { articleList, articleDetail, match } = this.props;
         return (
             <div className="side-note-wrap">
                 <div className="note-list-title">文章列表
@@ -63,7 +61,7 @@ class NoteList extends React.PureComponent {
                         return (
                             <NavLink
                                 key={article.id}
-                                to={`/category/1/note/${article.id}`}
+                                to={`/category/${match.params.cid}/note/${article.id}`}
                                 className="note-item"
                                 activeClassName="selected"
                                 onClick={() => { this.changeSelectedArticle(article);}}
@@ -101,6 +99,9 @@ export default withRouter(connect(
         },
         setDetailArticle: (article) => {
             dispatch(setDetailArticle(article));
+        },
+        getArticlesByCatogoryId: (articleId) => {
+            dispatch(getArticlesByCatogoryId(articleId));
         }
     })
 )(NoteList));
