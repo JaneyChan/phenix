@@ -8,23 +8,22 @@ import Message from '@/lib/message';
 import Icon from '@/lib/icon'
 import { parseTime } from '@/service/utils';
 
-class NoteList extends React.PureComponent {
+class ArticleList extends React.PureComponent {
     componentWillReceiveProps(nextProps) {
         let prevCid = this.props.match.params.cid,
             nextCid = nextProps.match.params.cid,
-            prevNid = this.props.match.params.nid,
             nextNid = nextProps.match.params.nid;
 
         if(prevCid != nextCid) {
             this.props.getArticlesByCatogoryId(nextCid);
         }
         if(this.props.articleList != nextProps.articleList && nextProps.articleList.length > 0) {
-            let noteId = nextNid ? nextNid: nextProps.articleList[0];
+            let noteId = nextNid ? nextNid: nextProps.articleList[0].id;
             this.changeRoute(nextCid, nextProps.articleList, noteId);
         }
     }
     changeRoute = (cateId, articleList, noteId) => {
-        const articleIds = articleList.map(article => article.id);
+        const articleIds = articleList.map(article => article.id.toString());
         const article = articleList[0];
         const articleId = articleIds.includes(noteId) ? noteId : article && article.id;
         this.props.history.replace(`/category/${cateId}/note/${articleId}`);
@@ -104,4 +103,4 @@ export default withRouter(connect(
             dispatch(getArticlesByCatogoryId(articleId));
         }
     })
-)(NoteList));
+)(ArticleList));

@@ -35,9 +35,9 @@ class Category extends PureComponent {
         });
     }
     changeRoute = (categoryList, cateId, noteId) => {
-        const cateIds = categoryList.map(category => category.id);
+        const cateIds = categoryList.map(category => category.id.toString());
         const category = categoryList[0];
-        const categoryId = cateIds.includes(cateId) ? cateId : category && category.id;
+        let categoryId = cateIds.includes(cateId) ? cateId : (category && category.id);
         if(noteId) {
             this.props.history.replace(`/category/${categoryId}/note/${noteId}`);
         } else {
@@ -54,7 +54,7 @@ class Category extends PureComponent {
         .then((res) => {
             if(res.success) {
                 let list = [...this.props.categoryList];
-                list.unshift(res.data)
+                list.push(res.data)
                 this.props.setCategoryList(list);
                 this.initDialog();
             }

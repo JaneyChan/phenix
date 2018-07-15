@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import Category from "@/components/article/side/category";
-import NoteList from "@/components/article/side/noteList";
+import ArticleList from "@/components/article/side/articleList";
 import Offside from "@/components/article/offside";
 
 import { connect } from "react-redux";
@@ -73,21 +73,28 @@ class Article extends PureComponent {
         <div className={`side-container${openDrawer ? '': ' close'}`}>
           <div className="side-panel">
             <Category />
-            <NoteList />
+            <ArticleList />
           </div>
         </div>
 
-        <Offside
-            openDrawer={openDrawer}
-            articleDetail={articleDetail}
-            handles={{
-              saveArticle: this.saveArticle,
-              changeInput: this.changeInput,
-              changeArticleContent: this.changeArticleContent,
-              toggleDrawerStatus: this.toggleDrawerStatus,
-              toggleArticlePublish: this.toggleArticlePublish
-            }}
-          />
+        {
+          articleDetail && articleDetail.id ? (
+            <Offside
+              openDrawer={openDrawer}
+              articleDetail={articleDetail}
+              handles={{
+                saveArticle: this.saveArticle,
+                changeInput: this.changeInput,
+                changeArticleContent: this.changeArticleContent,
+                toggleDrawerStatus: this.toggleDrawerStatus,
+                toggleArticlePublish: this.toggleArticlePublish
+              }}
+            />
+          ): (
+            <div>没有内容</div>
+          )
+        }
+        
       </div>
     );
   }
