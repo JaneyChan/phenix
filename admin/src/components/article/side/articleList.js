@@ -17,16 +17,22 @@ class ArticleList extends React.PureComponent {
         if(prevCid != nextCid) {
             this.props.getArticlesByCatogoryId(nextCid);
         }
-        if(this.props.articleList != nextProps.articleList && nextProps.articleList.length > 0) {
-            let noteId = nextNid ? nextNid: nextProps.articleList[0].id;
-            this.changeRoute(nextCid, nextProps.articleList, noteId);
+        if(this.props.articleList != nextProps.articleList) {
+            this.changeRoute(nextCid, nextProps.articleList, nextNid);
         }
     }
     changeRoute = (cateId, articleList, noteId) => {
-        const articleIds = articleList.map(article => article.id.toString());
+        const articleIds = articleList.map(article => article.id);
         const article = articleList[0];
         const articleId = articleIds.includes(noteId) ? noteId : article && article.id;
-        this.props.history.replace(`/category/${cateId}/note/${articleId}`);
+        if(articleId) {
+            this.props.history.replace(`/category/${cateId}/note/${articleId}`);
+            let index = articleIds.indexOf(articleId);
+            this.props.setDetailArticle(articleList[index]);
+        } else {
+            this.props.history.replace(`/category/${cateId}`);
+            this.props.setDetailArticle({});
+        }
     }
     createArticle = () => {
         let { categoryList, match } = this.props,

@@ -21,12 +21,9 @@ export const getArticlesByCatogoryId = (categoryId) => {
             categoryId
         })
         .then((res) => {
-        if(res.success) {
+          if(res.success) {
             dispatch(setArticleList(res.data));
-            if(res.data && res.data.length > 0) {
-                dispatch(setDetailArticle(res.data[0]));
-            }
-        }
+          }
         });
     };
 }

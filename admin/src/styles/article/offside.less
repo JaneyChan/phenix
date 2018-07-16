@@ -22,10 +22,12 @@
         input {
             width: 100%;
             padding: 12px 0;
+            font-size: 20px;
         }
     }
-    .offside-tool-bar {
+    .main-toolbar {
         border-bottom: 1px solid @global-border-color;
+        background: #fff;
         .bar-item {
             display: inline-block;
             cursor: pointer;
@@ -90,9 +92,34 @@
         flex: 1;
         width: 1%;
         overflow: auto;
-        box-sizing: border-box;
         padding: 30px 30px 60px 30px;
         border-left: 1px solid @global-border-color;
         background: #fcfaf2;
+    }
+    .full-screen {
+        position: fixed;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+        background: @global-light-bg-color;
+        .screen-wrap {
+            height: calc(100% - 100px);
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+        }
+        .screen-content {
+            height: 100%;
+            margin-top: 30px;
+            box-shadow: 0 5px 10px rgba(0,0,0,.1);
+        }
+        .screen-body {
+            width: 100%;
+            height: calc(100% - 110px);
+            overflow: auto;
+            margin-top: 20px;
+            padding: 0 30px;
+        }
     }
 }

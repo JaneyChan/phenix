@@ -91,7 +91,9 @@ class Article extends PureComponent {
               }}
             />
           ): (
-            <div>没有内容</div>
+            <div className="main-container">
+              <div className="empty-article"></div>
+            </div>
           )
         }
         

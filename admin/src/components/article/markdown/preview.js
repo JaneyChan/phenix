@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from "classnames";
 import marked from 'marked';
 import highlight from 'highlight.js';
-import PropTypes from 'prop-types';
 
 class MarkdownPreview extends React.PureComponent {
   constructor(props) {
@@ -25,7 +26,13 @@ class MarkdownPreview extends React.PureComponent {
 
   render() {
     const { value, className } = this.props;
-    return <div className={`markdown-preview ${className}`} dangerouslySetInnerHTML={{ __html: marked(value) }} />;
+    const classString = classNames(
+      {
+        'markdown-preview': true
+      },
+      className
+    );
+    return <div className={classString} dangerouslySetInnerHTML={{ __html: marked(value) }} />;
   }
 }
 
