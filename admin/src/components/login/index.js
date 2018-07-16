@@ -1,32 +1,41 @@
 import React, { Component } from 'react';
-import Button from '@/lib/button'
+import { withRouter } from 'react-router';
+import Button from '@/lib/button';
+import Message from '@/lib/message';
 import fetch from '@/utils/fetch';
-import { withRouter } from 'react-router'
 
 class Login extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {
       username: '',
       password: ''
-    }
+    };
   }
   login = () => {
-    let {username, password} = this.state;
+    let { username, password } = this.state;
+    if (!username.trim()) {
+      Message.warning('请输入用户名');
+      return;
+    }
+    if (!password.trim()) {
+      Message.warning('请输入密码');
+      return;
+    }
     fetch.post('/api/user/signIn', { username: username, password: password })
-        .then((res) => {
-          if(res.success) {
-            window.localStorage.setItem('me-token', res.data.token);
-            this.props.history.replace('/');
-          }
-        });
+      .then((res) => {
+        if (res.success) {
+          window.localStorage.setItem('me-token', res.data.token);
+          this.props.history.replace('/');
+        }
+      });
   }
   changeInputData = (key, e) => {
     this.setState({
       [key]: e.target.value
     });
   }
-  render() {
+  render () {
     let {username, password} = this.state;
     return (
       <div className="login-wrap">
@@ -41,15 +50,15 @@ class Login extends Component {
               onChange={(e) => { this.changeInputData('username', e); }}
             /></div>
           <div>password:
-              <input
-                type="password"
-                value={password}
-                placeholder="password"
-                className="input-field"
-                onChange={(e) => { this.changeInputData('password', e); }}
-              />
+            <input
+              type="password"
+              value={password}
+              placeholder="password"
+              className="input-field"
+              onChange={(e) => { this.changeInputData('password', e); }}
+            />
           </div>
-          <Button type="primary" onClick={this.login}>登录</Button>
+          <Button type="green" className="login-btn" onClick={this.login}>登录</Button>
         </div>
       </div>
     );
@@ -57,5 +66,3 @@ class Login extends Component {
 }
 
 export default withRouter(Login);
-
-

@@ -1,9 +1,9 @@
-import * as React from "react";
-import classNames from "classnames";
+import * as React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 const Icon = props => {
-  const { type, className = "", onClick } = props;
+  const { type, className = '', onClick } = props;
   const classString = classNames(
     {
       anticon: true,
@@ -19,7 +19,7 @@ Icon.propTypes = {
   type: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
-  spin: PropTypes.bool,
-}
+  spin: PropTypes.bool
+};
 
 export default Icon;

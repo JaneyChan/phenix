@@ -132,6 +132,12 @@ module.exports = {
         loader: 'happypack/loader?id=babel',
       },
       {
+        test: /\.(js|jsx)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [path.resolve('src'), path.resolve('test')]
+      },
+      {
         test: /\.css$/,
         // exclude: /(node_modules|bower_components)/,
         // include: [path.resolve(__dirname, 'src')],

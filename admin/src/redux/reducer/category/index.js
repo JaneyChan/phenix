@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 import list from './list';
 
 const category = combineReducers({
-    list
+  list
 });
-export default category;
 
+export default category;

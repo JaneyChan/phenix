@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from "classnames";
+import classNames from 'classnames';
 import marked from 'marked';
 import highlight from 'highlight.js';
 
 class MarkdownPreview extends React.PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props);
     // init marked
     highlight.initHighlightingOnLoad();
@@ -24,7 +24,7 @@ class MarkdownPreview extends React.PureComponent {
     });
   }
 
-  render() {
+  render () {
     const { value, className } = this.props;
     const classString = classNames(
       {

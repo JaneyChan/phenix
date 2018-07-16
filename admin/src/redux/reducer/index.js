@@ -3,7 +3,7 @@ import article from './article/index';
 import category from './category/index';
 
 const reducer = combineReducers({
-    article,
-    category
+  article,
+  category
 });
 export default reducer;

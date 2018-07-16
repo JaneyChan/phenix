@@ -1,8 +1,5 @@
 import Message from '@/lib/message';
-import {
-  HTTP_RES_MESSAGES,
-  HTTP_CODE,
-} from './config';
+import { HTTP_RES_MESSAGES, HTTP_CODE } from './config';
 import axios from 'axios';
 
 const helper = {
@@ -11,23 +8,23 @@ const helper = {
    * @param {String} String 请求地址 支持跨域
    * @return res
    */
-  get(url) {
-    let token = window.localStorage.getItem('me-token') || '';
-    return new Promise(function(resolve, reject) {
-        return  axios.get(
-          url,
-          {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              }
-          })
+  get (url) {
+    const token = window.localStorage.getItem('me-token') || '';
+    return new Promise((resolve, reject) => {
+      return axios.get(
+        url,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
         .then((res) => {
-            let data = helper.handleResponse(res);
-            resolve(data);
+          let data = helper.handleResponse(res);
+          resolve(data);
         })
         .catch((error) => {
-            let err = helper.handleError(error);
-            reject(err);
+          let err = helper.handleError(error);
+          reject(err);
         });
     });
   },
@@ -38,30 +35,29 @@ const helper = {
    * @param {Object} params 请求参数
    * @return res
    */
-  post(url, params = {}) {
+  post (url, params = {}) {
     let token = window.localStorage.getItem('me-token') || '';
-    return new Promise(function(resolve, reject) {
-        return axios.post(
-          url,
-          params,
-          {
-              headers: {
-                'Authorization': `Bearer ${token}`
-              }
-          })
+    return new Promise((resolve, reject) => {
+      return axios.post(
+        url,
+        params,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
         .then((res) => {
-            let data = helper.handleResponse(res);
-            resolve(data);
+          let data = helper.handleResponse(res);
+          resolve(data);
         })
         .catch((error) => {
-            let err = helper.handleError(error);
-            reject(err);
+          let err = helper.handleError(error);
+          reject(err);
         });
     });
-    
   },
-  //全局处理错误
-  handleError(error) {
+  // 全局处理错误
+  handleError (error) {
     let err = '';
     if (error.response) {
       const {
@@ -82,15 +78,15 @@ const helper = {
           err = data.message || HTTP_RES_MESSAGES['ERROR'];
       }
     } else {
-      err = error && error.message ? error.message : HTTP_RES_MESSAGES['ERROR']
+      err = error && error.message ? error.message : HTTP_RES_MESSAGES['ERROR'];
     }
     Message.error(err);
     return err;
   },
-  //全局处理错误
-  handleResponse({ data, status }) {
+  // 全局处理错误
+  handleResponse ({ data, status }) {
     if (status >= HTTP_CODE['SUCCESS'] && status < HTTP_CODE['NOTDONE']) {
-      if(!data.success) {
+      if (!data.success) {
         Message.error(data.message);
       }
       return data;
@@ -99,4 +95,5 @@ const helper = {
     }
   }
 };
+
 export default helper;
