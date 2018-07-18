@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { createArticle, setDetailArticle, getArticlesByCatogoryId } from '@/redux/action/article';
-import Message from '@/lib/message';
-import Icon from '@/lib/icon';
+import Message from '@/components/lib/message';
+import Icon from '@/components/lib/icon';
 import { parseTime } from '@/service/utils';
 
 class ArticleList extends React.PureComponent {

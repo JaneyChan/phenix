@@ -1,4 +1,4 @@
-import Message from '@/lib/message';
+import Message from '@/components/lib/message';
 import { HTTP_RES_MESSAGES, HTTP_CODE } from './config';
 import axios from 'axios';
 

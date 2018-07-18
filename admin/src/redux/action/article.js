@@ -1,6 +1,6 @@
 import fetch from '@/utils/fetch';
 import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants';
-import Message from '@/lib/message';
+import Message from '@/components/lib/message';
 // 获取文章列表
 export const getArticleList = () => {
   return (dispatch) => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import Button from '@/lib/button';
-import Message from '@/lib/message';
+import Button from '@/components/lib/button';
+import Message from '@/components/lib/message';
 import fetch from '@/utils/fetch';
 
 class Login extends Component {

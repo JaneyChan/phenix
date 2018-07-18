@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import Icon from '@/lib/icon';
+import Icon from '@/components/lib/icon';
 
 const ICON_TYPE = {
   info: 'info-circle',

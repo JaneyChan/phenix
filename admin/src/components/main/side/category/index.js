@@ -6,10 +6,10 @@ import { getArticlesByCatogoryId } from '@/redux/action/article';
 
 import CategoryMemu from '@/components/main/side/menu';
 
-import Dialog from '@/lib/dialog';
-import Button from '@/lib/button';
-import Input from '@/lib/input';
-import Icon from '@/lib/icon';
+import Dialog from '@/components/lib/dialog';
+import Button from '@/components/lib/button';
+import Input from '@/components/lib/input';
+import Icon from '@/components/lib/icon';
 import fetch from '@/utils/fetch';
 
 class Category extends PureComponent {
