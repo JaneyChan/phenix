@@ -38,7 +38,7 @@ class ArticleList extends React.PureComponent {
       category = {},
       categoryId = match.params.cid;
     categoryId && categoryList && categoryList.map((item) => {
-      if (item.id === match.params.cid) {
+      if (item.id.toString() === match.params.cid) {
         category = item;
       }
     });

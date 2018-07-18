@@ -4,7 +4,7 @@ import Icon from '@/lib/icon';
 
 class Toolbar extends React.PureComponent {
   render () {
-    let { openDrawer, publish, isFullscreen, handles } = this.props;
+    let { openDrawer, publish, isFullscreen, inEdit, handles } = this.props;
     return (
       <div className="main-toolbar">
         {
@@ -13,6 +13,12 @@ class Toolbar extends React.PureComponent {
           ) : null
         }
         <Icon type={isFullscreen ? 'shrink' : 'arrows-alt'} className="bar-item" onClick={handles.toggleFullScreen}/>
+        {
+          isFullscreen ? (
+            <Icon type={inEdit ? 'desktop' : 'edit'} className="bar-item" onClick={handles.toggleEditStatus} />
+          ) : null
+        }
+
         <span className="bar-item publish-btn fr" onClick={handles.toggleArticlePublish}>
           <Icon type={publish ? 'lock' : 'unlock'} />
           { publish ? '转为私密' : '公开文章'}
@@ -25,11 +31,13 @@ class Toolbar extends React.PureComponent {
 }
 
 Toolbar.propTypes = {
-  isFullscreen: PropTypes.bool.isRequired
+  isFullscreen: PropTypes.bool.isRequired,
+  inEdit: PropTypes.bool.isRequired
 };
 
 Toolbar.defaultProps = {
-  status: 'normal'
+  isFullscreen: false,
+  inEdit: true
 };
 
 export default Toolbar;

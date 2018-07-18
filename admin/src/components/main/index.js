@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import Category from '@/components/article/side/category';
-import ArticleList from '@/components/article/side/articleList';
-import Offside from '@/components/article/offside';
+import Category from '@/components/main/side/category';
+import ArticleList from '@/components/main/side/article';
+import Offside from '@/components/main/offside';
 
 import { connect } from 'react-redux';
 import { updateArticle } from '@/redux/action/article';

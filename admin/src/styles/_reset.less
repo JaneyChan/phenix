@@ -11,61 +11,64 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 14px;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 14px;
+  box-sizing: border-box;
 }
-	
+  
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
-	display: block;
+  display: block;
 }
 blockquote, q {
-	quotes: none;
+  quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+  content: '';
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 html, body {
-	height: 100%;
-	font-size: 14px;
+  height: 100%;
+  font-size: 14px;
 }
 a, button, input, select, textarea {
-    border: 0;
-    outline: none;
+  border: 0;
+  outline: none;
+}
+ul {
+  list-style: none;
 }
 * {
-	font-size: 14px;
+  font-size: 14px;
 }
 // 重置input、textarea的 placeholder颜色
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-    color: @font-color-hint;
+  color: @font-color-hint;
 }
 input:-moz-placeholder, textarea:-moz-placeholder {
-    color: @font-color-hint;
+  color: @font-color-hint;
 }
 input::-moz-placeholder, textarea::-moz-placeholder {
-    color: @font-color-hint;
+  color: @font-color-hint;
 }
 input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-    color: @font-color-hint;
+  color: @font-color-hint;
 }
 input:-webkit-autofill { 
-    -webkit-box-shadow: 0 0 0px 1000px white inset; 
+  -webkit-box-shadow: 0 0 0px 1000px white inset; 
 }
 
 #root {
-    height: 100%;
-    width: 100%;
-    min-height: 550px;
-    overflow: auto;
+  height: 100%;
+  width: 100%;
+  min-height: 550px;
+  overflow: auto;
 }

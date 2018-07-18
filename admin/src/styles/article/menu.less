@@ -1,0 +1,56 @@
+@keyframes openChapter {
+  0% {
+    transform: translatey(-10px)
+  }
+  100% {
+    transform: translatey(-0px)
+  }
+}
+
+@-webkit-keyframes openChapter /*Safari and Chrome*/ {
+  0% {
+    transform: translatey(-10px)
+  }
+  100% {
+    transform: translatey(0px)
+  }
+}
+
+.menu-wrap {
+  z-index: @zindex-menu;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  .menu-mask {
+    height: 100%;
+    width: 100%;
+  }
+  .menu-list {
+    position: fixed;
+    width: 140px;
+    padding: 12px 0;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(6, 31, 50, 0.3);
+    -webkit-box-shadow: 0 4px 12px rgba(6, 31, 50, 0.3);
+    -moz-shadow: 0 4px 12px rgba(6, 31, 50, 0.3);
+    -o-shadow: 0 4px 12px rgba(6, 31, 50, 0.3);
+    animation: openChapter 0.5s;
+  }
+  .menu-option {
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 8px 20px;
+    height: 30px;
+    font-size: 14px;
+    color: @font-color-secondary;
+    display: flex;
+    align-items: center;
+  }
+  .menu-icon {
+    margin-right: 8px;
+  }
+}

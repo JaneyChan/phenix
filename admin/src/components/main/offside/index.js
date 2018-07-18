@@ -8,16 +8,23 @@ class Offside extends React.PureComponent {
   constructor (props) {
     super(props);
     this.state = {
-      fullScreen: false
+      fullScreen: false,
+      inEdit: true
     };
   }
   toggleFullScreen = () => {
     this.setState({
-      fullScreen: !this.state.fullScreen
+      fullScreen: !this.state.fullScreen,
+      inEdit: true
+    });
+  }
+  toggleEditStatus = () => {
+    this.setState({
+      inEdit: !this.state.inEdit
     });
   }
   render () {
-    let { articleDetail, handles, openDrawer } = this.props, { fullScreen } = this.state;
+    let { articleDetail, handles, openDrawer } = this.props, { fullScreen, inEdit } = this.state;
     return (
       <div className="main-container">
         {
@@ -25,36 +32,48 @@ class Offside extends React.PureComponent {
             <div className="full-screen">
               <Toolbar
                 isFullscreen={fullScreen}
+                inEdit={inEdit}
                 openDrawer={openDrawer}
                 publish={articleDetail.publish}
                 handles={{
                   toggleDrawerStatus: handles.toggleDrawerStatus,
                   toggleFullScreen: this.toggleFullScreen,
+                  toggleEditStatus: this.toggleEditStatus,
                   toggleArticlePublish: handles.toggleArticlePublish,
                   saveArticle: handles.saveArticle
                 }}
               />
-              <div className="screen-wrap">
-                <div className="screen-content">
-                  <div className="offside-title">
-                    <input
-                      type="text"
-                      placeholder="文章名称"
-                      value={articleDetail.title || ''}
-                      autoFocus
-                      onChange={handles.changeInput}
-                    />
-                  </div>
-                  <MarkdownPreview
-                    className="screen-body"
-                    value={articleDetail.content || ''}
-                  />
-                  <MarkdownEditor
-                    className="screen-body"
-                    value={articleDetail.content || ''}
-                    onChange={(e) => handles.changeArticleContent(e.target.value)}
-                  />
-                </div>
+              <div className={`screen-wrap${fullScreen && !inEdit ? ' screen-preview' : ''}`}>
+                {
+                  inEdit ? (
+                    <div className="screen-content">
+                      <div className="offside-title">
+                        <input
+                          type="text"
+                          placeholder="文章名称"
+                          value={articleDetail.title || ''}
+                          autoFocus
+                          onChange={handles.changeInput}
+                        />
+                      </div>
+                      <MarkdownEditor
+                        className="screen-body"
+                        value={articleDetail.content || ''}
+                        onChange={(e) => handles.changeArticleContent(e.target.value)}
+                      />
+                    </div>
+                  ) : (
+                    <div className="screen-content">
+                      <div className="offside-title">
+                        <div className="preview-title">{articleDetail.title || ''}</div>
+                      </div>
+                      <MarkdownPreview
+                        className="screen-body"
+                        value={articleDetail.content || ''}
+                      />
+                    </div>
+                  )
+                }
               </div>
             </div>
           ) : (
@@ -74,9 +93,11 @@ class Offside extends React.PureComponent {
                   openDrawer={openDrawer}
                   publish={articleDetail.publish}
                   isFullscreen={fullScreen}
+                  inEdit={inEdit}
                   handles={{
                     toggleDrawerStatus: handles.toggleDrawerStatus,
                     toggleFullScreen: this.toggleFullScreen,
+                    toggleEditStatus: this.toggleEditStatus,
                     toggleArticlePublish: handles.toggleArticlePublish,
                     saveArticle: handles.saveArticle
                   }}

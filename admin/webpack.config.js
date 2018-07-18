@@ -3,13 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //html
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //css压缩
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //多线程压缩
 const ExtendedDefinePlugin = require('extended-define-webpack-plugin'); //全局变量
-
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin'); //压缩插件
-
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin; //视图分析webpack情况
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //多线程压缩
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //视图分析webpack情况
 
 
 const HappyPack = require('happypack'); //多线程运行
@@ -29,7 +26,7 @@ const plugins = [
     template: `${__dirname}/src/index.html`, //源html
     inject: 'body',   //注入到哪里
     filename: 'index.html', //输出后的名称
-    hash: true, //为静态资源生成hash值
+    hash: true //为静态资源生成hash值
   }),
   new MiniCssExtractPlugin({        //css添加hash
     filename: '[name]-[hash].css',
@@ -37,34 +34,34 @@ const plugins = [
   }),
   new HappyPack({      //多线程运行 默认是电脑核数-1
     id: 'babel', //对于loaders id
-    loaders: ['babel-loader?cacheDirectory'], //是用babel-loader解析
-  }),
-]
+    loaders: ['babel-loader?cacheDirectory'] //是用babel-loader解析
+  })
+];
 const configDev = {
   plugins: plugins.concat(
     new ExtendedDefinePlugin({  //全局变量
-      __LOCAL__: true,
+      __LOCAL__: true
     }),
-  ),
+  )
 };
 const configPro = {
   plugins: plugins.concat(
     // new UglifyJsPlugin({ sourceMap: true }), //压缩，生成map
-    new ExtendedDefinePlugin({   //全局变量
-      __LOCAL__: false,
+    new ExtendedDefinePlugin({   // 全局变量
+      __LOCAL__: false
     }),
-    new ParallelUglifyPlugin({  //默认启用计算器当前cup-1,运行进程
+    new ParallelUglifyPlugin({  // 默认启用计算器当前cup-1,运行进程
       cacheDir: '.cache/',
       sourceMap:true,
       uglifyJS:{ 
         output: {
           beautify:false,  //
-          comments: false  //删除注释,
+          comments: false  // 删除注释,
         },
         compress: {
-          warnings: false,  //删除没用的代码不警告
-          drop_console:true, //删除console
-          reduce_vars:true, //提取出现多次但是没有定义成变量去引用的静态资源
+          warnings: false,  // 删除没用的代码不警告
+          drop_console: true, // 删除console
+          reduce_vars: true // 提取出现多次但是没有定义成变量去引用的静态资源
         }
       }
     }),
@@ -80,7 +77,7 @@ const configPro = {
     //   statsOptions: null,
     //   logLevel: 'info',
     // }),
-  ),
+  )
 
 };
 const config = env == 'development' ? configDev : configPro;
@@ -101,7 +98,7 @@ module.exports = {
   performance: {
     maxEntrypointSize: 250000,  //入口文件大小，性能指示
     maxAssetSize: 250000,  //生成的最大文件
-    hints: false,    //依赖过大是否错误提示
+    hints: false    //依赖过大是否错误提示
     // assetFilter: function(assetFilename) {
     //   return assetFilename.endsWith('.js');
     // }
@@ -113,13 +110,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),  //出口路径
     filename: '[id].[hash].js',     //出口文件名称
     chunkFilename: '[id][hash].js',  //按需加载名称
-    publicPath: '/',   //公共路径
+    publicPath: '/'   //公共路径
   },
   resolve: {
     mainFields: ['jsnext:main', 'browser', 'main'], //npm读取先后方式  jsnext:main 是采用es6模块写法
     alias: {
-			'@': path.resolve(__dirname, 'src'),
-		}
+      '@': path.resolve(__dirname, 'src')
+    }
   },
   module: {
     noParse: /node_modules\/(moment\.js)/,  //不解析
@@ -147,10 +144,10 @@ module.exports = {
             loader: 'css-loader',
             options: {
               minimize: env == 'development',  //压缩
-              sourceMap: env == 'development',  //map
-            },
-          },
-        ],
+              sourceMap: env == 'development'  //map
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpg|gif|jpeg|ttf|svg|eot|woff)$/,
@@ -160,10 +157,10 @@ module.exports = {
           {
             loader: 'url-loader?limit=81920',   //limit 图片大小的衡量，进行base64处理
             options: {
-              name: '[path][name].[ext]',
-            },
-          },
-        ],
+              name: '[path][name].[ext]'
+            }
+          }
+        ]
       },
       {
         test: /\.less/,
@@ -172,10 +169,10 @@ module.exports = {
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
-          { loader: 'less-loader' },
-        ],
+          { loader: 'less-loader' }
+        ]
       }
-    ],
+    ]
   },
-  plugins: config.plugins,
+  plugins: config.plugins
 };
