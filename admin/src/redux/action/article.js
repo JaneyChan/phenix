@@ -1,6 +1,6 @@
 import fetch from '@/utils/fetch';
 import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants';
-import Message from '@/components/lib/message';
+import { Message } from '@/components/lib';
 // 获取文章列表
 export const getArticleList = () => {
   return (dispatch) => {
@@ -12,6 +12,10 @@ export const getArticleList = () => {
             dispatch(setDetailArticle(res.data[0]));
           }
         }
+      })
+      .catch(() => {
+        dispatch(setArticleList([]));
+        dispatch(setDetailArticle({}));
       });
   };
 };
@@ -37,7 +41,7 @@ export const createArticle = (categoryId) => {
     })
       .then((res) => {
         if (res.success) {
-          let list = getState().article.list;
+          let list = getState().article.list.data;
           list.push(res.data);
           dispatch(setArticleList(list));
           dispatch(setDetailArticle(res.data));
@@ -52,7 +56,7 @@ export const updateArticle = (article) => {
       .then((res) => {
         if (res.success) {
           Message.success('保存文章成功');
-          let list = getState().article.list;
+          let list = getState().article.list.data;
           for (let i = 0; i < list.length; i++) {
             if (list[i].id === article.id) {
               list[i] = article;
@@ -68,7 +72,10 @@ export const updateArticle = (article) => {
 export const setArticleList = (list) => {
   return {
     type: SET_ARTICLE_LIST,
-    articleList: list
+    data: {
+      isEnd: true,
+      articleList: list
+    }
   };
 };
 

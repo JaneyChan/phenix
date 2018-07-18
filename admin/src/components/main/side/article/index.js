@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { createArticle, setDetailArticle, getArticlesByCatogoryId } from '@/redux/action/article';
-import Message from '@/components/lib/message';
-import Icon from '@/components/lib/icon';
+import { Icon, Message } from '@/components/lib';
 import { parseTime } from '@/service/utils';
 
 class ArticleList extends React.PureComponent {
@@ -94,7 +93,7 @@ class ArticleList extends React.PureComponent {
 export default withRouter(connect(
   (state) => ({
     categoryList: state.category.list,
-    articleList: state.article.list,
+    articleList: state.article.list.data,
     articleDetail: state.article.detail
   }),
   (dispatch) => ({

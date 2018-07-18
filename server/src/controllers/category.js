@@ -64,9 +64,7 @@ class CategoryController {
             code: handle.code.FAIL_CATEGORY_UPDATE
         }
         let categoryResult = await categoryModal.updateCategory({
-            title: formData.title,
-            publish: parseInt(formData.publish) || 0,
-            content: formData.content,
+            name: formData.name,
             updateTime: new Date().getTime(),
         }, formData.id)
 

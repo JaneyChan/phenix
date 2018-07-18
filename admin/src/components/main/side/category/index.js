@@ -5,13 +5,13 @@ import { setCategoryList } from '@/redux/action/category';
 import { getArticlesByCatogoryId } from '@/redux/action/article';
 
 import CategoryMemu from '@/components/main/side/menu';
-
-import Dialog from '@/components/lib/dialog';
-import Button from '@/components/lib/button';
-import Input from '@/components/lib/input';
-import Icon from '@/components/lib/icon';
+import { Dialog, Input, Icon } from '@/components/lib';
 import fetch from '@/utils/fetch';
 
+const DIALOG = {
+  CREATE: '创建分类',
+  UPDATE: '编辑分类'
+};
 class Category extends PureComponent {
   constructor (props) {
     super(props);
@@ -69,11 +69,32 @@ class Category extends PureComponent {
         }
       });
   }
-  initDialog = (open = false) => {
+  updateCategory = () => {
+    let { dialog } = this.state;
+    let data = {
+      name: dialog.cateName,
+      id: dialog.id
+    };
+    fetch.post('/api/category/update', data)
+      .then(() => {
+        let list = [...this.props.categoryList];
+        for (let i = 0; i < list.length; i++) {
+          let category = list[i];
+          if (category.id === data.id) {
+            category.name = data.name;
+          }
+        }
+        this.props.setCategoryList(list);
+        this.initDialog();
+      });
+  }
+  initDialog = (open = false, type = DIALOG.CREATE, category = {}) => {
     this.setState({
       dialog: {
         open,
-        cateName: ''
+        type: type,
+        id: category.id,
+        cateName: category.id ? category.name : ''
       }
     });
   }
@@ -100,6 +121,17 @@ class Category extends PureComponent {
       hoverCateItem: ''
     });
   }
+  _submitActions = () => {
+    let { dialog } = this.state;
+    switch (dialog.type) {
+      case DIALOG.CREATE:
+        this.createCategory();
+        break;
+      case DIALOG.UPDATE:
+        this.updateCategory();
+        break;
+    }
+  }
   // 右键菜单设置
   showContextMenu = (e, category) => {
     e = e || window.event;
@@ -109,7 +141,7 @@ class Category extends PureComponent {
       label: '编辑分类',
       icon: 'edit',
       onClick: () => {
-        console.log('编辑分类');
+        this.initDialog(true, DIALOG.UPDATE, category);
       }
     }, {
       label: '删除分类',
@@ -189,15 +221,17 @@ class Category extends PureComponent {
             />
           ) : null
         }
-
-        <Dialog open={dialog.open} className="category-modal">
-          <Icon type="close" className="close-btn"/>
+        <Dialog
+          open={dialog.open}
+          title={dialog.type}
+          onOk={this._submitActions}
+          onCancel={this.initDialog}
+        >
           <Input
             value={dialog.cateName || ''}
             placeholder="请输入分类名"
             onChange={this.changeInputValue}
           />
-          <Button type="green" onClick={this.createCategory} className="category-add-btn">我是按钮</Button>
         </Dialog>
       </div>
     );

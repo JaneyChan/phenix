@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '@/components/lib/icon';
+import { Icon } from '@/components/lib';
 
 class Toolbar extends React.PureComponent {
   render () {

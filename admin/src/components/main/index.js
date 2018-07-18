@@ -67,7 +67,7 @@ class Article extends PureComponent {
     this.props.updateArticle({...articleDetail, publish: articleDetail.publish ? 0 : 1});
   }
   render () {
-    let { openDrawer, articleDetail } = this.state;
+    let { isEnd } = this.props, { openDrawer, articleDetail } = this.state;
     return (
       <div className="container">
         <div className={`side-container${openDrawer ? '' : ' close'}`}>
@@ -90,11 +90,14 @@ class Article extends PureComponent {
                 toggleArticlePublish: this.toggleArticlePublish
               }}
             />
-          ) : (
+          ) : null
+        }
+        {
+          isEnd && !articleDetail.id ? (
             <div className="main-container">
               <div className="empty-article"></div>
             </div>
-          )
+          ) : null
         }
       </div>
     );
@@ -103,6 +106,7 @@ class Article extends PureComponent {
 
 export default connect(
   state => ({
+    isEnd: state.article.list.isEnd,
     articleDetail: state.article.detail
   }),
   dispatch => ({

@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '@/components/lib/icon';
+import { Icon } from '@/components/lib';
 
 class Menu extends React.PureComponent {
   render () {
