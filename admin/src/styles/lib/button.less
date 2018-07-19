@@ -10,8 +10,9 @@
     text-align: center;
     border-radius: 4px;
     -webkit-app-region: no-drag;
-    background-color: @global-light-bg-color;
     color: @font-color-secondary;
+    background-color: @btn-default;
+    box-shadow: @shadow-btn-default;
     &:hover {
         color: @font-color-primary;
     }
@@ -20,8 +21,18 @@
     height: 32px;
 }
 .btn-green {
-    background-color: @theme-primary;
     color: #fff;
+    background-color: @btn-green;
+    box-shadow: @shadow-btn-green;
+    &:hover {
+        color: #fff;
+        opacity: 0.9;
+    }
+}
+.btn-danger {
+    color: #fff;
+    background-color: @btn-danger;
+    box-shadow: @shadow-btn-danger;
     &:hover {
         color: #fff;
         opacity: 0.9;

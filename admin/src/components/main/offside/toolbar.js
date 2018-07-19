@@ -23,7 +23,7 @@ class Toolbar extends React.PureComponent {
           <Icon type={publish ? 'lock' : 'unlock'} />
           { publish ? '转为私密' : '公开文章'}
         </span>
-        <Icon type="delete" className="bar-item fr" onClick={handles.saveArticle}/>
+        <Icon type="delete" className="bar-item fr" onClick={handles.deleteArticle}/>
         <Icon type="save" className="bar-item fr" onClick={handles.saveArticle}/>
       </div>
     );

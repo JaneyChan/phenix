@@ -17,9 +17,9 @@
   .dialog-container {
     position: absolute;
     left: 50%;
-    top: 20%;
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     background: #fff;
     border-radius: @border-radius-base;
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
@@ -58,6 +58,44 @@
     text-align: right;
     button + button {
       margin-left: 8px;
+    }
+  }
+  .confirm-body {
+    .confirm-body__header {
+      display: flex;
+      align-items: start;
+      .anticon {
+        flex-shrink: 0;
+        font-size: 22px;
+        margin-right: 12px;
+        &.anticon-question-circle {
+          color: @warning-color;
+        }
+        &.anticon-info-circle {
+          color: @info-color;
+        }
+        &.anticon-check-circle {
+          color: @success-color;
+        }
+        &.anticon-exclamation-circle {
+          color: @warning-color;
+        }
+        &.anticon-cross-circle {
+          color: @error-color;
+        }
+        
+      }
+      .confirm-title {
+        color: @font-color-primary;
+        line-height: 1.35;
+        font-size: 16px;
+      }
+    }
+    .confirm-body__content {
+      color: #8e8e8e;
+      margin-left: 35px;
+      margin-top: 8px;
+      line-height: 1.35;
     }
   }
 }

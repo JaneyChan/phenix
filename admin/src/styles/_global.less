@@ -1,35 +1,45 @@
 
-@theme-primary          : #42b983; // 主题色
-@font-color-headline    : #2c3e50; // 标题色
-@font-color-primary     : #34495e; // 段落主文本色
-@font-color-secondary   : #7f8c8d; // 辅助色
-@font-color-hint        : #b2c0c8; // 提示色
-@font-color-gray        : #8a8c8d; // 灰色
+@theme-primary              : #42b983; // 主题色
+@font-color-headline        : #2c3e50; // 标题色
+@font-color-primary         : #34495e; // 段落主文本色
+@font-color-secondary       : #7f8c8d; // 辅助色
+@font-color-hint            : #b2c0c8; // 提示色
+@font-color-gray            : #8a8c8d; // 灰色
 
-@global-dark-bg-color   : #2e3235; // 背景颜色
-@global-light-bg-color  : #f4f4f4; // 浅色背景
-@global-border-color    : #f0f0f0;
+@global-dark-bg-color       : #2e3235; // 背景颜色
+@global-light-bg-color      : #f4f4f4; // 浅色背景
+@global-border-color        : #f0f0f0;
 
-@info-color             : #1890ff;
-@success-color          : @theme-primary;
-@error-color            : #f5222d;
-@warning-color          : #faad14;
+@info-color                 : #1890ff;
+@success-color              : @theme-primary;
+@error-color                : #ff606c;
+@warning-color              : #faad14;
 
-@border-radius-base     : 4px;
+
+// Button Background
+@btn-default                : @global-light-bg-color; // 默认
+@btn-green                  : @theme-primary; // 绿色
+@btn-danger                 : @error-color; // 红色
+// Button Shadow
+@shadow-btn-default         : 0 4px 12px rgba(244, 244, 244, 0.3); // 默认
+@shadow-btn-green           : 0 4px 12px rgba(66, 185, 131, 0.3); // 绿色
+@shadow-btn-danger          : 0 4px 12px rgba(255, 96, 108, 0.3); // 红色
+// Shadow
+@shadow-color               : rgba(0, 0, 0, .15);
+@shadow-primary                   : 0 4px 12px @shadow-color;
+
+// radius
+@border-radius-base         : 4px;
 
 // FontSize
-@font-size-base         : 14px;
-@font-size-lg           : 16px;
-@font-size-sm           : 12px;
+@font-size-base             : 14px;
+@font-size-lg               : 16px;
+@font-size-sm               : 12px;
 
 // ICONFONT
-@iconfont-css-prefix    : anticon;
-
-// Shadow
-@shadow-color           : rgba(0, 0, 0, .15);
-@shadow-2               : 0 4px 12px @shadow-color;
+@iconfont-css-prefix        : anticon;
 
 // z-index list
-@zindex-message         : 1010;
-@zindex-modal           : 1000;
-@zindex-menu            : 900;
+@zindex-message             : 1010;
+@zindex-modal               : 1000;
+@zindex-menu                : 900;

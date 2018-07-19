@@ -1,0 +1,37 @@
+.notfound-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    .nf-box {
+        position: absolute;
+        left: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        .nf-bg {
+            width: 420px;
+            height: 300px;
+            background: url('../images/404.png') center / contain no-repeat;
+            background-size: 100%;
+        }
+        .ng-footer {
+            text-align: center;
+            margin-top: 35px;
+            p {
+                font-size: 22px;
+                color: @font-color-headline;
+            }
+            a {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 30px;
+                border-radius: 20px;
+                background: @theme-primary;
+                color: #fff;
+                box-shadow: @shadow-btn-green;
+            }
+        }
+    }
+}

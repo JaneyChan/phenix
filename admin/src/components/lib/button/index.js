@@ -4,12 +4,12 @@ import classNames from 'classnames';
 
 /**
  * 组件props属性说明
- * @param type ['green', 'default']分别为绿色按钮，默认白灰色按钮
+ * @param type ['green', 'danger', 'default']分别为绿色按钮, 红色，默认白灰色按钮
  * @param size ['middle', 'small']分别为按钮高度为40px、32px
  */
 class Button extends PureComponent {
   static propTypes = {
-    type: PropTypes.oneOf(['green', 'default']),
+    type: PropTypes.oneOf(['green', 'danger', 'default']),
     size: PropTypes.oneOf(['middle', 'small']),
     onClick: PropTypes.func,
     className: PropTypes.string

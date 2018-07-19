@@ -3,6 +3,7 @@ import React from 'react';
 import MarkdownPreview from '../markdown/preview';
 import MarkdownEditor from '../markdown/editor';
 import Toolbar from './toolbar';
+import { Dialog } from '@/components/lib';
 
 class Offside extends React.PureComponent {
   constructor (props) {
@@ -23,26 +24,43 @@ class Offside extends React.PureComponent {
       inEdit: !this.state.inEdit
     });
   }
+  showConfrimDeleteDialog = () => {
+    Dialog.confirm({
+      title: '你确定要删除该文章?',
+      okType: 'danger',
+      onOk: () => {
+        console.log('OK');
+      },
+      onCancel: () => {
+        console.log('Cancel');
+      }
+    });
+  }
   render () {
     let { articleDetail, handles, openDrawer } = this.props, { fullScreen, inEdit } = this.state;
+
+    const toolbarPanel = (
+      <Toolbar
+        isFullscreen={fullScreen}
+        inEdit={inEdit}
+        openDrawer={openDrawer}
+        publish={articleDetail.publish}
+        handles={{
+          toggleDrawerStatus: handles.toggleDrawerStatus,
+          toggleFullScreen: this.toggleFullScreen,
+          toggleEditStatus: this.toggleEditStatus,
+          toggleArticlePublish: handles.toggleArticlePublish,
+          saveArticle: handles.saveArticle,
+          deleteArticle: this.showConfrimDeleteDialog
+        }}
+      />
+    );
     return (
       <div className="main-container">
         {
           fullScreen ? (
             <div className="full-screen">
-              <Toolbar
-                isFullscreen={fullScreen}
-                inEdit={inEdit}
-                openDrawer={openDrawer}
-                publish={articleDetail.publish}
-                handles={{
-                  toggleDrawerStatus: handles.toggleDrawerStatus,
-                  toggleFullScreen: this.toggleFullScreen,
-                  toggleEditStatus: this.toggleEditStatus,
-                  toggleArticlePublish: handles.toggleArticlePublish,
-                  saveArticle: handles.saveArticle
-                }}
-              />
+              {toolbarPanel}
               <div className={`screen-wrap${fullScreen && !inEdit ? ' screen-preview' : ''}`}>
                 {
                   inEdit ? (
@@ -88,21 +106,9 @@ class Offside extends React.PureComponent {
                     onChange={handles.changeInput}
                   />
                 </div>
-
-                <Toolbar
-                  openDrawer={openDrawer}
-                  publish={articleDetail.publish}
-                  isFullscreen={fullScreen}
-                  inEdit={inEdit}
-                  handles={{
-                    toggleDrawerStatus: handles.toggleDrawerStatus,
-                    toggleFullScreen: this.toggleFullScreen,
-                    toggleEditStatus: this.toggleEditStatus,
-                    toggleArticlePublish: handles.toggleArticlePublish,
-                    saveArticle: handles.saveArticle
-                  }}
-                />
+                {toolbarPanel}
               </div>
+
               <div className="offside-content">
                 <MarkdownEditor
                   value={articleDetail.content || ''}
