@@ -5,12 +5,17 @@ import { Icon } from '@/components/lib';
 
 const ConfirmDialog = (props) => {
   const iconType = props.iconType || 'question-circle';
+  const { onCancel, close } = props;
+
   return (
     <Dialog
       visible={open}
       title=""
       closable={false}
-      onCancel={() => { }}
+      onCancel={() => {
+        onCancel && typeof onCancel === 'function' && onCancel();
+        close({ tiggerCancel: true });
+      }}
       okType={props.okType}
     >
       <div className="confirm-body">
@@ -28,8 +33,24 @@ export default function confirm (config) {
   let confirmDiv = document.createElement('div');
   document.body.appendChild(confirmDiv);
 
+  function close (...args) {
+    destroy(...args);
+  }
+
+  function destroy (...args) {
+    const unmountResult = ReactDOM.unmountComponentAtNode(confirmDiv);
+    if (unmountResult && confirmDiv.parentNode) {
+      confirmDiv.parentNode.removeChild(confirmDiv);
+    }
+    const triggerCancel = args && args.length &&
+      args.some(param => param && param.triggerCancel);
+    if (config.onCancel && triggerCancel) {
+      config.onCancel(...args);
+    }
+  }
+
   function render (props) {
     ReactDOM.render(<ConfirmDialog {...props} />, confirmDiv);
   }
-  render({ ...config, visible: true });
+  render({ ...config, visible: true, close });
 }

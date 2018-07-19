@@ -28,12 +28,8 @@ class Offside extends React.PureComponent {
     Dialog.confirm({
       title: '你确定要删除该文章?',
       okType: 'danger',
-      onOk: () => {
-        console.log('OK');
-      },
-      onCancel: () => {
-        console.log('Cancel');
-      }
+      onOk: () => {},
+      onCancel: () => {}
     });
   }
   render () {

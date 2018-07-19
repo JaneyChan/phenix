@@ -173,12 +173,8 @@ class Category extends PureComponent {
     Dialog.confirm({
       title: '你确定要删除该分类?',
       okType: 'danger',
-      onOk: () => {
-        console.log('OK');
-      },
-      onCancel: () => {
-        console.log('Cancel');
-      }
+      onOk: () => {},
+      onCancel: () => {}
     });
   }
   render () {
