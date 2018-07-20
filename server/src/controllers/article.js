@@ -4,27 +4,6 @@ const utils = require('../utils/common');
 
 class ArticleController {
   /**
-   * 获取文章列表
-   * @param {*} ctx 
-   */
-  static async getArticles(ctx) {
-    let result = {
-      success: false,
-      message: '',
-      data: [],
-      code: '0'
-    };
-    let articleResult = await articleModel.getArticles();
-
-    if (articleResult) {
-      result.success = true;
-      result.message = '';
-      result.data = articleResult;
-    }
-    ctx.body = result;
-  }
-
-  /**
    * 根据文章分类获取文章列表
    * @param {*} ctx 
    */

@@ -3,25 +3,12 @@ const dbUtils = require('../utils/db');
 class ArticleModal {
   /**
    * 查询文章列表
-   * @return {Array}         查找结果
-   */
-  static async getArticles() {
-    let result = await dbUtils.select('article', '*')
-    if ( Array.isArray(result) && result.length > 0 ) {
-      result = result
-    } else {
-      result = []
-    }
-    return result
-  }
-
-  /**
-   * 查询文章列表
-   * @return {Array}         查找结果
+   * @param {Number} categoryId    分类ID
+   * @return {Array} result        查找结果
    */
   static async getArticlesByCategoryId(categoryId) {
-    let _sql = "SELECT * FROM ?? WHERE categoryId = ? "
-    let result = await dbUtils.query(_sql, ['article', categoryId])
+    let _sql = "SELECT * FROM ?? WHERE categoryId = ? and inTrash = ? "
+    let result = await dbUtils.query(_sql, ['article', categoryId, 0])
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {
@@ -49,7 +36,8 @@ class ArticleModal {
 
   /**
    * 修改文章
-   * @param {*} model 
+   * @param {Object} model     要修改的文章内容
+   * @param {id} id            文章ID
    */
   static async updateArticle( model, id ) {
     await dbUtils.updateData( 'article', model, id);
@@ -58,7 +46,7 @@ class ArticleModal {
   }
   /**
    * 根据文章Id获取文章内容
-   * @param {*} id 文章id
+   * @param {Number} id       文章ID
    */
   static async getArticleById( id ) {
     let result = null;
@@ -67,6 +55,14 @@ class ArticleModal {
       result = res[0];
     }
     return result;
+  }
+  /**
+   * 根据ID删除文章内容
+   * @param {Number} id       文章ID
+   */
+  static async deleteArticleById( id ) {
+    let res = await dbUtils.deleteDataById('article', id);
+    return res;
   }
 }
 
