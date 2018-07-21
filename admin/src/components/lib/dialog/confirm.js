@@ -5,7 +5,7 @@ import { Icon } from '@/components/lib';
 
 const ConfirmDialog = (props) => {
   const iconType = props.iconType || 'question-circle';
-  const { onCancel, close } = props;
+  const { onCancel, onOk, close } = props;
 
   return (
     <Dialog
@@ -14,6 +14,10 @@ const ConfirmDialog = (props) => {
       closable={false}
       onCancel={() => {
         onCancel && typeof onCancel === 'function' && onCancel();
+        close({ tiggerCancel: true });
+      }}
+      onOk={() => {
+        onOk && typeof onOk === 'function' && onOk();
         close({ tiggerCancel: true });
       }}
       okType={props.okType}

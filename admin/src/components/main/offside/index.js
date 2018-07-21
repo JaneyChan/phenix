@@ -4,6 +4,7 @@ import MarkdownPreview from '../markdown/preview';
 import MarkdownEditor from '../markdown/editor';
 import Toolbar from './toolbar';
 import { Dialog } from '@/components/lib';
+import fetch from '@/utils/fetch';
 
 class Offside extends React.PureComponent {
   constructor (props) {
@@ -24,13 +25,25 @@ class Offside extends React.PureComponent {
       inEdit: !this.state.inEdit
     });
   }
-  showConfrimDeleteDialog = () => {
+  showConfrimDeleteDialog = (category) => {
     Dialog.confirm({
       title: '你确定要删除该文章?',
+      content: '删除后可在回车站找回。',
       okType: 'danger',
-      onOk: () => {},
+      onOk: () => {
+        console.log('删除');
+        this.pushArticleIntrash(category);
+      },
       onCancel: () => {}
     });
+  }
+  pushArticleIntrash = (category) => {
+    fetch.post('/api/article/trash', { id: category.id })
+      .then((res) => {
+        if (res.success) {
+          console.log('删除成功');
+        }
+      });
   }
   render () {
     let { articleDetail, handles, openDrawer } = this.props, { fullScreen, inEdit } = this.state;
@@ -40,7 +53,7 @@ class Offside extends React.PureComponent {
         isFullscreen={fullScreen}
         inEdit={inEdit}
         openDrawer={openDrawer}
-        publish={articleDetail.publish}
+        article={articleDetail}
         handles={{
           toggleDrawerStatus: handles.toggleDrawerStatus,
           toggleFullScreen: this.toggleFullScreen,

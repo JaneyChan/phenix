@@ -4,7 +4,7 @@ import { Icon } from '@/components/lib';
 
 class Toolbar extends React.PureComponent {
   render () {
-    let { openDrawer, publish, isFullscreen, inEdit, handles } = this.props;
+    let { openDrawer, article, isFullscreen, inEdit, handles } = this.props;
     return (
       <div className="main-toolbar">
         {
@@ -20,10 +20,10 @@ class Toolbar extends React.PureComponent {
         }
 
         <span className="bar-item publish-btn fr" onClick={handles.toggleArticlePublish}>
-          <Icon type={publish ? 'lock' : 'unlock'} />
-          { publish ? '转为私密' : '公开文章'}
+          <Icon type={article.publish ? 'lock' : 'unlock'} />
+          { article.publish ? '转为私密' : '公开文章'}
         </span>
-        <Icon type="delete" className="bar-item fr" onClick={handles.deleteArticle}/>
+        <Icon type="delete" className="bar-item fr" onClick={() => { handles.deleteArticle(article); }}/>
         <Icon type="save" className="bar-item fr" onClick={handles.saveArticle}/>
       </div>
     );
