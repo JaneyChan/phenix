@@ -1,4 +1,4 @@
-const categoryModal = require('../models/category');
+const categoryService = require('../service/category');
 const handle = require('../utils/handle');
 
 class CategoryController {
@@ -12,7 +12,7 @@ class CategoryController {
       message: handle.message.FAIL_CATEGORY,
       data: []
     };
-    let categoryResult = await categoryModal.getCategoryList();
+    let categoryResult = await categoryService.getCategoryList();
 
     if (categoryResult) {
       result.success = true;
@@ -36,7 +36,7 @@ class CategoryController {
     };
     let formData = ctx.request.body;
     let currentTime = new Date().getTime();
-    let categoryResult = await categoryModal.createCategory({
+    let categoryResult = await categoryService.createCategory({
       name: formData.name,
       createTime: currentTime,
       updateTime: currentTime
@@ -63,7 +63,7 @@ class CategoryController {
       data: null,
       code: handle.code.FAIL_CATEGORY_UPDATE
     };
-    let categoryResult = await categoryModal.updateCategory(
+    let categoryResult = await categoryService.updateCategory(
       {
         name: formData.name,
         updateTime: new Date().getTime()

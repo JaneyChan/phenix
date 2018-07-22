@@ -1,4 +1,4 @@
-const userModel = require('../models/user');
+const userService = require('../service/user');
 const handle = require('../utils/handle');
 const jsonwebtoken = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -17,7 +17,7 @@ class UserController {
       data: null,
       code: ''
     };
-    let userResult = await userModel.getUserByUserName(formData.username);
+    let userResult = await userService.getUserByUserName(formData.username);
     if (userResult) {
       if (await bcrypt.compare(formData.password, userResult.password)) {
         result.success = true;
