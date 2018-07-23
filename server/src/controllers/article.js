@@ -8,20 +8,11 @@ class ArticleController {
    * @param {*} ctx 
    */
   static async getArticlesByCategoryId(ctx) {
-    let result = {
-      success: false,
-      code: handle.message.ERROR_DATA_CODE,
-      message: handle.code.FAIL_ARTICLE,
-      data: []
-    };
+    let result = handle.response(false, '获取列表失败', null, 201);
     let formData = ctx.request.body;
     let articleResult = await articleService.getArticlesByCategoryId(formData.categoryId);
-
     if (articleResult) {
-      result.success = true;
-      result.message = '';
-      result.code = '';
-      result.data = articleResult;
+      result = handle.response(true, '', articleResult, 200);
     }
     ctx.body = result;
   }
@@ -31,12 +22,8 @@ class ArticleController {
    * @param {*} ctx
    */
   static async createArticle(ctx) {
-    let result = {
-      success: false,
-      code: handle.message.ERROR_DATA_CODE,
-      message: handle.code.FAIL_ARTICLE,
-      data: []
-    };
+    let result = handle.response(false, '创建失败', null, 201);
+
     let formData = ctx.request.body;
     let currentTime = new Date().getTime();
     let articleResult = await articleService.createArticle({
@@ -47,10 +34,7 @@ class ArticleController {
     });
 
     if (articleResult) {
-      result.success = true;
-      result.message = '';
-      result.code = '';
-      result.data = articleResult;
+      result = handle.response(true, '', articleResult, 200);
     }
     ctx.body = result;
   }
@@ -60,6 +44,8 @@ class ArticleController {
    * @param {*} ctx
    */
   static async updateArticle(ctx) {
+    let result = handle.response(false, '更新失败', null, 201);
+
     let formData = ctx.request.body;
     let articleResult = await articleService.updateArticle({
         id: formData.id,
@@ -70,20 +56,18 @@ class ArticleController {
       }
     );
 
-    ctx.body = {data: formData, message: '更新成功', success: true, code: 200};
+    if(articleResult) {
+      result = handle.response(true, '', articleResult, 200);
+    }
+    ctx.body = result;
   }
   static async getArticleById(ctx) {
+    let result = handle.response(false, '更新失败', null, 201);
+
     let formData = ctx.request.body;
-    let result = {
-      success: false,
-      code: handle.message.ERROR_DATA_CODE,
-      message: handle.code.FAIL_ARTICLE_UPDATE,
-      data: []
-    };
     let articleResult = await articleService.getArticleById(formData.id);
     if (articleResult) {
-      result.success = true;
-      result.data = articleResult;
+      result = handle.response(true, '', articleResult, 200);
     }
     ctx.body = result;
   }
@@ -92,18 +76,12 @@ class ArticleController {
    * @param {*} ctx 
    */
   static async pushArticleInTrash(ctx) {
+    let result = handle.response(false, '更新失败', null, 201);
+
     let formData = ctx.request.body;
-    let result = {
-      success: false,
-      code: handle.message.ERROR_DATA_CODE,
-      message: '删除失败',
-      data: {}
-    };
     let articleResult = await articleService.updateArticle({ formData });
     if (articleResult) {
-      result.success = true;
-      result.message = '';
-      result.data = articleResult;
+      result = handle.response(true, '', articleResult, 200);
     }
     ctx.body = result;
   }

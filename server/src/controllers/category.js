@@ -16,7 +16,7 @@ class CategoryController {
 
     if (categoryResult) {
       result.success = true;
-      result.code = '';
+      result.code = 200;
       result.message = '';
       result.data = categoryResult;
     }

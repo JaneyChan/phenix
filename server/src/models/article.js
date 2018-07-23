@@ -7,8 +7,14 @@ class ArticleModal {
    * @return {Array} result        查找结果
    */
   static async getArticlesByCategoryId(categoryId) {
-    let _sql = "SELECT * FROM ?? WHERE categoryId = ? and inTrash = ? "
-    return dbUtils.query(_sql, ['article', categoryId, 0])
+    let _sql = "SELECT * FROM ?? WHERE categoryId = ? and inTrash = ?"
+    let result = await dbUtils.query(_sql, ['article', categoryId, 0])
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result
+    } else {
+      result = []
+    }
+    return result;
   }
   
   /**
@@ -16,7 +22,16 @@ class ArticleModal {
    * @param {*} model 
    */
   static async createArticle( model ) {
-    return await dbUtils.insertData( 'article', model)
+    let insertResult = await dbUtils.insertData( 'article', model);
+    let result = null;
+
+    if ( insertResult && insertResult.insertId) {
+      let res = await this.getArticleById('article', insertResult.insertId)
+      if(res && res.length > 0) {
+        result = res[0];
+      }
+    }
+    return await this.getArticleById('article', insertResult.insertId);
   }
 
   /**

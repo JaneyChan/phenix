@@ -20,8 +20,25 @@ const code = {
   ERROR_LOGIN_CODE: 401, // 未登录
 }
 
+/**
+ * 
+ * @param {Bool} success 是否成功
+ * @param {String} message 错误提示
+ * @param {Object} data 数据
+ * @param {Number} code 返回码
+ */
+const response = function (success = false, message = ERROR_CODE, data = null, code = ERROR_CODE) {
+  return {
+    success,
+    message,
+    data,
+    code
+  }
+}
+
 
 module.exports = {
   message,
-  code
+  code,
+  response
 }

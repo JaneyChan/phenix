@@ -37,13 +37,7 @@ class CategoryModal {
    * @param {*} model 
    */
   static async updateCategory( model, id ) {
-    await dbUtils.updateData( 'category', model, id);
-    let result = null;
-    let res = await dbUtils.findDataById('category', id);
-    if(res && res.length > 0) {
-      result = res[0];
-    }
-    return result
+    return await dbUtils.updateData( 'category', model, id);
   }
 }
 
