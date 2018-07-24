@@ -26,12 +26,9 @@ class ArticleModal {
     let result = null;
 
     if ( insertResult && insertResult.insertId) {
-      let res = await this.getArticleById('article', insertResult.insertId)
-      if(res && res.length > 0) {
-        result = res[0];
-      }
+      result = await this.getArticleById(insertResult.insertId)
     }
-    return await this.getArticleById('article', insertResult.insertId);
+    return result;
   }
 
   /**
@@ -47,7 +44,13 @@ class ArticleModal {
    * @param {Number} id       文章ID
    */
   static async getArticleById( id ) {
-    return await dbUtils.findDataById('article', id);
+    let result = await dbUtils.findDataById('article', id);
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result[0]
+    } else {
+      result = {}
+    }
+    return result;
   }
   /**
    * 根据ID删除文章内容

@@ -1,24 +1,6 @@
 import fetch from '@/utils/fetch';
 import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants';
 import { Message } from '@/components/lib';
-// 获取文章列表
-export const getArticleList = () => {
-  return (dispatch) => {
-    fetch.get('/api/article/list')
-      .then((res) => {
-        if (res.success) {
-          dispatch(setArticleList(res.data));
-          if (res.data && res.data.length > 0) {
-            dispatch(setDetailArticle(res.data[0]));
-          }
-        }
-      })
-      .catch(() => {
-        dispatch(setArticleList([]));
-        dispatch(setDetailArticle({}));
-      });
-  };
-};
 
 export const getArticlesByCatogoryId = (categoryId) => {
   return (dispatch) => {

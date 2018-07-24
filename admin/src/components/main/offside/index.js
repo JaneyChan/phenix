@@ -1,10 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import MarkdownPreview from '../markdown/preview';
 import MarkdownEditor from '../markdown/editor';
 import Toolbar from './toolbar';
 import { Dialog } from '@/components/lib';
 import fetch from '@/utils/fetch';
+
+import { setArticleList } from '@/redux/action/article';
 
 class Offside extends React.PureComponent {
   constructor (props) {
@@ -31,7 +34,6 @@ class Offside extends React.PureComponent {
       content: '删除后可在回车站找回。',
       okType: 'danger',
       onOk: () => {
-        console.log('删除');
         this.pushArticleIntrash(category);
       },
       onCancel: () => {}
@@ -41,7 +43,13 @@ class Offside extends React.PureComponent {
     fetch.post('/api/article/trash', { id: category.id })
       .then((res) => {
         if (res.success) {
-          console.log('删除成功');
+          let list = [...this.props.articleList];
+          list && list.map((item, index) => {
+            if (item.id.toString() === category.id.toString()) {
+              list.splice(index, 1);
+            }
+          });
+          this.props.setArticleList(list);
         }
       });
   }
@@ -136,4 +144,13 @@ class Offside extends React.PureComponent {
   }
 }
 
-export default Offside;
+export default connect(
+  (state) => ({
+    articleList: state.article.list.data
+  }),
+  (dispatch) => ({
+    setArticleList: (list) => {
+      dispatch(setArticleList(list));
+    }
+  })
+)(Offside);

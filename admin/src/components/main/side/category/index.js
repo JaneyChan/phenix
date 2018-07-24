@@ -147,7 +147,7 @@ class Category extends PureComponent {
       label: '删除分类',
       icon: 'delete',
       onClick: () => {
-        this.showConfrimDeleteDialog();
+        this.showConfrimDeleteDialog(category);
       }
     }];
 
@@ -169,13 +169,18 @@ class Category extends PureComponent {
     });
     return false;
   }
-  showConfrimDeleteDialog = () => {
+  showConfrimDeleteDialog = (category) => {
     Dialog.confirm({
       title: '你确定要删除该分类?',
       okType: 'danger',
-      onOk: () => {},
+      onOk: () => {
+        this.deleteCategory(category);
+      },
       onCancel: () => {}
     });
+  }
+  deleteCategory = (category) => {
+    console.log('删除分类');
   }
   render () {
     let { categoryList, match } = this.props, { dialog, menu } = this.state;

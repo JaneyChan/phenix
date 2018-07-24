@@ -76,12 +76,18 @@ class ArticleController {
    * @param {*} ctx 
    */
   static async pushArticleInTrash(ctx) {
-    let result = handle.response(false, '更新失败', null, 201);
+    let result = handle.response(false, '删除失败', null, 201);
 
     let formData = ctx.request.body;
-    let articleResult = await articleService.updateArticle({ formData });
+
+    let findArticle = await articleService.getArticleById(formData.id);
+    if(!findArticle) {
+      return handle.response(false, '未找到该文章', null, 201);
+    }
+
+    let articleResult = await articleService.updateArticle({ ...formData, inTrash: 1 });
     if (articleResult) {
-      result = handle.response(true, '', articleResult, 200);
+      result = handle.response(true, '', {}, 200);
     }
     ctx.body = result;
   }
