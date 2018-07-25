@@ -26,6 +26,14 @@ class CategoryService {
     let result = await categoryModal.getCategoryList();
     return result;
   }
+  
+  /**
+   * 删除分类
+   */
+  static async deleteCategory(formData) {
+    let result =  await categoryModal.deleteCategory(formData.id);
+    return result;
+  }
 }
 
 module.exports = CategoryService;

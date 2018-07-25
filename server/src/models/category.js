@@ -39,6 +39,9 @@ class CategoryModal {
   static async updateCategory( model, id ) {
     return await dbUtils.updateData( 'category', model, id);
   }
+  static async deleteCategory (id) {
+    return await dbUtils.deleteDataById('category', id);
+  }
 }
 
 module.exports = CategoryModal;

@@ -56,6 +56,16 @@ class CategoryController {
     }
     ctx.body = result;
   }
+  static async deleteCategory(ctx) {
+    let result = handle.response(false, '删除失败', null, 201);
+    
+    let categoryResult = await categoryService.deleteCategory({ id: formData.id });
+
+    if (categoryResult) {
+      result = handle.response(true, '', categoryResult, 200);
+    }
+    ctx.body = result;
+  }
 }
 
 module.exports = CategoryController;
