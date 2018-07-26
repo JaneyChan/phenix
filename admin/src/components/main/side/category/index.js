@@ -180,7 +180,21 @@ class Category extends PureComponent {
     });
   }
   deleteCategory = (category) => {
-    console.log('删除分类');
+    let data = { id: category.id };
+    fetch.post('/api/category/delete', data)
+      .then((res) => {
+        if (res.success) {
+          let list = [...this.props.categoryList];
+          for (let i = 0; i < list.length; i++) {
+            let cate = list[i];
+            if (cate.id === data.id) {
+              list.splice(i, 1);
+            }
+          }
+          this.props.setCategoryList(list);
+        }
+        this.initDialog();
+      });
   }
   render () {
     let { categoryList, match } = this.props, { dialog, menu } = this.state;

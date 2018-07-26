@@ -43,7 +43,7 @@ class ArticleList extends React.PureComponent {
     });
 
     if (!category.id) {
-      Message.error('找不到文章记录');
+      Message.error('请先选择分类');
       return;
     }
     this.props.createArticle(categoryId);

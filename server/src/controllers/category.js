@@ -56,13 +56,23 @@ class CategoryController {
     }
     ctx.body = result;
   }
+
+  /**
+   * 删除分类
+   * @param {*} ctx 
+   */
   static async deleteCategory(ctx) {
     let result = handle.response(false, '删除失败', null, 201);
     
-    let categoryResult = await categoryService.deleteCategory({ id: formData.id });
+    let formData = ctx.request.body;
+    let categoryResult = await categoryService.deleteCategory(formData);
 
     if (categoryResult) {
-      result = handle.response(true, '', categoryResult, 200);
+      if(typeof categoryResult === 'string') {
+        result = handle.response(false, categoryResult, null, 201);
+      } else {
+        result = handle.response(true, '删除成功', null, 200);
+      }
     }
     ctx.body = result;
   }

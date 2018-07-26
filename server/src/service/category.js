@@ -1,4 +1,5 @@
 const categoryModal = require('../models/category');
+const articleModel = require('../models/article');
 
 class CategoryService {
 
@@ -31,7 +32,13 @@ class CategoryService {
    * 删除分类
    */
   static async deleteCategory(formData) {
-    let result =  await categoryModal.deleteCategory(formData.id);
+
+    let result = await articleModel.getArticlesByCategoryId(formData.id);
+    if(result.length > 0) {
+      return '该分类下有文章，不能删除';
+    }
+
+    result =  await categoryModal.deleteCategory(formData.id);
     return result;
   }
 }

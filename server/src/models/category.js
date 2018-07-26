@@ -2,7 +2,7 @@ const dbUtils = require('../utils/db');
 
 class CategoryModal {
   /**
-   * 查询文章列表
+   * 查询分类列表
    * @return {Array}         查找结果
    */
   static async getCategoryList() {
@@ -16,7 +16,7 @@ class CategoryModal {
   }
   
   /**
-   * 创建文章
+   * 创建分类
    * @param {*} model 
    */
   static async createCategory( model ) {
@@ -33,12 +33,17 @@ class CategoryModal {
   }
 
   /**
-   * 修改文章
+   * 修改分类
    * @param {*} model 
    */
   static async updateCategory( model, id ) {
-    return await dbUtils.updateData( 'category', model, id);
+    return await dbUtils.updateData('category', model, id);
   }
+
+  /**
+   * 删除分类
+   * @param {*} id 
+   */
   static async deleteCategory (id) {
     return await dbUtils.deleteDataById('category', id);
   }
