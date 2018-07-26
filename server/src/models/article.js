@@ -7,8 +7,8 @@ class ArticleModal {
    * @return {Array} result        查找结果
    */
   static async getArticlesByCategoryId(categoryId) {
-    let _sql = "SELECT * FROM ?? WHERE categoryId = ? and inTrash = ?"
-    let result = await dbUtils.query(_sql, ['article', categoryId, 0])
+    let _sql = "SELECT * FROM ?? WHERE categoryId = ? and status = ?"
+    let result = await dbUtils.query(_sql, ['article', categoryId, 1])
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {

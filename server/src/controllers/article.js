@@ -75,7 +75,7 @@ class ArticleController {
    * 根据ID删除文章
    * @param {*} ctx 
    */
-  static async pushArticleInTrash(ctx) {
+  static async changeArticleStatus(ctx) {
     let result = handle.response(false, '删除失败', null, 201);
 
     let formData = ctx.request.body;
@@ -85,7 +85,7 @@ class ArticleController {
       return handle.response(false, '未找到该文章', null, 201);
     }
 
-    let articleResult = await articleService.updateArticle({ ...formData, inTrash: 1 });
+    let articleResult = await articleService.updateArticle({ ...formData, status: 0 });
     if (articleResult) {
       result = handle.response(true, '', {}, 200);
     }

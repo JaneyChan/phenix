@@ -9,7 +9,7 @@ const routers = router
   .post('/article/create', articleController.createArticle)
   .post('/article/update', articleController.updateArticle)
   .post('/articles/category', articleController.getArticlesByCategoryId)
-  .post('/article/trash', articleController.pushArticleInTrash)
+  .post('/article/status', articleController.changeArticleStatus)
 
 
 module.exports = routers

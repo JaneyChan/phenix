@@ -34,13 +34,13 @@ class Offside extends React.PureComponent {
       content: '删除后可在回车站找回。',
       okType: 'danger',
       onOk: () => {
-        this.pushArticleIntrash(category);
+        this.changeArticleStatus(category);
       },
       onCancel: () => {}
     });
   }
-  pushArticleIntrash = (category) => {
-    fetch.post('/api/article/trash', { id: category.id })
+  changeArticleStatus = (category) => {
+    fetch.post('/api/article/status', { id: category.id })
       .then((res) => {
         if (res.success) {
           let list = [...this.props.articleList];
