@@ -43,12 +43,12 @@ export default {
         margin-top: 10px;
         .header {
             letter-spacing: 0.01em;
-            font-size: 1.5em;
+            font-size: 2em;
             font-style: normal;
             font-weight: 700;
             color: #2bbc8a;
             margin-top: 3rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             display: block;
             -moz-osx-font-smoothing: grayscale;
             -webkit-font-smoothing: antialiased;

@@ -6,7 +6,7 @@ CREATE TABLE `article` (
   `categoryId` bigint DEFAULT NULL COMMENT '分类ID',
   `createTime` bigint(20) DEFAULT NULL COMMENT '创建时间',
   `updateTime` bigint(20) DEFAULT NULL COMMENT '修改时间',
-  `status` bigint DEFAULT 1 COMMENT '文章状态, 0:回车站 1:正常',
+  `status` tinyint(1) DEFAULT 1 COMMENT '文章状态, 0:回车站 1:正常',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章表';
 
