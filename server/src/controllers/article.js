@@ -3,6 +3,20 @@ const handle = require('../utils/handle');
 const utils = require('../utils/common');
 
 class ArticleController {
+  
+  /**
+   * 获取所有文章列表
+   * @param {*} ctx 
+   */
+  static async getAllArticles(ctx) {
+    let result = handle.response(false, '获取列表失败', null, 201);
+    let articleResult = await articleService.getAllArticles();
+    if(articleResult) {
+      result = handle.response(true, '', articleResult, 200);
+    }
+    ctx.body = result;
+  }
+
   /**
    * 根据文章分类获取文章列表
    * @param {*} ctx 

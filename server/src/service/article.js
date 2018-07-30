@@ -1,6 +1,11 @@
 const articleModel = require('../models/article');
 
 class ArticleService {
+  
+  static async getAllArticles() {
+    let result = await articleModel.getAllArticles();
+    return result;
+  }
 
   /**
    * 创建文章

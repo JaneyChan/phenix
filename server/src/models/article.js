@@ -1,6 +1,21 @@
 const dbUtils = require('../utils/db');
 
 class ArticleModal {
+
+  /**
+   * 获取所有公开的文章列表
+   */
+  static async getAllArticles() {
+    let _sql = "SELECT * FROM ?? WHERE status = ?"
+    let result = await dbUtils.query(_sql, ['article', 1])
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result
+    } else {
+      result = []
+    }
+    return result;
+  }
+
   /**
    * 查询文章列表
    * @param {Number} categoryId    分类ID

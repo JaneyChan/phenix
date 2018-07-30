@@ -38,7 +38,6 @@ export default {
 <style lang="less">
 
 .article-wrapper {
-    text-align: left;
     .article {
         margin-top: 10px;
         .header {
