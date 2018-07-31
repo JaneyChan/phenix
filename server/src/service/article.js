@@ -2,8 +2,8 @@ const articleModel = require('../models/article');
 
 class ArticleService {
   
-  static async getAllArticles() {
-    let result = await articleModel.getAllArticles();
+  static async getAllArticles(pageNo, pageSize) {
+    let result = await articleModel.getAllArticles(pageNo, pageSize);
     return result;
   }
 

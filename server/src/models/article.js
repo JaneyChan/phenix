@@ -5,9 +5,9 @@ class ArticleModal {
   /**
    * 获取所有公开的文章列表
    */
-  static async getAllArticles() {
-    let _sql = "SELECT * FROM ?? WHERE status = ?"
-    let result = await dbUtils.query(_sql, ['article', 1])
+  static async getAllArticles(pageNo = 0, pageSize = 10) {
+    let _sql = "SELECT * FROM ??  WHERE status = ? ORDER BY createTime DESC LIMIT ?, ?"
+    let result = await dbUtils.query(_sql, ['article', 1, pageNo, pageSize])
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {

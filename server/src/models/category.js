@@ -6,7 +6,7 @@ class CategoryModal {
    * @return {Array}         查找结果
    */
   static async getCategoryList() {
-    let result = await dbUtils.select('category', '*')
+    let result = await dbUtils.selectAll('category');
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {

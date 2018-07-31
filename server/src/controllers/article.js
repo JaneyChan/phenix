@@ -10,7 +10,8 @@ class ArticleController {
    */
   static async getAllArticles(ctx) {
     let result = handle.response(false, '获取列表失败', null, 201);
-    let articleResult = await articleService.getAllArticles();
+    let formData = ctx.request.body;
+    let articleResult = await articleService.getAllArticles(formData.pageNo, formData.pageSize);
     if(articleResult) {
       result = handle.response(true, '', articleResult, 200);
     }

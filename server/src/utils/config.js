@@ -5,7 +5,7 @@ const db_user = process.env.DB_CONFIG_USER || 'root';
 const db_password = process.env.DB_CONFIG_PASSWORD || '123456';
 
 const jwt_secret = process.env.JWT_CONFIG_SECRET || 'secret';
-const jwt_exprisesIn = process.env.JWT_CONFIG_EXPRISESIN || 24*60*60*1000;
+const jwt_exprisesIn = process.env.JWT_CONFIG_EXPRISESIN || 604800; //设置失效时间为7天：7*24*60*60
 
 module.exports = {
   mysqlDB : {
