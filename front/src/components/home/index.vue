@@ -1,11 +1,11 @@
 <template>
     <div class="article-wrapper">
-      <div class="article-list">
-        <div class="article-card" v-for="article in articles" :key="article.id">
-          <div class="article-head">{{ article.title }}</div>
-          <p class="article-date">{{ parseTime(article.createTime) }}</p>
-          <div class="article-summary">{{ article.content && article.content.slice(0, 200) }}</div>
-          <div class="more">Read more</div>
+      <div class="home-list">
+        <div class="home-card" v-for="article in articles" :key="article.id">
+          <router-link class="home-head" :to="'/article/' + article.id">{{ article.title }}</router-link>
+          <p class="home-date">{{ parseTime(article.createTime) }}</p>
+          <div class="home-summary">{{ article.content && article.content.slice(0, 200) }}</div>
+          <router-link class="more" :to="'/article/' + article.id">Read more</router-link>
         </div>
       </div>
       <v-pagination :offset="offset" :limit="limit" :total="total" :onChange="getAllArticles"></v-pagination>
@@ -46,7 +46,6 @@ export default {
           this.offset = res.data.data.offset
           this.limit = res.data.data.limit
           this.total = res.data.data.total
-          console.log('this.articles : ' + res.data.data.list)
         }
       })
     }
@@ -55,23 +54,26 @@ export default {
 </script>
 
 <style lang="less">
-.article-list {
+.home-list {
   padding-top: 10px;
 }
-.article-card {
+.home-card {
   padding-bottom: 30px;
-  .article-head {
+  .home-head {
+    display: block;
+    color: #34495e;
     font-size: 1.6em;
     font-weight: bold;
     margin-bottom: 0;
     padding-top: 0.5em;
+    text-decoration: none;
   }
-  .article-date {
+  .home-date {
     color: #7f8c8d;
     margin: 10px 0;
     font-size: 0.9em;
   }
-  .article-summary {
+  .home-summary {
     margin: 10px 0;
     color: #34495e;
     line-height: 1.5;
@@ -82,6 +84,7 @@ export default {
     font-weight: bold;
     font-size: 16px;
     color: #42b983;
+    text-decoration: none;
   }
 }
 </style>

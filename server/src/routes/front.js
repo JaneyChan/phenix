@@ -7,6 +7,6 @@ const articleController = require('../controllers/article');
 
 const routers = router
   .post('/articles', articleController.getArticlesByPage)
-  .post('/article', articleController.getArticleById)
+  .get('/article/:id', articleController.getArticleById)
 
 module.exports = routers

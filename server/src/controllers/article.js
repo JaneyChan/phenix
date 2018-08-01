@@ -90,9 +90,8 @@ class ArticleController {
   }
   static async getArticleById(ctx) {
     let result = handle.response(false, '更新失败', null, 201);
-
-    let formData = ctx.request.body;
-    let articleResult = await articleService.getArticleById(formData.id);
+    let articleId = ctx.params.id;
+    let articleResult = await articleService.getArticleById(articleId);
     if (articleResult) {
       result = handle.response(true, '', articleResult, 200);
     }

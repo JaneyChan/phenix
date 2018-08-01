@@ -1,7 +1,10 @@
 <template>
     <div class="article-wrapper">
-        <div class="article">
-            <div class="header">{{ article.title }}</div>
+        <div v-if="article.id" class="article-content">
+            <div class="header">
+              <div class="header-title">{{ article.title }}</div>
+              <div class="header-date">{{ parseTime(article.createTime) }}</div>
+            </div>
             <div v-html="markdown(article.content || '')" class="markdown"></div>
         </div>
     </div>
@@ -9,6 +12,7 @@
 
 <script>
 import marked from '@/utils/marked'
+import { parseTime } from '@/utils/index'
 
 export default {
   data () {
@@ -20,7 +24,11 @@ export default {
     }
   },
   created () {
-    this.$http.post('/front/article', { id: 1 })
+    let params = this.$route.params
+    if (!params.id) {
+      return
+    }
+    this.$http.get('/front/article/' + params.id)
       .then((res) => {
         if (res.data.success) {
           this.article = res.data.data
@@ -28,6 +36,9 @@ export default {
       })
   },
   methods: {
+    parseTime (time) {
+      return parseTime(time, 'yyyy-MM-dd hh:mm')
+    },
     markdown (value) {
       return marked(value)
     }
@@ -37,19 +48,23 @@ export default {
 
 <style lang="less">
 
-.article {
+.article-content {
   margin-top: 10px;
   .header {
-    letter-spacing: 0.01em;
-    font-size: 2em;
-    font-style: normal;
-    font-weight: 700;
-    color: #2bbc8a;
+    text-align: center;
     margin-top: 3rem;
-    margin-bottom: 2rem;
-    display: block;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+    margin-bottom: 4rem;
+    .header-title {
+      letter-spacing: 0.01em;
+      font-size: 2em;
+      font-weight: 700;
+      color: #2bbc8a;
+    }
+    .header-date {
+      color: #7f8c8d;
+      margin: 10px 0;
+      font-size: 0.9em;
+    }
   }
 }
 

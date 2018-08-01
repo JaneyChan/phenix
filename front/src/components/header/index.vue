@@ -1,10 +1,10 @@
 <template>
     <div class="header-wrapper">
-      <ul class="menu-list">
-        <li class="menu-item active">首页</li>
-        <li class="menu-item">归档</li>
-        <li class="menu-item">Github</li>
-      </ul>
+      <div class="menu-list">
+        <router-link class="menu-item" active-class="active" exact to="/">首页</router-link>
+        <router-link class="menu-item" active-class="active" to="/article/1">归档</router-link>
+        <a class="menu-item" href="https://github.com/JaneyChan">Github</a>
+      </div>
     </div>
 </template>
 
