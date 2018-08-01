@@ -5,16 +5,28 @@ const utils = require('../utils/common');
 class ArticleController {
   
   /**
-   * 获取所有文章列表
+   * 根据分页获取文章列表
    * @param {*} ctx 
    */
-  static async getAllArticles(ctx) {
+  static async getArticlesByPage(ctx) {
     let result = handle.response(false, '获取列表失败', null, 201);
     let formData = ctx.request.body;
-    let articleResult = await articleService.getAllArticles(formData.pageNo, formData.pageSize);
-    if(articleResult) {
-      result = handle.response(true, '', articleResult, 200);
+    let data = {
+      offset: 0,
+      limit: 10,
+      total: 0,
+      list: []
+    };
+    let allArticles = await articleService.getAllArticles();
+
+    if(allArticles && allArticles.length > 0) {
+      data.list = await articleService.getArticlesByPage(formData.offset, formData.limit);
+      data.offset = formData.offset;
+      data.limit = formData.limit;
+      data.total = allArticles.length
     }
+
+    result = handle.response(true, '', data, 200);
     ctx.body = result;
   }
 

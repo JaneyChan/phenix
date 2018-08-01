@@ -8,32 +8,47 @@
           <div class="more">Read more</div>
         </div>
       </div>
+      <v-pagination :offset="offset" :limit="limit" :total="total" :onChange="getAllArticles"></v-pagination>
     </div>
 </template>
 
 <script>
+import Patination from '@/components/pagination'
 import { parseTime } from '@/utils/index'
 
 export default {
   data () {
     return {
-      articles: []
+      articles: [],
+      offset: 0,
+      limit: 10,
+      total: 0
     }
   },
+  components: {
+    'v-pagination': Patination
+  },
   created () {
-    this.$http.post('/front/articles', {
-      pageNo: 0,
-      pageSize: 10
-    })
-      .then((res) => {
-        if (res.data.success) {
-          this.articles = res.data.data
-        }
-      })
+    this.getAllArticles()
   },
   methods: {
     parseTime (time) {
       return parseTime(time, 'yyyy-MM-dd hh:mm')
+    },
+    getAllArticles (offset = 0) {
+      this.$http.post('/front/articles', {
+        offset,
+        limit: this.limit,
+        total: 13
+      }).then((res) => {
+        if (res.data.success) {
+          this.articles = res.data.data.list
+          this.offset = res.data.data.offset
+          this.limit = res.data.data.limit
+          this.total = res.data.data.total
+          console.log('this.articles : ' + res.data.data.list)
+        }
+      })
     }
   }
 }

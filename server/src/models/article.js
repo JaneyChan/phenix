@@ -5,9 +5,23 @@ class ArticleModal {
   /**
    * 获取所有公开的文章列表
    */
-  static async getAllArticles(pageNo = 0, pageSize = 10) {
-    let _sql = "SELECT * FROM ??  WHERE status = ? ORDER BY createTime DESC LIMIT ?, ?"
-    let result = await dbUtils.query(_sql, ['article', 1, pageNo, pageSize])
+  static async getAllArticles() {
+    let _sql =  "SELECT * FROM ?? WHERE status = ? "
+    let result = await dbUtils.query(_sql, ['article', 1])
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result
+    } else {
+      result = []
+    }
+    return result;
+  }
+
+  /**
+   * 根据分页获取所有公开的文章列表
+   */
+  static async getArticlesByPage(offset = 0, limit = 10) {
+    let _sql = "SELECT * FROM ?? WHERE status = ? ORDER BY createTime DESC LIMIT ?, ?"
+    let result = await dbUtils.query(_sql, ['article', 1, offset, limit])
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {
