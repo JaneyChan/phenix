@@ -1,4 +1,4 @@
-const articleService = require('../service/article');
+const articleModel = require('../models/article');
 const handle = require('../utils/handle');
 const utils = require('../utils/common');
 
@@ -17,10 +17,10 @@ class ArticleController {
       total: 0,
       list: []
     };
-    let allArticles = await articleService.getAllArticles();
+    let allArticles = await articleModel.getAllArticles();
 
     if(allArticles && allArticles.length > 0) {
-      data.list = await articleService.getArticlesByPage(formData.offset, formData.limit);
+      data.list = await articleModel.getArticlesByPage(formData.offset, formData.limit);
       data.offset = formData.offset;
       data.limit = formData.limit;
       data.total = allArticles.length
@@ -37,7 +37,7 @@ class ArticleController {
   static async getArticlesByCategoryId(ctx) {
     let result = handle.response(false, '获取列表失败', null, 201);
     let formData = ctx.request.body;
-    let articleResult = await articleService.getArticlesByCategoryId(formData.categoryId);
+    let articleResult = await articleModel.getArticlesByCategoryId(formData.categoryId);
     if (articleResult) {
       result = handle.response(true, '', articleResult, 200);
     }
@@ -53,7 +53,7 @@ class ArticleController {
 
     let formData = ctx.request.body;
     let currentTime = new Date().getTime();
-    let articleResult = await articleService.createArticle({
+    let articleResult = await articleModel.createArticle({
       title: utils.parseTime(currentTime, 'yyyy-MM-dd'),
       createTime: currentTime,
       updateTime: currentTime,
@@ -74,13 +74,13 @@ class ArticleController {
     let result = handle.response(false, '更新失败', null, 201);
 
     let formData = ctx.request.body;
-    let articleResult = await articleService.updateArticle({
-        id: formData.id,
+    let articleResult = await articleModel.updateArticle({
         title: formData.title,
         publish: parseInt(formData.publish) || 0,
         content: formData.content,
         updateTime: new Date().getTime()
-      }
+      },
+      formData.id
     );
 
     if(articleResult) {
@@ -91,7 +91,7 @@ class ArticleController {
   static async getArticleById(ctx) {
     let result = handle.response(false, '更新失败', null, 201);
     let articleId = ctx.params.id;
-    let articleResult = await articleService.getArticleById(articleId);
+    let articleResult = await articleModel.getArticleById(articleId);
     if (articleResult) {
       result = handle.response(true, '', articleResult, 200);
     }
@@ -106,12 +106,12 @@ class ArticleController {
 
     let formData = ctx.request.body;
 
-    let findArticle = await articleService.getArticleById(formData.id);
+    let findArticle = await articleModel.getArticleById(formData.id);
     if(!findArticle) {
       return handle.response(false, '未找到该文章', null, 201);
     }
 
-    let articleResult = await articleService.updateArticle({ ...formData, status: 0 });
+    let articleResult = await articleModel.updateArticle({ status: 0 }, formData.id);
     if (articleResult) {
       result = handle.response(true, '', {}, 200);
     }

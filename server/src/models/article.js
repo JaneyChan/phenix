@@ -63,7 +63,6 @@ class ArticleModal {
   /**
    * 修改文章
    * @param {Object} model     要修改的文章内容
-   * @param {id} id            文章ID
    */
   static async updateArticle( model, id ) {
     return await dbUtils.updateData( 'article', model, id)

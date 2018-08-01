@@ -1,4 +1,5 @@
-const categoryService = require('../service/category');
+const categoryModal = require('../models/category');
+const articleModel = require('../models/article');
 const handle = require('../utils/handle');
 
 class CategoryController {
@@ -8,7 +9,7 @@ class CategoryController {
   static async getCategoryList(ctx) {
     let result = handle.response(false, '获取列表失败', null, 201);
 
-    let categoryResult = await categoryService.getCategoryList();
+    let categoryResult = await categoryModal.getCategoryList();
     if (categoryResult) {
       result = handle.response(true, '', categoryResult, 200);
     }
@@ -24,7 +25,7 @@ class CategoryController {
 
     let formData = ctx.request.body;
     let currentTime = new Date().getTime();
-    let categoryResult = await categoryService.createCategory({
+    let categoryResult = await categoryModal.createCategory({
       name: formData.name,
       createTime: currentTime,
       updateTime: currentTime
@@ -44,7 +45,7 @@ class CategoryController {
     let result = handle.response(false, '创建失败', null, 201);
 
     let formData = ctx.request.body;
-    let categoryResult = await categoryService.updateCategory({
+    let categoryResult = await categoryModal.updateCategory({
         name: formData.name,
         updateTime: new Date().getTime()
       },
@@ -65,14 +66,12 @@ class CategoryController {
     let result = handle.response(false, '删除失败', null, 201);
     
     let formData = ctx.request.body;
-    let categoryResult = await categoryService.deleteCategory(formData);
-
-    if (categoryResult) {
-      if(typeof categoryResult === 'string') {
-        result = handle.response(false, categoryResult, null, 201);
-      } else {
-        result = handle.response(true, '删除成功', null, 200);
-      }
+    let articles = await articleModel.getArticlesByCategoryId(formData.id);
+    if(articles.length > 0) {
+      result = handle.response(false, '该分类下有文章，不能删除', null, 201);
+    } else {
+      await categoryModal.deleteCategory(formData.id);
+      result = handle.response(true, '删除成功', null, 200);
     }
     ctx.body = result;
   }
