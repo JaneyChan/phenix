@@ -196,6 +196,14 @@ class Category extends PureComponent {
         this.initDialog();
       });
   }
+  loginOut = () => {
+    fetch.get('/api//user/signOut')
+      .then((res) => {
+        if (res.success) {
+          console.log('退出成功');
+        }
+      });
+  }
   render () {
     let { categoryList, match } = this.props, { dialog, menu } = this.state;
     return (
@@ -236,7 +244,7 @@ class Category extends PureComponent {
             }
           </div>
         </div>
-        <div className="login-out-btn"><Icon type="logout"/>退出</div>
+        <div className="login-out-btn" onClick={this.loginOut}><Icon type="logout"/>退出</div>
 
         {
           menu.open ? (

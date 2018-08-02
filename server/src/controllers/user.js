@@ -22,16 +22,15 @@ class UserController {
       if (await bcrypt.compare(formData.password, userResult.password)) {
         result.success = true;
         delete userResult.password;
-        result.data = {
-          user: userResult,
-          token: jsonwebtoken.sign(
-            {
-              data: userResult,
-              expiresIn: Math.floor(Date.now() / 1000) + jwt.exprisesIn
-            },
-            jwt.secret
-          )
-        };
+        result.data = userResult;
+        let token = jsonwebtoken.sign(
+          {
+            data: userResult,
+            exp: Math.floor(Date.now() / 1000) + jwt.exprisesIn
+          },
+          jwt.secret
+        )
+        ctx.cookies.set('token', token);
       } else {
         result.message = handle.message.FAIL_USER_NAME_OR_PASSWORD_ERROR;
         result.code = 'FAIL_USER_NAME_OR_PASSWORD_ERROR';
@@ -47,7 +46,23 @@ class UserController {
    * 退出登录
    * @param  {obejct} ctx 上下文对象
    */
-  static async signOut(ctx) {}
+  static async signOut(ctx) {
+    let result = {
+      success: true,
+      message: 'success',
+      data: null,
+      code: '200'
+    };
+    ctx.cookies.set('token', null);
+    jsonwebtoken.sign(
+      {
+        data: null,
+        exp: Math.floor(Date.now() / 1000) + 0
+      },
+      jwt.secret
+    )
+    ctx.body = result;
+  }
 }
 
 module.exports = UserController;

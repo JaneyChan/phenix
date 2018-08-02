@@ -9,8 +9,6 @@ class App {
     this.koa = new Koa();
     // 配置ctx.body解析中间件
     this.koa.use(bodyParser());
-    // 使用token验证
-    this.koa.use(checkAuth);
     //使用errorHandle中间件
     this.koa.use(errorHandle);
     // 初始化路由中间件

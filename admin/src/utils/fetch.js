@@ -9,15 +9,8 @@ const helper = {
    * @return res
    */
   get (url) {
-    const token = window.localStorage.getItem('me-token') || '';
     return new Promise((resolve, reject) => {
-      return axios.get(
-        url,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
+      return axios.get(url)
         .then((res) => {
           let data = helper.handleResponse(res);
           resolve(data);
@@ -36,16 +29,11 @@ const helper = {
    * @return res
    */
   post (url, params = {}) {
-    let token = window.localStorage.getItem('me-token') || '';
     return new Promise((resolve, reject) => {
       return axios.post(
         url,
-        params,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
+        params
+      )
         .then((res) => {
           let data = helper.handleResponse(res);
           resolve(data);
