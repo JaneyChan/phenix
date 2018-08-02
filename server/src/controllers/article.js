@@ -1,4 +1,5 @@
 const articleModel = require('../models/article');
+const categoryModal = require('../models/category');
 const handle = require('../utils/handle');
 const utils = require('../utils/common');
 
@@ -27,6 +28,22 @@ class ArticleController {
     }
 
     result = handle.response(true, '', data, 200);
+    ctx.body = result;
+  }
+
+  /**
+   * 按分类获取文章类别
+   * @param {*} ctx 
+   */
+  static async getArticlesSortByCategory(ctx) {
+    let categories = await categoryModal.getCategoryList();
+    for(let i = 0; i < categories.length; i++) {
+      let articles = await articleModel.getArticlesByCategoryId(categories[i].id);
+      if(articles.length > 0) {
+        categories[i].articles = articles;
+      }
+    }
+    let result = handle.response(true, '', categories, 200);
     ctx.body = result;
   }
 

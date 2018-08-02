@@ -28,7 +28,7 @@ export default {
     if (!params.id) {
       return
     }
-    this.$http.get('/front/article/' + params.id)
+    this.$http.get('/api/article/' + params.id)
       .then((res) => {
         if (res.data.success) {
           this.article = res.data.data

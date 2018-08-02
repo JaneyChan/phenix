@@ -26,7 +26,7 @@ class UserController {
         let token = jsonwebtoken.sign(
           {
             data: userResult,
-            exp: Math.floor(Date.now() / 1000) + jwt.exprisesIn
+            exp: Math.floor(Date.now() / 1000) + Number(jwt.exprisesIn)
           },
           jwt.secret
         )

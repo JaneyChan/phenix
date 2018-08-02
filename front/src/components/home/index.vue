@@ -36,7 +36,7 @@ export default {
       return parseTime(time, 'yyyy-MM-dd hh:mm')
     },
     getAllArticles (offset = 0) {
-      this.$http.post('/front/articles', {
+      this.$http.post('/api/articles', {
         offset,
         limit: this.limit,
         total: 13
