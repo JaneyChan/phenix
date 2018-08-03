@@ -21,7 +21,19 @@ class ArticleController {
     let allArticles = await articleModel.getAllArticles();
 
     if(allArticles && allArticles.length > 0) {
-      data.list = await articleModel.getArticlesByPage(formData.offset, formData.limit);
+      let list = await articleModel.getArticlesByPage(formData.offset, formData.limit);
+      list && list.map((item) => {
+        let articleContent = item.content,
+          arr = articleContent && articleContent.split('<!--more-->') || [];
+        if(articleContent && articleContent.indexOf('<!--more-->') !== -1 && arr.length >= 2){
+          item.abstract = articleContent.split('<!--more-->')[0];
+        } else {
+          item.abstract = articleContent;
+        }
+        delete item.content;
+        return item;
+      })
+      data.list = list;
       data.offset = formData.offset;
       data.limit = formData.limit;
       data.total = allArticles.length

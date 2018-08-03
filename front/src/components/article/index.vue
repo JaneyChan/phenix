@@ -5,16 +5,19 @@
               <div class="header-title">{{ article.title }}</div>
               <div class="header-date">{{ parseTime(article.createTime) }}</div>
             </div>
-            <div v-html="markdown(article.content || '')" class="markdown"></div>
+            <v-markdown :value="article.content" />
         </div>
     </div>
 </template>
 
 <script>
-import marked from '@/utils/marked'
+import Markdown from '@/components/markdown'
 import { parseTime } from '@/utils/index'
 
 export default {
+  components: {
+    'v-markdown': Markdown
+  },
   data () {
     return {
       article: {
@@ -38,9 +41,6 @@ export default {
   methods: {
     parseTime (time) {
       return parseTime(time, 'yyyy-MM-dd hh:mm')
-    },
-    markdown (value) {
-      return marked(value)
     }
   }
 }

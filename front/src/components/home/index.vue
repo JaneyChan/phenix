@@ -4,7 +4,7 @@
         <div class="home-card" v-for="article in articles" :key="article.id">
           <router-link class="home-head" :to="'/article/' + article.id">{{ article.title }}</router-link>
           <p class="home-date">{{ parseTime(article.createTime) }}</p>
-          <div class="home-summary">{{ article.content && article.content.slice(0, 200) }}</div>
+          <v-markdown :value="article.abstract" />
           <router-link class="more" :to="'/article/' + article.id">Read more</router-link>
         </div>
       </div>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import Markdown from '@/components/markdown'
 import Patination from '@/components/pagination'
 import { parseTime } from '@/utils/index'
 
@@ -26,7 +27,8 @@ export default {
     }
   },
   components: {
-    'v-pagination': Patination
+    'v-pagination': Patination,
+    'v-markdown': Markdown
   },
   created () {
     this.getAllArticles()
@@ -72,11 +74,6 @@ export default {
     color: #7f8c8d;
     margin: 10px 0;
     font-size: 0.9em;
-  }
-  .home-summary {
-    margin: 10px 0;
-    color: #34495e;
-    line-height: 1.5;
   }
   .more {
     display: inline-block;

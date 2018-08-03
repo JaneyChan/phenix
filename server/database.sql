@@ -1,6 +1,7 @@
 CREATE TABLE `article` (
   `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '文章ID',
   `title` VARCHAR(255) DEFAULT NULL COMMENT '文章标题',
+  `abstract` TEXT DEFAULT NULL COMMENT '文章摘要',
   `content` TEXT DEFAULT NULL COMMENT '文章内容',
   `publish` INT NOT NULL DEFAULT '0' COMMENT '是否公开，0不公开，1公开',
   `categoryId` BIGINT DEFAULT NULL COMMENT '分类ID',
