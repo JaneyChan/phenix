@@ -1,5 +1,6 @@
 // article
-export const SET_ARTICLE_LIST = 'SET_ARTICLE_LIST';
 export const SET_ARTICLE_DETAIL = 'SET_ARTICLE_DETAIL';
+export const SET_ARTICLE_DRAFT = 'SET_ARTICLE_DRAFT';
+export const SET_ARTICLE_LIST = 'SET_ARTICLE_LIST';
 // category
 export const SET_CATEGORY_LIST = 'SET_CATEGORY_LIST';

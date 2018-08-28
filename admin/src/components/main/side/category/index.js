@@ -200,7 +200,7 @@ class Category extends PureComponent {
     fetch.get('/api//user/signOut')
       .then((res) => {
         if (res.success) {
-          console.log('退出成功');
+          this.props.history.replace('/login');
         }
       });
   }

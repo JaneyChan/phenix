@@ -1,5 +1,5 @@
 import fetch from '@/utils/fetch';
-import { SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants';
+import { SET_ARTICLE_DRAFT, SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants';
 import { Message } from '@/components/lib';
 
 export const getArticlesByCatogoryId = (categoryId) => {
@@ -32,22 +32,27 @@ export const createArticle = (categoryId) => {
   };
 };
 
-export const updateArticle = (article) => {
-  return (dispatch, getState) => {
-    fetch.post('/api/article/update', article)
-      .then((res) => {
-        if (res.success) {
-          Message.success('保存文章成功');
-          let list = getState().article.list.data;
-          for (let i = 0; i < list.length; i++) {
-            if (list[i].id === article.id) {
-              list[i] = article;
-            }
+export const updateArticle = (article) => (dispatch, getState) => {
+  fetch.post('/api/article/update', article)
+    .then((res) => {
+      if (res.success) {
+        Message.success('保存文章成功');
+        let list = getState().article.list.data;
+        for (let i = 0; i < list.length; i++) {
+          if (list[i].id === article.id) {
+            list[i] = article;
           }
-          dispatch(setArticleList(list));
-          dispatch(setDetailArticle(article));
         }
-      });
+        dispatch(setArticleList(list));
+        dispatch(setDetailArticle(article));
+      }
+    });
+};
+
+export const setArticleDraft = (article) => {
+  return {
+    type: SET_ARTICLE_DRAFT,
+    draft: article
   };
 };
 

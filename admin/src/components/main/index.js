@@ -4,9 +4,9 @@ import ArticleList from '@/components/main/side/article';
 import Offside from '@/components/main/offside';
 
 import { connect } from 'react-redux';
-import { updateArticle } from '@/redux/action/article';
+import { updateArticle, setArticleDraft } from '@/redux/action/article';
 
-class Article extends PureComponent {
+class Main extends PureComponent {
   constructor (props) {
     super(props);
     this.state = {
@@ -18,7 +18,7 @@ class Article extends PureComponent {
     // window.onbeforeunload = () => {
     //   // 提示用户是继续浏览页面还是离开当前页面。
     //   return '你可能有数据没有保存';
-    // }
+    // };
     document.body.addEventListener('keydown', this.toSaveArticle, false);
   }
   componentWillReceiveProps (nextProps) {
@@ -51,6 +51,9 @@ class Article extends PureComponent {
     });
   }
   changeArticleContent = value => {
+    let article = { ...this.state.articleDetail };
+    article.content = value;
+    this.props.saveDraft(article);
     this.setState({
       articleDetail: {
         ...this.state.articleDetail,
@@ -60,7 +63,9 @@ class Article extends PureComponent {
   }
   saveArticle = () => {
     let { articleDetail } = this.state;
-    this.props.updateArticle(articleDetail);
+    this.props.updateArticle(articleDetail).then(() => {
+      console.log('saveArticle');
+    });
   }
   toggleArticlePublish = () => {
     let { articleDetail } = this.state;
@@ -107,11 +112,15 @@ class Article extends PureComponent {
 export default connect(
   state => ({
     isEnd: state.article.list.isEnd,
-    articleDetail: state.article.detail
+    articleDetail: state.article.detail,
+    draft: state.article.draft
   }),
   dispatch => ({
+    saveDraft: article => {
+      dispatch(setArticleDraft(article));
+    },
     updateArticle: article => {
       dispatch(updateArticle(article));
     }
   })
-)(Article);
+)(Main);

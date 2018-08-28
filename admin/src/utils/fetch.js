@@ -75,7 +75,11 @@ const helper = {
   handleResponse ({ data, status }) {
     if (status >= HTTP_CODE['SUCCESS'] && status < HTTP_CODE['NOTDONE']) {
       if (!data.success) {
-        Message.error(data.message);
+        if (data.code === 401) {
+          location.replace('/login');
+        } else {
+          Message.error(data.message);
+        }
       }
       return data;
     } else {
