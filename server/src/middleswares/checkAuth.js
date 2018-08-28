@@ -11,6 +11,8 @@ const checkAuth = async (ctx, next) => {
           console.log('expired token');
           ctx.throw(401, 'expired token');
         } else {
+          // 将携带的信息赋给req.user
+          ctx.res.user = decoded
           await next();
         }
       } catch (err) {

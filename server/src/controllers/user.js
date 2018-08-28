@@ -54,13 +54,6 @@ class UserController {
       code: '200'
     };
     ctx.cookies.set('token', null);
-    jsonwebtoken.sign(
-      {
-        data: null,
-        exp: Math.floor(Date.now() / 1000) + 0
-      },
-      jwt.secret
-    )
     ctx.body = result;
   }
 }
