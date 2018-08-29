@@ -104,16 +104,14 @@ class ArticleController {
 
     let formData = ctx.request.body;
     let articleResult = await articleModel.updateArticle({
-        title: formData.title,
-        publish: parseInt(formData.publish) || 0,
-        content: formData.content,
+        ...formData,
         updateTime: new Date().getTime()
       },
       formData.id
     );
 
     if(articleResult) {
-      result = handle.response(true, '', articleResult, 200);
+      result = handle.response(true, '', null, 200);
     }
     ctx.body = result;
   }

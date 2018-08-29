@@ -5,7 +5,7 @@ import { setCategoryList } from '@/redux/action/category';
 import { getArticlesByCatogoryId } from '@/redux/action/article';
 
 import CategoryMemu from '@/components/main/side/menu';
-import { Dialog, Input, Icon } from '@/components/lib';
+import { Dialog, Input, Icon, Message } from '@/components/lib';
 import fetch from '@/utils/fetch';
 
 const DIALOG = {
@@ -53,7 +53,11 @@ class Category extends PureComponent {
     }
   }
   changeCategory = (cateId) => {
-    console.log('切换分类前请确认是否保存了文章');
+    let { articleDraft, articleDetail } = this.props;
+    if (articleDraft.content !== articleDetail.content) {
+      Message.warning('当前文章未保存，请先保存');
+      return;
+    }
     this.props.history.replace(`/category/${cateId}`);
   }
   createCategory = () => {
@@ -210,7 +214,7 @@ class Category extends PureComponent {
       <div className="side-cate-wrap">
         <div className="side-item-header">
           <div className="side-item"><Icon type="book" className="side-item-icon" />All Notes</div>
-          <div className="side-item" onClick={this.createArticle}><Icon type="delete" className="side-item-icon" />Trash</div>
+          <div className="side-item"><Icon type="delete" className="side-item-icon" />Trash</div>
         </div>
         <div className="side-cate-wrap">
           <div className="cate-title">
@@ -275,6 +279,8 @@ class Category extends PureComponent {
 
 export default withRouter(connect(
   (state) => ({
+    articleDraft: state.article.draft,
+    articleDetail: state.article.detail,
     categoryList: state.category.list
   }),
   (dispatch) => ({

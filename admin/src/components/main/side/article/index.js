@@ -49,6 +49,11 @@ class ArticleList extends React.PureComponent {
     this.props.createArticle(categoryId);
   }
   changeSelectedArticle = (article) => {
+    let { articleDraft, articleDetail } = this.props;
+    if (articleDraft.content !== articleDetail.content) {
+      Message.warning('当前文章未保存，请先保存');
+      return;
+    }
     this.props.setDetailArticle(article);
   }
   render () {
@@ -94,7 +99,8 @@ export default withRouter(connect(
   (state) => ({
     categoryList: state.category.list,
     articleList: state.article.list.data,
-    articleDetail: state.article.detail
+    articleDetail: state.article.detail,
+    articleDraft: state.article.draft
   }),
   (dispatch) => ({
     createArticle: (categoryId) => {
