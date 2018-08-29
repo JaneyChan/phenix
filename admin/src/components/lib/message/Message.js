@@ -22,11 +22,9 @@ class MessageContent extends PureComponent {
     render () {
       let { status } = this.props;
       return (
-        <div className="message-box">
-          <div className="message-content">
-            <Icon type={ICON_TYPE[status]} className={`message-icon message-${status}`}/>
-            <span>{this.props.text}</span>
-          </div>
+        <div className="message-content">
+          <Icon type={ICON_TYPE[status]} className={`message-icon message-${status}`}/>
+          <span>{this.props.text}</span>
         </div>
       );
     }
@@ -37,23 +35,40 @@ class MessageContent extends PureComponent {
  * @param {*} duration 显示时长
  * @param {*} status message状态: success: 成功， error: 错误  warning: 警告
  */
-const show = (text, duration = 2000, status) => {
+const show = (text, duration = 3000, status) => {
+  let noticeWrap = document.getElementById('message-wrap');
+  if (!noticeWrap) {
+    noticeWrap = document.createElement('div');
+    noticeWrap.id = 'message-wrap';
+    noticeWrap.className = 'message-container';
+    noticeWrap.style.top = '100px';
+    document.body.appendChild(noticeWrap);
+  }
+
+  // 创建message节点，进行渲染
   let noticeDiv = document.createElement('div');
-  noticeDiv.className = 'message-container';
-  document.body.appendChild(noticeDiv);
+  noticeDiv.className = 'message-box message-in';
+  noticeWrap.appendChild(noticeDiv);
+
   const render = () => {
     ReactDOM.render((<MessageContent text={text} status={status} />), noticeDiv);
   };
   const destroy = () => {
     const unmountResult = ReactDOM.unmountComponentAtNode(noticeDiv);
-    if (unmountResult && noticeDiv.parentNode) {
-      noticeDiv.parentNode.removeChild(noticeDiv);
+    if (unmountResult && noticeWrap.parentNode) {
+      document.getElementById('message-wrap').removeChild(noticeDiv);
     }
   };
+
+  // 渲染
   render();
 
+  // 定时移除该节点
   setTimeout(() => {
-    destroy();
+    noticeDiv.className = 'message-box message-out';
+    setTimeout(() => {
+      destroy();
+    }, 800);
   }, duration);
 };
 

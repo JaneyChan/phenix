@@ -1,8 +1,7 @@
 .message-container {
-  position: fixed;
-  top: 20px;
-  left: 0;
-  width: 100%;
+  position: absolute;
+  left:50%;
+  transform: translateX(-50%);
   z-index: @zindex-message;
   .message-box {
     text-align: center;
@@ -13,6 +12,7 @@
     border-radius: @border-radius-base;
     box-shadow: @shadow-primary;
     background: #fff;
+    margin-bottom: 20px;
 
     .message-icon {
       font-size: 16px;
@@ -31,72 +31,25 @@
       color: @warning-color;
     }
   }
-  .notify-appear {
-    animation-fill-mode: both;
-    animation-play-state: paused;
-  }
-  
-  .notify-appear.notify-appear-active {
-    animation-play-state: running;
-    animation-name: notifyMoveIn;
-    animation-duration: 0.3s;
-  }
-  
-  .notify-exit {
-    animation-fill-mode: both;
-    animation-play-state: paused;
-  
-    .message-content {
-      animation-fill-mode: both;
-      animation-play-state: paused;
-    }
-  }
-  
-  .notify-exit.notify-exit-active {
-    animation-play-state: running;
-    animation-name: notifyMoveOut;
-    animation-duration: 0.3s;
-  
-    .message-content {
-      animation-play-state: running;
-      animation-name: notifyContentMoveOut;
-      animation-duration: 0.3s;
-    }
-  }
 }
 
-
-@keyframes notifyMoveIn {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0%);
-    opacity: 1;
-  }
+/* 提示框进入动画 */
+.message-in {
+  position: relative;
+  animation: moveIn 500ms ease-out;
+  animation-iteration-count: 1;
 }
-
-@keyframes notifyMoveOut {
-  0% {
-    opacity: 1;
-    max-height: 50px;
-  }
-
-  100% {
-    opacity: 0;
-    max-height: 0;
-    padding: 0;
-  }
+@keyframes moveIn {
+  0% { top:-15px; }
+  60% { top:0px; }
 }
-
-@keyframes notifyContentMoveOut {
-  0% {
-    transform: translateY(0%);
-  }
-
-  100% {
-    transform: translateY(-100%);
-  }
+/*提示框离开动画*/
+.smessage-out {
+  animation: moveOut 800ms linear;
+  animation-iteration-count: 1;
+  opacity: 0;
+}
+@keyframes moveOut {
+  0% {opacity: 1; }
+  60% { opacity: 0; }
 }
