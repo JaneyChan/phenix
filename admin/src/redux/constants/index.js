@@ -4,3 +4,5 @@ export const SET_ARTICLE_DRAFT = 'SET_ARTICLE_DRAFT';
 export const SET_ARTICLE_LIST = 'SET_ARTICLE_LIST';
 // category
 export const SET_CATEGORY_LIST = 'SET_CATEGORY_LIST';
+// common
+export const SET_EXIT_EDITOR_DIALOG = 'SET_EXIT_EDITOR_DIALOG';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button, Icon } from '@/components/lib';
 
-class Dialog extends PureComponent {
+class Modal extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string,
@@ -32,15 +32,15 @@ class Dialog extends PureComponent {
     const classString = classNames(
       className,
       {
-        'dialog-wrap': true
+        'dialog-container': true
       }
     );
     return (
-      <div className={classString}>
+      <div className="dialog-wrap">
         <div className="dialog-mask" onClick={this.onClose}></div>
-        <div className="dialog-container">
+        <div className={classString}>
           {
-            title ? (
+            title || closable ? (
               <div className="dialog__header">
                 {
                   title ? (
@@ -72,4 +72,4 @@ class Dialog extends PureComponent {
   }
 }
 
-export default Dialog;
+export default Modal;

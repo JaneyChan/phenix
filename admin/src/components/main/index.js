@@ -3,6 +3,7 @@ import Category from '@/components/main/side/category';
 import ArticleList from '@/components/main/side/article';
 import Offside from '@/components/main/offside';
 import { Message } from '@/components/lib';
+import ExitEditorDialog from '@/components/common/exitEditorDialog';
 
 import { connect } from 'react-redux';
 import { setArticleDraft, setDetailArticle, setArticleList } from '@/redux/action/article';
@@ -96,7 +97,7 @@ class Main extends PureComponent {
     });
   }
   render () {
-    let { isEnd, articleDraft } = this.props, { openDrawer } = this.state;
+    let { isEnd, articleDraft, exitDialog } = this.props, { openDrawer } = this.state;
     return (
       <div className="container">
         <div className={`side-container${openDrawer ? '' : ' close'}`}>
@@ -128,6 +129,8 @@ class Main extends PureComponent {
             </div>
           ) : null
         }
+
+        <ExitEditorDialog visible={exitDialog.open} />
       </div>
     );
   }
@@ -139,7 +142,7 @@ export default connect(
     articleDraft: state.article.draft,
     articleDetail: state.article.detail,
     articleList: state.article.list.data,
-    draft: state.article.draft
+    exitDialog: state.appSetting.exitDialog
   }),
   dispatch => ({
     saveDraft: article => {
