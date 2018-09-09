@@ -213,13 +213,11 @@ class Category extends PureComponent {
     return (
       <div className="side-cate-wrap">
         <div className="side-item-header">
-          <div className="side-item"><Icon type="book" className="side-item-icon" />All Notes</div>
-          <div className="side-item"><Icon type="delete" className="side-item-icon" />Trash</div>
+          <div className="side-item"><Icon type="delete" className="side-item-icon" />回收站</div>
         </div>
         <div className="side-cate-wrap">
           <div className="cate-title">
-            <Icon type="bars" className="cate-icon--bar" />
-              Category
+            <Icon type="bars" className="cate-icon--bar" />分类
             <Icon type="plus" className="cate-add" onClick={() => { this.initDialog(true); }}/>
           </div>
           <div className="cate-list">

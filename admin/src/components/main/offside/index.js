@@ -14,13 +14,13 @@ class Offside extends React.PureComponent {
     super(props);
     this.state = {
       fullScreen: false,
-      inEdit: true
+      inEdit: false
     };
   }
   toggleFullScreen = () => {
     this.setState({
       fullScreen: !this.state.fullScreen,
-      inEdit: true
+      inEdit: false
     });
   }
   toggleEditStatus = () => {

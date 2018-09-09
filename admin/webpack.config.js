@@ -108,7 +108,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'), // 出口路径
     filename: '[id].[hash].js', // 出口文件名称
     chunkFilename: '[id][hash].js', // 按需加载名称
-    publicPath: '/' // 公共路径
+    publicPath: './' // 公共路径
   },
   resolve: {
     mainFields: ['jsnext:main', 'browser', 'main'], // npm读取先后方式  jsnext:main 是采用es6模块写法
