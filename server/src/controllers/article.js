@@ -28,7 +28,7 @@ class ArticleController {
         if(articleContent && articleContent.indexOf('<!--more-->') !== -1 && arr.length >= 2){
           item.abstract = articleContent.split('<!--more-->')[0];
         } else {
-          item.abstract = articleContent;
+          item.abstract = '';
         }
         delete item.content;
         return item;
@@ -50,11 +50,14 @@ class ArticleController {
   static async getArticlesSortByCategory(ctx) {
     let categories = await categoryModal.getCategoryList();
     for(let i = 0; i < categories.length; i++) {
-      let articles = await articleModel.getArticlesByCategoryId(categories[i].id);
+      let articles = await articleModel.getPublishArticlesByCategoryId(categories[i].id, 1);
       if(articles.length > 0) {
         categories[i].articles = articles;
       }
     }
+    categories = categories.filter((item) => {
+      return item.articles;
+    })
     let result = handle.response(true, '', categories, 200);
     ctx.body = result;
   }

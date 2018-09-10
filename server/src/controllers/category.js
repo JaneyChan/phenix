@@ -53,7 +53,7 @@ class CategoryController {
     );
 
     if (categoryResult) {
-      result = handle.response(true, '', categoryResult, 200);
+      result = handle.response(true, '', null, 200);
     }
     ctx.body = result;
   }

@@ -61,9 +61,14 @@ class Category extends PureComponent {
     this.props.history.replace(`/category/${cateId}`);
   }
   createCategory = () => {
-    let { dialog } = this.state;
+    let { dialog } = this.state,
+      name = dialog.cateName.trim();
+    if (!name) {
+      Message.warning('分类名称不能为空!');
+      return;
+    }
 
-    fetch.post('/api/category/create', { name: dialog.cateName })
+    fetch.post('/api/category/create', { name })
       .then((res) => {
         if (res.success) {
           let list = [...this.props.categoryList];
@@ -74,9 +79,14 @@ class Category extends PureComponent {
       });
   }
   updateCategory = () => {
-    let { dialog } = this.state;
+    let { dialog } = this.state,
+      name = dialog.cateName.trim();
+    if (!name) {
+      Message.warning('分类名称不能为空!');
+      return;
+    }
     let data = {
-      name: dialog.cateName,
+      name,
       id: dialog.id
     };
     fetch.post('/api/category/update', data)

@@ -20,8 +20,8 @@ class ArticleModal {
    * 根据分页获取所有公开的文章列表
    */
   static async getArticlesByPage(offset = 0, limit = 10) {
-    let _sql = "SELECT * FROM ?? WHERE status = ? ORDER BY createTime DESC LIMIT ?, ?"
-    let result = await dbUtils.query(_sql, ['article', 1, offset, limit])
+    let _sql = "SELECT * FROM ?? WHERE status = ? and publish = ? ORDER BY createTime DESC LIMIT ?, ?"
+    let result = await dbUtils.query(_sql, ['article', 1, 1, offset, limit])
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {
@@ -38,6 +38,22 @@ class ArticleModal {
   static async getArticlesByCategoryId(categoryId) {
     let _sql = "SELECT * FROM ?? WHERE categoryId = ? and status = ?"
     let result = await dbUtils.query(_sql, ['article', categoryId, 1])
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result
+    } else {
+      result = []
+    }
+    return result;
+  }
+  /**
+   * 查询公开文章列表
+   * @param {Number} categoryId    分类ID
+   * @param {Number} publish       是否公开，1:公开 0:不公开
+   * @return {Array} result        查找结果
+   */
+  static async getPublishArticlesByCategoryId(categoryId, publish = 1) {
+    let _sql = "SELECT * FROM ?? WHERE categoryId = ? and status = ? and publish = ?"
+    let result = await dbUtils.query(_sql, ['article', categoryId, 1, publish])
     if ( Array.isArray(result) && result.length > 0 ) {
       result = result
     } else {
