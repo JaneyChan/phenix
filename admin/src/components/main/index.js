@@ -63,12 +63,12 @@ class Main extends PureComponent {
     });
   }
   toggleArticlePublish = () => {
-    let articleDraft = { ...this.props.articleDraft },
+    let {articleDraft, articleDetail} = this.props,
       data = {
         id: articleDraft.id,
         publish: articleDraft.publish ? 0 : 1
       };
-    this.updateArticle(data).then(() => {
+    this.updateArticle({...articleDetail, ...data}).then(() => {
       Message.success(data.publish ? '已将文章公开' : '已将文章转为私密');
       this.props.saveDraft({ ...articleDraft, ...data });
     });
@@ -78,15 +78,14 @@ class Main extends PureComponent {
       fetch.post('/api/article/update', article)
         .then((res) => {
           if (res.success) {
-            let list = [...this.props.articleList],
-              articleDetail = { ...this.props.articleDraft, ...article };
+            let list = [...this.props.articleList];
             for (let i = 0; i < list.length; i++) {
-              if (list[i].id === articleDetail.id) {
-                list[i] = articleDetail;
+              if (list[i].id === article.id) {
+                list[i] = article;
               }
             }
             this.props.setArticleList(list);
-            this.props.setDetailArticle(articleDetail);
+            this.props.setDetailArticle(article);
             resolve();
           } else {
             reject(res.message);

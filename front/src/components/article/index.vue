@@ -3,7 +3,11 @@
         <div v-if="article.id" class="article-content">
             <div class="header">
               <div class="header-title">{{ article.title }}</div>
-              <div class="header-date">{{ parseTime(article.createTime) }}</div>
+              <div class="header-date">
+                创建于：{{ parseTime(article.createTime) }}
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                更新于：{{ parseTime(article.updateTime) }}
+              </div>
             </div>
             <v-markdown :value="article.content" />
         </div>
@@ -40,7 +44,7 @@ export default {
   },
   methods: {
     parseTime (time) {
-      return parseTime(time, 'yyyy-MM-dd hh:mm')
+      return parseTime(time, 'yyyy-MM-dd')
     }
   }
 }
@@ -53,8 +57,9 @@ export default {
   .header {
     text-align: center;
     margin-top: 3rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     .header-title {
+      margin-bottom: 1.2rem;
       letter-spacing: 0.01em;
       font-size: 2em;
       font-weight: 700;
