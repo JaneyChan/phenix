@@ -3,9 +3,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // html
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css压缩
 const ExtendedDefinePlugin = require('extended-define-webpack-plugin'); // 全局变量
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin'); // 压缩插件
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //多线程压缩
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // 多线程压缩
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //视图分析webpack情况
 
 const HappyPack = require('happypack'); // 多线程运行
@@ -28,14 +28,12 @@ const plugins = [
     hash: true // 为静态资源生成hash值
   }),
   new MiniCssExtractPlugin({ // css添加hash
-    filename: '[name]-[hash].css',
-    chunkFilename: '[id][hash].css',
+    filename: 'css/[name].[contenthash:8].css'
   }),
   new HappyPack({ // 多线程运行 默认是电脑核数-1
     id: 'babel', // 对于loaders id
     loaders: ['babel-loader?cacheDirectory'] // 是用babel-loader解析
-  }),
-  new ExtractTextPlugin('[name].css', {allChunks: true})
+  })
 ];
 const configDev = {
   plugins: plugins.concat(
@@ -64,7 +62,7 @@ const configPro = {
           reduce_vars: true // 提取出现多次但是没有定义成变量去引用的静态资源
         }
       }
-    })
+    }),
     // new BundleAnalyzerPlugin({   //另外一种方式
     //   analyzerMode: 'server',
     //   analyzerHost: '127.0.0.1',
@@ -108,8 +106,8 @@ module.exports = {
   },
   output: { // 出口
     path: path.resolve(__dirname, 'dist'), // 出口路径
-    filename: '[id].[hash].js', // 出口文件名称
-    chunkFilename: '[id][hash].js', // 按需加载名称
+    filename: 'js/[name].[hash].js', // 出口文件名称
+    chunkFilename: 'js/[name].[hash].js', // 按需加载名称
     publicPath: '/' // 公共路径
   },
   resolve: {
@@ -134,6 +132,36 @@ module.exports = {
         enforce: 'pre',
         include: [path.resolve('src'), path.resolve('test')]
       },
+
+      {
+        test: /\.css/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              minimize: true,
+              plugins: () => [require('autoprefixer')]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              minimize: true,
+              plugins: () => [require('autoprefixer')]
+            }
+          },
+          'less-loader'
+        ]
+      },
       {
         test: /\.(png|jpg|gif|jpeg|ttf|svg|eot|woff)$/,
         exclude: /(node_modules|bower_components)/,
@@ -146,29 +174,49 @@ module.exports = {
             }
           }
         ]
-      },
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback:'style-loader', // 回滚
-          use: [{
-            loader: 'css-loader',
-            options: {
-              minimize: env !== 'development', // 压缩
-              sourceMap: env === 'development' // map
-            }
-          }],
-          publicPath: '/'
-        })
-      },
-      {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({ //分离less编译后的css文件
-          fallback:'style-loader',
-          use:['css-loader','less-loader']
-        })
-      },
+      }
     ]
   },
-  plugins: config.plugins
+  plugins: config.plugins,
+  optimization: {
+    // 打包 第三方库
+    // 打包 公共文件
+    splitChunks: {
+      cacheGroups: {
+        vendor: { // node_modules内的依赖库
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          minChunks: 1, // 被不同entry引用次数(import),1次的话没必要提取
+          maxInitialRequests: 5,
+          minSize: 0,
+          priority: 100
+          // enforce: true?
+        },
+        common: { // ‘src/js’ 下的js文件
+          chunks: 'all',
+          test: /[\\/]src[\\/]js[\\/]/, // 也可以值文件/[\\/]src[\\/]js[\\/].*\.js/,
+          name: 'common', // 生成文件名，依据output规则
+          minChunks: 2,
+          maxInitialRequests: 5,
+          minSize: 0,
+          priority: 1
+        }
+      }
+    },
+    runtimeChunk: {
+      name: 'manifest'
+    },
+    minimizer: [
+      new OptimizeCssAssetsPlugin({}), // 压缩 css,使用minimizer会自动取消webpack的默认配置，所以记得用UglifyJsPlugin
+      new UglifyJsPlugin({
+        // 压缩 js
+        uglifyOptions: {
+          ecma: 6,
+          cache: true,
+          parallel: true
+        }
+      })
+    ]
+  }
 };
