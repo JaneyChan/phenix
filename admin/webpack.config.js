@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // html
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // css压缩
 const ExtendedDefinePlugin = require('extended-define-webpack-plugin'); // 全局变量
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin'); // 压缩插件
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //多线程压缩
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; //视图分析webpack情况
@@ -33,7 +34,8 @@ const plugins = [
   new HappyPack({ // 多线程运行 默认是电脑核数-1
     id: 'babel', // 对于loaders id
     loaders: ['babel-loader?cacheDirectory'] // 是用babel-loader解析
-  })
+  }),
+  new ExtractTextPlugin('[name].css', {allChunks: true})
 ];
 const configDev = {
   plugins: plugins.concat(
@@ -62,7 +64,7 @@ const configPro = {
           reduce_vars: true // 提取出现多次但是没有定义成变量去引用的静态资源
         }
       }
-    }),
+    })
     // new BundleAnalyzerPlugin({   //另外一种方式
     //   analyzerMode: 'server',
     //   analyzerHost: '127.0.0.1',
@@ -87,7 +89,7 @@ module.exports = {
     historyApiFallback: true, // 不会出现404页面，避免找不到
     proxy: {
       '/api/*': {
-        target: 'http://localhost:8060/', // server
+        target: 'http://127.0.0.1:8060/', // server
         changeOrigin: true
       }
     }
@@ -133,21 +135,6 @@ module.exports = {
         include: [path.resolve('src'), path.resolve('test')]
       },
       {
-        test: /\.css$/,
-        // exclude: /(node_modules|bower_components)/,
-        // include: [path.resolve(__dirname, 'src')],
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: env === 'development', // 压缩
-              sourceMap: env === 'development' // map
-            }
-          }
-        ]
-      },
-      {
         test: /\.(png|jpg|gif|jpeg|ttf|svg|eot|woff)$/,
         exclude: /(node_modules|bower_components)/,
         include: [path.resolve(__dirname, 'src')],
@@ -161,15 +148,26 @@ module.exports = {
         ]
       },
       {
-        test: /\.less/,
-        exclude: /(node_modules|bower_components)/,
-        include: [path.resolve(__dirname, 'src')],
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'less-loader' }
-        ]
-      }
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback:'style-loader', // 回滚
+          use: [{
+            loader: 'css-loader',
+            options: {
+              minimize: env !== 'development', // 压缩
+              sourceMap: env === 'development' // map
+            }
+          }],
+          publicPath: '/'
+        })
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({ //分离less编译后的css文件
+          fallback:'style-loader',
+          use:['css-loader','less-loader']
+        })
+      },
     ]
   },
   plugins: config.plugins
