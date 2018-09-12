@@ -61,6 +61,20 @@ class ArticleModal {
     }
     return result;
   }
+
+  /**
+   * 获取回收站中的文章列表
+   */
+  static async getRecycleArticles() {
+    let _sql = "SELECT * FROM ?? WHERE status = ?"
+    let result = await dbUtils.query(_sql, ['article', 0])
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result
+    } else {
+      result = []
+    }
+    return result;
+  }
   
   /**
    * 创建文章

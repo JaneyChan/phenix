@@ -75,7 +75,18 @@ class ArticleController {
     }
     ctx.body = result;
   }
-
+  /**
+   * 获取回收站中的文章列表
+   * @param {*} ctx 
+   */
+  static async getRecycleArticles(ctx) {
+    let result = handle.response(false, '获取列表失败', null, 201);
+    let articleResult = await articleModel.getRecycleArticles();
+    if (articleResult) {
+      result = handle.response(true, '', articleResult, 200);
+    }
+    ctx.body = result;
+  }
   /**
    * 创建文章
    * @param {*} ctx

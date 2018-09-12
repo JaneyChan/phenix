@@ -11,6 +11,6 @@ const routers = router
   .post('/article/update', checkAuth, articleController.updateArticle)
   .post('/articles/category', checkAuth, articleController.getArticlesByCategoryId)
   .post('/article/status', checkAuth, articleController.changeArticleStatus)
-
+  .get('/article/recycle', checkAuth, articleController.getRecycleArticles)
 
 module.exports = routers
