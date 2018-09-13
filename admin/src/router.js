@@ -21,6 +21,11 @@ const Main = Loadable({
   loading: () => { return null; }
 });
 
+const Recycle = Loadable({
+  loader: () => import('./components/main/recycle'),
+  loading: () => { return null; }
+});
+
 const Login = Loadable({
   loader: () => import('./components/login'),
   loading: () => { return null; }
@@ -37,8 +42,9 @@ const Routers = () => (
       <Switch>
         <Route path='/' exact component={Main} />
         <Route path='/login' component={Login} />
-        <Route path="/category/:cid/note/:nid" component={Main}/>
-        <Route path="/category/:cid" component={Main}/>
+        <Route path='/category/:cid/note/:nid' component={Main}/>
+        <Route path='/category/:cid' component={Main}/>
+        <Route path='/recycle' component={Recycle}/>
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
