@@ -23,9 +23,9 @@ argv.forEach(v => {
 const plugins = [
   new HtmlWebpackPlugin({
     template: `${__dirname}/src/index.html`, // 源html
+    favicon: `${__dirname}/src/favicon.ico`,
     inject: 'body', // 注入到哪里
-    filename: 'index.html', // 输出后的名称
-    hash: true // 为静态资源生成hash值
+    filename: 'index.html' // 输出后的名称
   }),
   new MiniCssExtractPlugin({ // css添加hash
     filename: 'css/[name].[contenthash:8].css'

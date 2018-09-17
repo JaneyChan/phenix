@@ -225,7 +225,7 @@ class Category extends PureComponent {
         <div className="side-item-header">
           <div className="side-item"><Icon type="delete" className="side-item-icon" />回收站</div>
         </div>
-        <div className="side-cate-wrap">
+        <div className="side-cate-list">
           <div className="cate-title">
             <Icon type="bars" className="cate-icon--bar" />分类
             <Icon type="plus" className="cate-add" onClick={() => { this.initDialog(true); }}/>

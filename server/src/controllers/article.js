@@ -152,7 +152,7 @@ class ArticleController {
       return handle.response(false, '未找到该文章', null, 201);
     }
 
-    let articleResult = await articleModel.updateArticle({ status: 0 }, formData.id);
+    let articleResult = await articleModel.updateArticle({ status: 0, publish: 0 }, formData.id);
     if (articleResult) {
       result = handle.response(true, '', {}, 200);
     }

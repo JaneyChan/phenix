@@ -1,16 +1,43 @@
 .recycle-side {
-    flex-shrink: 0;
+    position: fixed;
+    left: 0px;
+    top: 0px;
     width: 250px;
     height: 100%;
-    border-right: 1px solid @global-border-color;
-    .recycle-side_header {
-        padding: 12px 20px;
+    box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.15);
+    .recycle-side-header {
+        padding: 16px 20px;
         font-size: 18px;
         color: @font-color-headline;
         border-bottom: 1px solid @global-border-color;
     }
+    .recycle-side-list {
+        position: absolute;
+        top: 50px;
+        left: 0px;
+    }
+    .recycle-slide-item {
+        cursor: pointer;
+        color: @font-color-secondary;
+        box-sizing: border-box;
+        height: 46px;
+        line-height: 46px;
+        padding: 0 14px;
+        border-bottom: 1px solid @global-border-color;
+        border-left: 4px solid transparent;
+        &:hover {
+            color: @font-color-primary;
+        }
+        &.selected {
+            border-left: 4px solid @theme-primary;
+            background: @global-light-bg-color;
+        }
+    }
     .recycle-icon__delete {
         font-size: 18px;
+        margin-right: 6px;
+    }
+    .recycle-icon__file {
         margin-right: 6px;
     }
 }
