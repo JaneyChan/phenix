@@ -46,6 +46,9 @@ const configPro = {
   plugins: plugins.concat(
     // new UglifyJsPlugin({ sourceMap: true }), //压缩，生成map
     new ExtendedDefinePlugin({ // 全局变量
+      'process.env': {
+        NODE_ENV: env === 'development' ? "development": "production"
+      },
       __LOCAL__: false
     }),
     new ParallelUglifyPlugin({ // 默认启用计算器当前cup-1,运行进程

@@ -1,14 +1,14 @@
-import Dialog from './Dialog';
+import Modal from './Modal';
 import confirm from './confirm';
 
-Dialog.confirm = (props) => {
+Modal.confirm = (props) => {
   const config = {
     ...props
   };
   return confirm(config);
 };
 
-Dialog.info = (props) => {
+Modal.info = (props) => {
   const config = {
     iconType: 'info-circle',
     ...props
@@ -16,7 +16,7 @@ Dialog.info = (props) => {
   return confirm(config);
 };
 
-Dialog.success = (props) => {
+Modal.success = (props) => {
   const config = {
     iconType: 'check-circle',
     ...props
@@ -24,7 +24,7 @@ Dialog.success = (props) => {
   return confirm(config);
 };
 
-Dialog.warning = (props) => {
+Modal.warning = (props) => {
   const config = {
     iconType: 'exclamation-circle',
     ...props
@@ -32,7 +32,7 @@ Dialog.warning = (props) => {
   return confirm(config);
 };
 
-Dialog.error = (props) => {
+Modal.error = (props) => {
   const config = {
     iconType: 'cross-circle',
     ...props
@@ -40,4 +40,4 @@ Dialog.error = (props) => {
   return confirm(config);
 };
 
-export default Dialog;
+export default Modal;

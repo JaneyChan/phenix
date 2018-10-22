@@ -5,11 +5,11 @@ import { Icon } from '@/components/lib';
 
 const ConfirmModal = (props) => {
   const iconType = props.iconType || 'question-circle';
-  const { onCancel, onOk, close } = props;
+  const { onCancel, onOk, close, visible } = props;
 
   return (
     <Modal
-      visible={open}
+      visible={visible}
       title=""
       closable={false}
       onCancel={() => {

@@ -1,32 +1,61 @@
-.dialog-wrap {
+// .dialog-wrap {
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   z-index: @zIndex-modal;
+//   // opacity: 0;
+//   transition: opacity .2s linear;
+//   visibility: visible;
+//   overflow-x: hidden;
+//   overflow-y: auto;
+//   display: flex;
+//   padding: 20px;
+//   align-items: center;
+//   justify-content: center;
+  
+//   .dialog__header {
+//     padding: 20px 20px 0;
+//     min-height: 40px;
+//     position: relative;
+//     .dialog__title {
+//       line-height: 1.2;
+//       font-size: 16px;
+//       font-weight: 700;
+//       width: calc(100% - 20px);
+//       color: @font-color-primary;
+//     }
+//     .dialog__close-btn {
+//       cursor: pointer;
+//       position: absolute;
+//       right: 20px;
+//       top: 20px;
+//       font-size: 18px;
+//       color: @font-color-secondary;
+//       &:hover {
+//         color: @theme-primary;
+//       }
+//     }
+//   }
+//   .dialog__body {
+//     padding: 20px;
+//   }
+// }
+.dialog-wrapper {
+  visibility: visible;
   position: fixed;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1000;
   top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  z-index: @zindex-modal;
-  .dialog-mask {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.5;
-    background: #000;
-  }
-  .dialog-container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    background: #fff;
-    border-radius: @border-radius-base;
-    box-shadow: 0 4px 12px rgba(0,0,0,.15);
-    box-sizing: border-box;
-    margin-bottom: 50px;
-    min-width: 300px;
-  }
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
   .dialog__header {
     padding: 20px 20px 0;
     min-height: 40px;
@@ -99,20 +128,82 @@
     }
   }
 }
-
-.flipInX-enter-done {
-  display: block !important;
+.dialog-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
 }
-.flipInX-enter-active {
-  display: block !important;
-  -webkit-animation: flipInX 500ms infinite;
-  animation: flipInX 500ms infinite;
+.dialog-content {
+  transition: all 0.3s;
+  background-color: white;
+  border-radius: 3px;
+  z-index: 2000;
+  position: relative;
+  box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+  overflow: scroll;
+  min-width: 300px;
 }
-.flipInX-exit-active {
-  display: block !important;
-  -webkit-animation: flipOutX 500ms infinite;
-  animation: flipOutX 500ms infinite;
+.dialog-enter {
+  position: relative;
+  animation: moveIn 500ms ease-out;
+  animation-iteration-count: 1;
 }
-.flipInX-exit-done {
-  display: none !important;
+@keyframes moveIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*提示框离开动画*/
+.dialog-out {
+  animation: moveOut 800ms linear;
+  animation-iteration-count: 1;
+  opacity: 0;
+}
+@keyframes moveOut {
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+.dialog-pop-enter, .dialog-pop-exit {
+  .dialog-content {
+    animation-fill-mode: both;
+    animation-play-state: paused;
+  }
+}
+.dialog-pop-enter {
+  .dialog-content {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}
+.dialog-pop-enter-active {
+  .dialog-content {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.dialog-pop-exit {
+  .dialog-content {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.dialog-pop-exit-active {
+  .dialog-content {
+    opacity: 0;
+    transform: scale(0.2);
+  }
 }

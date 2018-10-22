@@ -7,6 +7,7 @@ import { getArticlesByCatogoryId } from '@/redux/action/article';
 import CategoryMemu from '@/components/main/side/menu';
 import { Dialog, Input, Icon, Message } from '@/components/lib';
 import fetch from '@/utils/fetch';
+import PopPop from '../../../lib/dialog';
 
 const DIALOG = {
   CREATE: '创建分类',
@@ -136,15 +137,16 @@ class Category extends PureComponent {
     });
   }
   _submitActions = () => {
-    let { dialog } = this.state;
-    switch (dialog.type) {
-      case DIALOG.CREATE:
-        this.createCategory();
-        break;
-      case DIALOG.UPDATE:
-        this.updateCategory();
-        break;
-    }
+    this.initDialog();
+    // let { dialog } = this.state;
+    // switch (dialog.type) {
+    //   case DIALOG.CREATE:
+    //     this.createCategory();
+    //     break;
+    //   case DIALOG.UPDATE:
+    //     this.updateCategory();
+    //     break;
+    // }
   }
   // 右键菜单设置
   showContextMenu = (e, category) => {
@@ -269,7 +271,7 @@ class Category extends PureComponent {
           ) : null
         }
         <Dialog
-          visible={dialog.open}
+          visible={false}
           title={dialog.type}
           onOk={this._submitActions}
           onCancel={this.initDialog}
@@ -280,6 +282,24 @@ class Category extends PureComponent {
             onChange={this.changeInputValue}
           />
         </Dialog>
+
+        <PopPop
+          position="centerCenter"
+          visible={dialog.open}
+          closeBtn={true}
+          closeOnEsc={true}
+          onClose={this._submitActions}
+          closeOnOverlay={true}
+        >
+          <div style={{textAlign: 'center'}}>
+            <div>
+              <h1>Short Content</h1>
+              <p>
+                super short.
+              </p>
+            </div>
+          </div>
+        </PopPop>
       </div>
     );
   }
