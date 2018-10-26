@@ -12,7 +12,7 @@ const ConfirmModal = (props) => {
       visible={visible}
       title=""
       closable={false}
-      onCancel={() => {
+      onClose={() => {
         onCancel && typeof onCancel === 'function' && onCancel();
         close({ tiggerCancel: true });
       }}
@@ -33,7 +33,7 @@ const ConfirmModal = (props) => {
   );
 };
 
-export default function confirm (config) {
+export function confirm ({...config}) {
   let confirmDiv = document.createElement('div');
   document.body.appendChild(confirmDiv);
 
@@ -58,3 +58,35 @@ export default function confirm (config) {
   }
   render({ ...config, visible: true, close });
 }
+
+export const info = (props) => {
+  const config = {
+    iconType: 'info-circle',
+    ...props
+  };
+  return confirm(config);
+};
+
+export const success = (props) => {
+  const config = {
+    iconType: 'check-circle',
+    ...props
+  };
+  return confirm(config);
+};
+
+export const warning = (props) => {
+  const config = {
+    iconType: 'exclamation-circle',
+    ...props
+  };
+  return confirm(config);
+};
+
+export const error = (props) => {
+  const config = {
+    iconType: 'cross-circle',
+    ...props
+  };
+  return confirm(config);
+};
