@@ -2,10 +2,10 @@
     <div class="article-wrapper">
       <div class="home-list">
         <div class="home-card" v-for="article in articles" :key="article.id">
-          <router-link class="home-head" :to="'/article/' + article.id">{{ article.title }}</router-link>
+          <router-link class="home-head" :to="'/article/' + article.routeName">{{ article.title }}</router-link>
           <p class="home-date">{{ parseTime(article.createTime) }}</p>
           <v-markdown :value="article.abstract" />
-          <router-link class="more" :to="'/article/' + article.id">Read more</router-link>
+          <router-link class="more" :to="'/article/' + article.routeName">Read more</router-link>
         </div>
       </div>
       <v-pagination :offset="offset" :limit="limit" :total="total" :onChange="getAllArticles"></v-pagination>

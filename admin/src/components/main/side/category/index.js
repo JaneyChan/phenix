@@ -2,12 +2,11 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { setCategoryList } from '@/redux/action/category';
-import { getArticlesByCatogoryId } from '@/redux/action/article';
+import { getArticlesByCategoryId } from '@/redux/action/article';
 
-import CategoryMemu from '@/components/main/side/menu';
+import CategoryMenu from '@/components/main/side/menu';
 import { Dialog, Input, Icon, Message } from '@/components/lib';
 import fetch from '@/utils/fetch';
-import PopPop from '../../../lib/dialog';
 
 const DIALOG = {
   CREATE: '创建分类',
@@ -19,7 +18,8 @@ class Category extends PureComponent {
     this.state = {
       dialog: {
         open: false,
-        cateName: ''
+        cateName: '',
+        routeName: ''
       },
       menu: {
         open: false,
@@ -50,7 +50,7 @@ class Category extends PureComponent {
       this.props.history.replace(`/category/${categoryId}`);
     }
     if (cateId === categoryId) {
-      this.props.getArticlesByCatogoryId(categoryId);
+      this.props.getArticlesByCategoryId(categoryId);
     }
   }
   changeCategory = (cateId) => {
@@ -81,14 +81,20 @@ class Category extends PureComponent {
   }
   updateCategory = () => {
     let { dialog } = this.state,
-      name = dialog.cateName.trim();
+      name = dialog.cateName.trim(),
+      routeName = dialog.routeName.trim();
     if (!name) {
       Message.warning('分类名称不能为空!');
       return;
     }
+    if (!routeName) {
+      Message.warning('路由名称不能为空!');
+      return;
+    }
     let data = {
+      id: dialog.id,
       name,
-      id: dialog.id
+      routeName
     };
     fetch.post('/api/category/update', data)
       .then(() => {
@@ -109,15 +115,16 @@ class Category extends PureComponent {
         open,
         type: type,
         id: category.id,
-        cateName: category.id ? category.name : ''
+        cateName: category.id ? category.name : '',
+        routeName: category.id ? category.routeName : ''
       }
     });
   }
-  changeInputValue = (e) => {
+  changeInputValue = (key, value) => {
     this.setState({
       dialog: {
         ...this.state.dialog,
-        cateName: e.target.value
+        [key]: value
       }
     });
   }
@@ -138,15 +145,15 @@ class Category extends PureComponent {
   }
   _submitActions = () => {
     this.initDialog();
-    // let { dialog } = this.state;
-    // switch (dialog.type) {
-    //   case DIALOG.CREATE:
-    //     this.createCategory();
-    //     break;
-    //   case DIALOG.UPDATE:
-    //     this.updateCategory();
-    //     break;
-    // }
+    let { dialog } = this.state;
+    switch (dialog.type) {
+      case DIALOG.CREATE:
+        this.createCategory();
+        break;
+      case DIALOG.UPDATE:
+        this.updateCategory();
+        break;
+    }
   }
   // 右键菜单设置
   showContextMenu = (e, category) => {
@@ -163,7 +170,7 @@ class Category extends PureComponent {
       label: '删除分类',
       icon: 'delete',
       onClick: () => {
-        this.showConfrimDeleteDialog(category);
+        this.showConfirmDeleteDialog(category);
       }
     }];
 
@@ -185,7 +192,7 @@ class Category extends PureComponent {
     });
     return false;
   }
-  showConfrimDeleteDialog = (category) => {
+  showConfirmDeleteDialog = (category) => {
     Dialog.confirm({
       title: '你确定要删除该分类?',
       okType: 'danger',
@@ -251,7 +258,8 @@ class Category extends PureComponent {
                 >
                   <i className="cate-icon_drag"></i>
                   <div className="cate-name-box">
-                    <Icon type="folder" className="cate-folder-close" />{category.name}
+                    <Icon type="folder" className="cate-folder-close" />
+                    {category.name + '' + (category.routeName ? ' (' + category.routeName + ')' : '')}
                   </div>
                 </div>
               ))
@@ -262,7 +270,7 @@ class Category extends PureComponent {
 
         {
           menu.open ? (
-            <CategoryMemu
+            <CategoryMenu
               menu={menu}
               handles={{
                 closeMenusPanel: this._closeMenusPanel
@@ -271,35 +279,26 @@ class Category extends PureComponent {
           ) : null
         }
         <Dialog
-          visible={false}
+          visible={dialog.open}
           title={dialog.type}
           onOk={this._submitActions}
-          onCancel={this.initDialog}
+          onClose={this.initDialog}
         >
           <Input
             value={dialog.cateName || ''}
             placeholder="请输入分类名"
-            onChange={this.changeInputValue}
+            onChange={(e) => {
+              this.changeInputValue('cateName', e.target.value);
+            }}
+          />
+          <Input
+            value={dialog.routeName || ''}
+            placeholder="请输入路由地址"
+            onChange={(e) => {
+              this.changeInputValue('routeName', e.target.value);
+            }}
           />
         </Dialog>
-
-        <PopPop
-          position="centerCenter"
-          visible={dialog.open}
-          closeBtn={true}
-          closeOnEsc={true}
-          onClose={this._submitActions}
-          closeOnOverlay={true}
-        >
-          <div style={{textAlign: 'center'}}>
-            <div>
-              <h1>Short Content</h1>
-              <p>
-                super short.
-              </p>
-            </div>
-          </div>
-        </PopPop>
       </div>
     );
   }
@@ -315,8 +314,8 @@ export default withRouter(connect(
     setCategoryList: (list) => {
       dispatch(setCategoryList(list));
     },
-    getArticlesByCatogoryId: (articleId) => {
-      dispatch(getArticlesByCatogoryId(articleId));
+    getArticlesByCategoryId: (articleId) => {
+      dispatch(getArticlesByCategoryId(articleId));
     }
   })
 )(Category));

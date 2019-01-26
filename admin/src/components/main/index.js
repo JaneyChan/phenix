@@ -46,9 +46,9 @@ class Main extends PureComponent {
       openDrawer: !this.state.openDrawer
     });
   }
-  changeInput = e => {
+  changeInput = (key, value) => {
     let article = { ...this.props.articleDraft };
-    article.title = e.target.value;
+    article[key] = value;
     this.props.saveDraft(article);
   }
   changeArticleContent = value => {

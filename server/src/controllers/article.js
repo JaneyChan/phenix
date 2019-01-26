@@ -130,11 +130,21 @@ class ArticleController {
     ctx.body = result;
   }
   static async getArticleById(ctx) {
-    let result = handle.response(false, '更新失败', null, 201);
+    let result = handle.response(false, '获取文章失败', null, 201);
     let articleId = ctx.params.id;
     let articleResult = await articleModel.getArticleById(articleId);
     if (articleResult) {
       result = handle.response(true, '', articleResult, 200);
+    }
+    ctx.body = result;
+  }
+  static async getArticleByRouteName(ctx) {
+    let result = handle.response(false, '获取文章失败', null, 201);
+    let routeName = ctx.params.routeName;
+    let articleResult = await articleModel.getArticleByRouteName(routeName);
+    console.log('articleResult ' + JSON.stringify(articleResult))
+    if (articleResult) {
+      result = handle.response(true, '路由', articleResult, 200);
     }
     ctx.body = result;
   }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button, Icon } from '@/components/lib';
 // import Portal from '@/components/lib/portal';
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 
 class Modal extends PureComponent {
   static propTypes = {
@@ -30,7 +30,6 @@ class Modal extends PureComponent {
       document.addEventListener('keydown', this.handleEscKeyDown);
     }
   }
-
   componentWillUnmount () {
     if (this.props.closeOnEsc) {
       document.removeEventListener('keydown', this.handleEscKeyDown);
@@ -72,50 +71,45 @@ class Modal extends PureComponent {
     const classString = classNames(
       className,
       {
-        'dialog-content': true
+        'dialog-content': true,
+        'dialog-in': visible,
+        'dialog-out': !visible
       }
     );
+    if (!visible) return null;
     return (
-      <CSSTransition
-        appear
-        unmountOnExit
-        in={visible}
-        timeout={300}
-        classNames={'dialog-pop'}
-      >
-        <div className="dialog-wrapper">
-          <div className="dialog-mask" onClick={this.onClose}></div>
-          <div className={classString}>
-            {
-              title || closable ? (
-                <div className="dialog__header">
-                  {
-                    title ? (
-                      <div className="dialog__title">{title}</div>
-                    ) : null
-                  }
-                  {
-                    closable ? (
-                      <Icon type="close" className="dialog__close-btn" onClick={this.onClose}/>
-                    ) : null
-                  }
-                </div>
-              ) : null
-            }
-            <div className="dialog__body">
-              {this.props.children}
-            </div>
-            {
-              footer === undefined ? (
-                <div className="dialog__footer">
-                  <Button size="small" onClick={this.onClose}>取消</Button>
-                  <Button type={okType} size="small" onClick={this.handleOK}>确定</Button>
-                </div>
-              ) : footer
-            }
+      <div className="dialog-wrapper">
+        <div className="dialog-mask" onClick={this.onClose}></div>
+        <div className={classString}>
+          {
+            title || closable ? (
+              <div className="dialog__header">
+                {
+                  title ? (
+                    <div className="dialog__title">{title}</div>
+                  ) : null
+                }
+                {
+                  closable ? (
+                    <Icon type="close" className="dialog__close-btn" onClick={this.onClose}/>
+                  ) : null
+                }
+              </div>
+            ) : null
+          }
+          <div className="dialog__body">
+            {this.props.children}
           </div>
+          {
+            footer === undefined ? (
+              <div className="dialog__footer">
+                <Button size="small" onClick={this.onClose}>取消</Button>
+                <Button type={okType} size="small" onClick={this.handleOK}>确定</Button>
+              </div>
+            ) : footer
+          }
         </div>
-      </CSSTransition>
+      </div>
     );
   }
 }

@@ -17,7 +17,7 @@ class ExitEditorDialog extends React.PureComponent {
         footer={footer}
         onOk={() => {
         }}
-        onCancel={() => {
+        onClose={() => {
           console.log('取消了');
         }}
         className='exit-dialog'

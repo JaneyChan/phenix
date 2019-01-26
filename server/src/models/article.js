@@ -111,6 +111,20 @@ class ArticleModal {
     return result;
   }
   /**
+   * 根据文章路由获取文章内容
+   * @param {Number} routeName       文章路由
+   */
+  static async getArticleByRouteName( routeName ) {
+    let _sql = "SELECT * FROM ?? WHERE routeName = ?"
+    let result = await dbUtils.query(_sql, ['article', routeName])
+    if ( Array.isArray(result) && result.length > 0 ) {
+      result = result[0]
+    } else {
+      result = {}
+    }
+    return result;
+  }
+  /**
    * 根据ID删除文章内容
    * @param {Number} id       文章ID
    */

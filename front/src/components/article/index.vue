@@ -32,10 +32,10 @@ export default {
   },
   created () {
     let params = this.$route.params
-    if (!params.id) {
+    if (!params.routeName) {
       return
     }
-    this.$http.get('/api/article/' + params.id)
+    this.$http.get('/api/article/' + params.routeName)
       .then((res) => {
         if (res.data.success) {
           this.article = res.data.data

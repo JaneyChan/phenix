@@ -4,7 +4,7 @@
         <div class="category-name">{{ item.name }}</div>
         <ul class="cate_art-list">
           <li class="cate_art-name" v-for="article in item.articles" :key="article.id">
-            <router-link class="cate_art-link" :to="'/article/' + article.id">{{ article.title }}</router-link>
+            <router-link class="cate_art-link" :to="'/article/' + article.routeName">{{ article.title }}</router-link>
           </li>
         </ul>
       </div>

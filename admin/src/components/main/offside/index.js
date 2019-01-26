@@ -28,7 +28,7 @@ class Offside extends React.PureComponent {
       inEdit: !this.state.inEdit
     });
   }
-  showConfrimDeleteDialog = (category) => {
+  showConfirmDeleteDialog = (category) => {
     Dialog.confirm({
       title: '你确定要删除该文章?',
       content: '删除后可在回车站找回。',
@@ -68,7 +68,7 @@ class Offside extends React.PureComponent {
           toggleEditStatus: this.toggleEditStatus,
           toggleArticlePublish: handles.toggleArticlePublish,
           saveArticle: handles.saveArticle,
-          deleteArticle: this.showConfrimDeleteDialog
+          deleteArticle: this.showConfirmDeleteDialog
         }}
       />
     );
@@ -88,7 +88,9 @@ class Offside extends React.PureComponent {
                           placeholder="文章名称"
                           value={articleDetail.title || ''}
                           autoFocus
-                          onChange={handles.changeInput}
+                          onChange={(e) => {
+                            handles.changeInput('title', e.target.value);
+                          }}
                         />
                       </div>
                       <MarkdownEditor
@@ -120,7 +122,20 @@ class Offside extends React.PureComponent {
                     placeholder="文章名称"
                     value={articleDetail.title || ''}
                     autoFocus
-                    onChange={handles.changeInput}
+                    onChange={(e) => {
+                      handles.changeInput('title', e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="offside-route-name">
+                  <input
+                    type="text"
+                    placeholder="路由地址"
+                    value={articleDetail.routeName || ''}
+                    autoFocus
+                    onChange={(e) => {
+                      handles.changeInput('routeName', e.target.value);
+                    }}
                   />
                 </div>
                 {toolbarPanel}

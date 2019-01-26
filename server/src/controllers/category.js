@@ -47,6 +47,7 @@ class CategoryController {
     let formData = ctx.request.body;
     let categoryResult = await categoryModal.updateCategory({
         name: formData.name,
+        routeName: formData.routeName,
         updateTime: new Date().getTime()
       },
       formData.id

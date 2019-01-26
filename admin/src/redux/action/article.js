@@ -1,7 +1,7 @@
 import fetch from '@/utils/fetch';
 import { SET_ARTICLE_DRAFT, SET_ARTICLE_LIST, SET_ARTICLE_DETAIL } from '../constants';
 
-export const getArticlesByCatogoryId = (categoryId) => {
+export const getArticlesByCategoryId = (categoryId) => {
   return (dispatch) => {
     return fetch.post('/api/articles/category', {
       categoryId

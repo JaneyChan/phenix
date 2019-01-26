@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { createArticle, setDetailArticle, getArticlesByCatogoryId } from '@/redux/action/article';
+import { createArticle, setDetailArticle, getArticlesByCategoryId } from '@/redux/action/article';
 import { Icon, Message } from '@/components/lib';
 import { parseTime } from '@/service/utils';
 
@@ -13,7 +13,7 @@ class ArticleList extends React.PureComponent {
       nextNid = nextProps.match.params.nid;
 
     if (prevCid !== nextCid) {
-      this.props.getArticlesByCatogoryId(nextCid);
+      this.props.getArticlesByCategoryId(nextCid);
     }
     if (this.props.articleList !== nextProps.articleList) {
       this.changeRoute(nextCid, nextProps.articleList, nextNid);
@@ -109,8 +109,8 @@ export default withRouter(connect(
     setDetailArticle: (article) => {
       dispatch(setDetailArticle(article));
     },
-    getArticlesByCatogoryId: (articleId) => {
-      dispatch(getArticlesByCatogoryId(articleId));
+    getArticlesByCategoryId: (articleId) => {
+      dispatch(getArticlesByCategoryId(articleId));
     }
   })
 )(ArticleList));
