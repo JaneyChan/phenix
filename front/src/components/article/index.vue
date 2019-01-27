@@ -11,6 +11,16 @@
             </div>
             <v-markdown :value="article.content" />
         </div>
+        <ul class="article-copyright">
+          <li>本文作者：JaneChan</li>
+          <li>本文链接：
+            <a :href="this.location" target="_black">{{ this.location }}</a>
+          </li>
+          <li>版权声明： 本博客所有文章除特别声明外，均采用
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_black">CC BY-NC-SA 4.0</a>
+            许可协议。转载请注明出处！
+          </li>
+        </ul>
     </div>
 </template>
 
@@ -27,7 +37,8 @@ export default {
       article: {
         title: '',
         content: ''
-      }
+      },
+      location: ''
     }
   },
   created () {
@@ -39,6 +50,7 @@ export default {
       .then((res) => {
         if (res.data.success) {
           this.article = res.data.data
+          this.location = window.location.href
         }
       })
   },
@@ -72,5 +84,19 @@ export default {
     }
   }
 }
-
+.article-copyright {
+  margin: 2em 0 0;
+  padding: 0.5em 1em;
+  border-left: 3px solid #2bbc8a;
+  list-style: none;
+  li {
+    line-height: 28px;
+    a {
+      color: #2c3e50;
+      text-decoration: none;
+      border-bottom: 1px solid #2c3e50;
+      word-wrap: break-word;
+    }
+  }
+}
 </style>
