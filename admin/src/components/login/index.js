@@ -35,7 +35,7 @@ class Login extends Component {
     });
   }
   render () {
-    let {username, password} = this.state;
+    let { username, password } = this.state;
     return (
       <div className="login-wrap">
         <div className="box">

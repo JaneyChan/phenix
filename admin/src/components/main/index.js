@@ -63,12 +63,12 @@ class Main extends PureComponent {
     });
   }
   toggleArticlePublish = () => {
-    let {articleDraft, articleDetail} = this.props,
+    let { articleDraft, articleDetail } = this.props,
       data = {
         id: articleDraft.id,
         publish: articleDraft.publish ? 0 : 1
       };
-    this.updateArticle({...articleDetail, ...data}).then(() => {
+    this.updateArticle({ ...articleDetail, ...data }).then(() => {
       Message.success(data.publish ? '已将文章公开' : '已将文章转为私密');
       this.props.saveDraft({ ...articleDraft, ...data });
     });

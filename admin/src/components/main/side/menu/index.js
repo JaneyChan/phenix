@@ -7,7 +7,7 @@ class Menu extends React.PureComponent {
     return (
       <div className="menu-wrap">
         <div className="menu-mask" id="menu-mask" onClick={handles.closeMenusPanel}></div>
-        <ul className="menu-list" style={{...menu.style}}>
+        <ul className="menu-list" style={{ ...menu.style }}>
           {
             menu.options.map((opt, index) => {
               return (

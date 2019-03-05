@@ -33,7 +33,7 @@ const ConfirmModal = (props) => {
   );
 };
 
-export function confirm ({...config}) {
+export function confirm ({ ...config }) {
   let confirmDiv = document.createElement('div');
   document.body.appendChild(confirmDiv);
 
