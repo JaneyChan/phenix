@@ -24,11 +24,11 @@ class ArticleList extends React.PureComponent {
     const article = articleList[0];
     const articleId = articleIds.includes(noteId) ? noteId : article && article.id;
     if (articleId) {
-      this.props.history.replace(`/category/${cateId}/note/${articleId}`);
+      this.props.history.push(`/category/${cateId}/note/${articleId}`);
       let index = articleIds.indexOf(articleId);
       this.props.setDetailArticle(articleList[index]);
     } else {
-      this.props.history.replace(`/category/${cateId}`);
+      this.props.history.push(`/category/${cateId}`);
       this.props.setDetailArticle({});
     }
   }

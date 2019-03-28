@@ -3,10 +3,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button, Icon } from '@/components/lib';
-// import Portal from '@/components/lib/portal';
 // import { CSSTransition } from 'react-transition-group';
 
-class Modal extends PureComponent {
+class Dialog extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.string,
@@ -114,4 +113,4 @@ class Modal extends PureComponent {
   }
 }
 
-export default Modal;
+export default Dialog;

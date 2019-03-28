@@ -5,7 +5,7 @@ import { setCategoryList } from '@/redux/action/category';
 import { getArticlesByCategoryId } from '@/redux/action/article';
 
 import CategoryMenu from '@/components/main/side/menu';
-import { Dialog, Input, Icon, Message } from '@/components/lib';
+import { Modal, Input, Icon, Message } from '@/components/lib';
 import fetch from '@/utils/fetch';
 
 const DIALOG = {
@@ -45,9 +45,9 @@ class Category extends PureComponent {
     const category = categoryList[0];
     let categoryId = cateIds.includes(cateId) ? cateId : (category && category.id);
     if (noteId) {
-      this.props.history.replace(`/category/${categoryId}/note/${noteId}`);
+      this.props.history.push(`/category/${categoryId}/note/${noteId}`);
     } else {
-      this.props.history.replace(`/category/${categoryId}`);
+      this.props.history.push(`/category/${categoryId}`);
     }
     if (cateId === categoryId) {
       this.props.getArticlesByCategoryId(categoryId);
@@ -59,7 +59,7 @@ class Category extends PureComponent {
       Message.warning('当前文章未保存，请先保存');
       return;
     }
-    this.props.history.replace(`/category/${cateId}`);
+    this.props.history.push(`/category/${cateId}`);
   }
   createCategory = () => {
     let { dialog } = this.state,
@@ -193,14 +193,14 @@ class Category extends PureComponent {
     return false;
   }
   showConfirmDeleteDialog = (category) => {
-    Dialog.confirm({
-      title: '你确定要删除该分类?',
-      okType: 'danger',
-      onOk: () => {
-        this.deleteCategory(category);
-      },
-      onCancel: () => {}
-    });
+    // Dialog.confirm({
+    //   title: '你确定要删除该分类?',
+    //   okType: 'danger',
+    //   onOk: () => {
+    //     this.deleteCategory(category);
+    //   },
+    //   onCancel: () => {}
+    // });
   }
   deleteCategory = (category) => {
     let data = { id: category.id };
@@ -223,7 +223,7 @@ class Category extends PureComponent {
     fetch.get('/api//user/signOut')
       .then((res) => {
         if (res.success) {
-          this.props.history.replace('/login');
+          this.props.history.push('/login');
         }
       });
   }
@@ -278,9 +278,9 @@ class Category extends PureComponent {
             />
           ) : null
         }
-        <Dialog
+        <Modal
           visible={dialog.open}
-          title={dialog.type}
+          title={'测试'}
           onOk={this._submitActions}
           onClose={this.initDialog}
         >
@@ -298,7 +298,7 @@ class Category extends PureComponent {
               this.changeInputValue('routeName', e.target.value);
             }}
           />
-        </Dialog>
+        </Modal>
       </div>
     );
   }

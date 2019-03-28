@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import MarkdownPreview from '../markdown/preview';
 import MarkdownEditor from '../markdown/editor';
 import Toolbar from './toolbar';
-import { Dialog } from '@/components/lib';
+import { Modal } from '@/components/lib';
 import fetch from '@/utils/fetch';
 
 import { setArticleList } from '@/redux/action/article';
@@ -29,7 +29,7 @@ class Offside extends React.PureComponent {
     });
   }
   showConfirmDeleteDialog = (category) => {
-    Dialog.confirm({
+    Modal.confirm({
       title: '你确定要删除该文章?',
       content: '删除后可在回车站找回。',
       okType: 'danger',

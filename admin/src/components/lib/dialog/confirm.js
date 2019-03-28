@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Modal from './Modal';
+import Dialog from './Dialog';
 import { Icon } from '@/components/lib';
 
-const ConfirmModal = (props) => {
+const ConfirmDialog = (props) => {
   const iconType = props.iconType || 'question-circle';
   const { onCancel, onOk, close, visible } = props;
 
   return (
-    <Modal
+    <Dialog
       visible={visible}
       title=""
       closable={false}
@@ -29,7 +29,7 @@ const ConfirmModal = (props) => {
         </div>
         <div className="confirm-body__content">{props.content}</div>
       </div>
-    </Modal>
+    </Dialog>
   );
 };
 
@@ -54,7 +54,7 @@ export function confirm ({ ...config }) {
   }
 
   function render (props) {
-    ReactDOM.render(<ConfirmModal {...props} />, confirmDiv);
+    ReactDOM.render(<ConfirmDialog {...props} />, confirmDiv);
   }
   render({ ...config, visible: true, close });
 }

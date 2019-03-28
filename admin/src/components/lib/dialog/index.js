@@ -1,10 +1,10 @@
-import Modal from './Modal';
+import Dialog from './Dialog';
 import { confirm, info, success, warning, error } from './confirm';
 
-Modal.confirm = confirm;
-Modal.info = info;
-Modal.success = success;
-Modal.warning = warning;
-Modal.error = error;
+Dialog.confirm = confirm;
+Dialog.info = info;
+Dialog.success = success;
+Dialog.warning = warning;
+Dialog.error = error;
 
-export default Modal;
+export default Dialog;
