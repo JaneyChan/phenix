@@ -10,11 +10,20 @@
   z-index: 1050;
   opacity: 0;
   transition: opacity 0.2s linear;
+  display: none;
   overflow: auto;
-  display: flex;
   align-items: center;
 
+  &-show {
+    opacity: 1;
+    transition: opacity 0.2s linear;
+    .@{modal-prefix}-panel {
+      transform: translate(0, 0);
+    }
+  }
+
   &-panel {
+    position: relative;
     width: 350px;
     margin: 0 auto 10vh;
     transition: transform 0.2s linear;
@@ -49,16 +58,17 @@
   }
   &-footer {
     padding: 0 24px 16px 24px;
-    text-align: right;
     button + button {
       margin-left: 12px;
     }
-  }
-
-  &-show {
-    opacity: 1;
-    .@{modal-prefix}-panel {
-      transform: translate(0, 0);
+    &.align-left {
+      text-align: left;
+    }
+    &.align-center {
+      text-align: center;
+    }
+    &.align-right {
+      text-align: right;
     }
   }
 
@@ -85,14 +95,18 @@
   }
 
   &-close {
-    padding: 0;
+    cursor: pointer;
     display: block;
-    top: 13px;
-    right: 16px;
     position: absolute;
-    height: 10px;
-    width: 10px;
+    top: 8px;
+    right: 8px;
+    height: 16px;
+    width: 16px;
+    font-size: 16px;
     z-index: 100;
+    &:hover {
+      color: @font-color-primary;
+    }
   }
 
   &-mask {

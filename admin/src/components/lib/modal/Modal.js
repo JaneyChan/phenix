@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import { getUidStr } from '@/service/utils';
 import { open, close, destroy } from './events';
 
-export default class Modal extends React.PureComponent {
+export default class Modal extends React.Component {
   constructor (props) {
     super(props);
     this.id = getUidStr();

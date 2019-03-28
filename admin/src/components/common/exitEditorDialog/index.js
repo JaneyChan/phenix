@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal } from '@/components/lib';
+import { Button, Dialog } from '@/components/lib';
 
 class ExitEditorDialog extends React.PureComponent {
   render () {
@@ -12,7 +12,7 @@ class ExitEditorDialog extends React.PureComponent {
       </div>
     );
     return (
-      <Modal
+      <Dialog
         visible={visible}
         footer={footer}
         onOk={() => {
@@ -23,7 +23,7 @@ class ExitEditorDialog extends React.PureComponent {
         className='exit-dialog'
       >
         <div className="exit-title">当前文章未保存，是否继续编辑？</div>
-      </Modal>
+      </Dialog>
     );
   }
 }
