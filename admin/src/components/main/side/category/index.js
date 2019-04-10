@@ -282,7 +282,7 @@ class Category extends PureComponent {
           visible={dialog.open}
           title={'测试'}
           onOk={this._submitActions}
-          onClose={this.initDialog}
+          onCancel={this.initDialog}
         >
           <Input
             value={dialog.cateName || ''}

@@ -14,7 +14,7 @@ class Dialog extends PureComponent {
     closeOnEsc: PropTypes.bool,
     onOk: PropTypes.func, // 点击确定回调
     okType: PropTypes.oneOf(['green', 'danger']), // 确定按钮类型
-    onClose: PropTypes.func, // 点击遮罩层或右上角叉或取消按钮的回调
+    onCancel: PropTypes.func, // 点击遮罩层或右上角叉或取消按钮的回调
     closable: PropTypes.bool, // 是否显示右上角的关闭按钮
     footer: PropTypes.node // 底部内容
   }
@@ -36,32 +36,32 @@ class Dialog extends PureComponent {
   }
 
   handleOverlayClick = () => {
-    if (this.props.onClose && this.props.closeOnOverlay) {
-      this.props.onClose();
+    if (this.props.onCancel && this.props.closeOnOverlay) {
+      this.props.onCancel();
     }
   }
 
   handleCloseBtn = () => {
-    if (this.props.onClose) {
-      this.props.onClose();
+    if (this.props.onCancel) {
+      this.props.onCancel();
     }
   }
 
   handleEscKeyDown = e => {
-    if (this.props.onClose && this.props.closeOnEsc && e.keyCode === 27) {
-      this.props.onClose();
+    if (this.props.onCancel && this.props.closeOnEsc && e.keyCode === 27) {
+      this.props.onCancel();
     }
   }
 
-  onClose = () => {
-    let { onClose } = this.props;
-    onClose && onClose();
+  onCancel = () => {
+    let { onCancel } = this.props;
+    onCancel && onCancel();
   }
   handleOK = () => {
     if (this.props.onOk) {
       this.props.onOk();
     } else {
-      this.onClose();
+      this.onCancel();
     }
   }
 
@@ -78,7 +78,7 @@ class Dialog extends PureComponent {
     if (!visible) return null;
     return (
       <div className="dialog-wrapper">
-        <div className="dialog-mask" onClick={this.onClose}></div>
+        <div className="dialog-mask" onClick={this.onCancel}></div>
         <div className={classString}>
           {
             title || closable ? (
@@ -90,7 +90,7 @@ class Dialog extends PureComponent {
                 }
                 {
                   closable ? (
-                    <Icon type="close" className="dialog__close-btn" onClick={this.onClose}/>
+                    <Icon type="close" className="dialog__close-btn" onClick={this.onCancel}/>
                   ) : null
                 }
               </div>
@@ -102,7 +102,7 @@ class Dialog extends PureComponent {
           {
             footer === undefined ? (
               <div className="dialog__footer">
-                <Button size="small" onClick={this.onClose}>取消</Button>
+                <Button size="small" onClick={this.onCancel}>取消</Button>
                 <Button type={okType} size="small" onClick={this.handleOK}>确定</Button>
               </div>
             ) : footer

@@ -37,7 +37,8 @@ export function close (props) {
   div.classList.remove('modal-show');
 
   setTimeout(() => {
-    destroy(id);
+    div.style.display = 'none'
+    if (props.destroy) destroy(id);
   }, DURATION);
 }
 
@@ -56,12 +57,12 @@ export function createDiv (props) {
 }
 
 export function open (props, isPortal) {
-  const { content, onClose, ...otherProps } = props;
+  const { content, onCancel, ...otherProps } = props;
   const div = createDiv(props);
   div.style.display = 'flex';
 
   const handleClose = () => {
-    if (onClose) onClose();
+    if (onCancel) onCancel();
     if (!isPortal) close(props);
   };
 
@@ -75,7 +76,7 @@ export function open (props, isPortal) {
   }, 10);
 
   const panel = (
-    <Inner {...otherProps} onClose={handleClose}>
+    <Inner {...otherProps} onCancel={handleClose}>
       {content}
     </Inner>
   );

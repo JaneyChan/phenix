@@ -14,7 +14,7 @@ export default class Inner extends React.PureComponent {
    * @desc 渲染底部
    */
   renderFooter () {
-    let { footer, footerActions, footerAlign } = this.props;
+    let { footer, footerActions, footerAlign, onCancel } = this.props;
     if (footer === false) return null;
 
     const newClassName = cx({
@@ -25,10 +25,11 @@ export default class Inner extends React.PureComponent {
       footer === true || !footer
         ? footerActions.map(action => {
           const btnProps = this.props[`${action}Props`];
+          const onClick = this.props[`on${action[0].toUpperCase() + action.slice(1)}`];
           const newBtnProps = {
             ...btnProps,
             className: btnProps.className,
-            onClick: closeCallback(this.props[`on${action[0].toUpperCase() + action.slice(1)}`], this.props),
+            onClick: typeof onClick === 'function' ? onClick : onCancel,
             children: btnText[action]
           };
           if (action === 'ok') {
@@ -40,10 +41,10 @@ export default class Inner extends React.PureComponent {
     return <div className={newClassName}>{footerContent}</div>;
   }
   render () {
-    const { maskCloseAble, closeable, title, children, onClose } = this.props;
+    const { maskCloseAble, closeable, title, children, onCancel } = this.props;
     return (
       <React.Fragment>
-        <div className="modal-mask" onClick={maskCloseAble ? onClose : undefined}></div>
+        <div className="modal-mask" onClick={maskCloseAble ? onCancel : undefined}></div>
         <div className="modal-panel">
           {
             closeable ? (

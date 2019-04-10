@@ -59,11 +59,11 @@ export default class Inner extends React.Component {
   }
 
   renderCloseBtn = () => {
-    const { closeable, onClose } = this.props;
+    const { closeable, onCancel } = this.props;
     if (!closeable) return null;
 
     return (
-      <a href="javascript:;" className="dialog-close" onClick={onClose}>
+      <a href="javascript:;" className="dialog-close" onClick={onCancel}>
         <Icon className="close-icon" type="close" />
       </a>
     );
